@@ -1,0 +1,110 @@
+@import "../../styles/global.scss";
+
+.productlist-section {
+  display: flex;
+  position: relative;
+  bottom: 20rem;
+}
+
+.product-list {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.product-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.product-item {
+  position: relative; /* Added */
+  margin: 10px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Added */
+  transition: box-shadow 0.3s ease; /* Added */
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    /* Default size for images */
+    width: 200px; /* Adjust as needed */
+    height: 200px; /* Adjust as needed */
+  }
+
+  h3 {
+    margin-top: 10px;
+    font-size: 1.4em;
+  }
+
+  p {
+    font-weight: bold;
+    margin-top: 5px;
+  }
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Added */
+  }
+
+  .add-to-cart-button {
+    position: absolute; /* Added */
+    bottom: 10px; /* Adjust as needed */
+    left: 50%; /* Added */
+    transform: translateX(-50%); /* Added */
+    display: none; /* Hide the button by default */
+    background-color: #ffcc18;
+    color: black;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+      background-color: #ffc000;
+    }
+  }
+
+  &:hover .add-to-cart-button {
+    display: block; /* Display the button on hover */
+  }
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  button {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+
+    &.active {
+      background-color: #ffcc18;
+      color: black;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .product-item {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .product-item {
+    width: 100%;
+  }
+}

@@ -1,0 +1,17 @@
+@import "./global.scss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  width: 100%;
+  font-family: $Grandstander;
+  color: $dark;
+  overflow-x: hidden;
+}
+
+#root {
+  height: 100%;
+}

@@ -1,0 +1,150 @@
+@import './../../styles/global.scss';
+
+.loginFormContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.errorMessage {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+.inputField {
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 300px; // Adjust the max-width based on your preference
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+}
+
+.loginButton,
+.registerButton {
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 10px;
+
+  &:hover {
+    background-color: #45a049;
+  }
+}
+
+.registerButton {
+  background-color: #007bff;
+}
+
+.registerModalOverlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1001; /* Ensure the z-index is higher than the z-index of the login form */
+  align-items: center;
+  justify-content: center;
+
+  &.active {
+    display: flex;
+  }
+}
+
+.registerModalContainer {
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 100%;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .inputField {
+    margin-bottom: 1rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  }
+
+  .registerButton,
+  .closeModalButton {
+    width: 100%;
+    padding: 10px;
+    color: #fff;
+    border: none;
+    border-radius: 45px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    max-width: 300px;
+    margin-bottom: 1rem;
+  }
+
+  .loginButton,
+  .registerButton {
+    width: 48%;
+  }
+
+  .registerButton {
+    background-color: #007bff;
+  }
+
+  .closeModalButton {
+    background-color: none;
+    color: $dark;
+    font-size: 30px;
+    margin-top: 2rem;
+  }
+}

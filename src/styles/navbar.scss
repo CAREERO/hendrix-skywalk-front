@@ -1,0 +1,206 @@
+// src/styles/navbar.scss
+@import "./global.scss"; // Import the global styles for fonts
+
+$primary-color: #ffcc18; // Define primary color
+$accent-color: #ffd700; // Define accent color
+
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.6s;
+  padding: 40px 100px;
+
+  &.sticky {
+    background-color: transparent;
+  }
+}
+
+nav .logo-image {
+  position: relative;
+  transition: 0.6s;
+  width: 60px;
+  height: 60px;
+}
+
+nav ul {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav ul li {
+  position: relative;
+  list-style: none;
+}
+
+nav ul li a {
+  position: relative;
+  margin: 0 15px;
+  text-decoration: none;
+  color: #000;
+  letter-spacing: 2px;
+  font-weight: 500px;
+  transition: 0.5s;
+}
+
+
+// nav {
+//   background-color: $primary-color;
+//   padding: 10px;
+//   display: flex;
+//   align-items: center;
+//   color: white;
+//   font-family: "Grandstander", sans-serif;
+//   position: fixed;
+//   width: 100%;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   z-index: 1000;
+//   justify-content: center;
+
+//   .main-header {
+//     display: flex;
+//     align-items: center;
+//     width: 100%;
+//     max-width: 1200px;
+//     margin: 0 auto;
+//     position: relative;
+//     padding: 0;
+//     height: 25px;
+
+//     .center-section {
+//       display: flex;
+//       align-items: center;
+//     }
+
+//     ul {
+//       list-style: none;
+//       display: flex;
+//       margin: 20px;
+//       padding: 0;
+//       align-items: center; /* Center items vertically */
+
+//       li {
+//         display: flex;
+//         justify-content: center;
+//         padding: 25px;
+//         margin-right: 20px;
+//         margin-left: 20px;
+
+//         a {
+//           text-decoration: none;
+//           color: white;
+//           font-weight: bold;
+
+//           &:hover {
+//             color: $accent-color;
+//           }
+//         }
+//       }
+
+//       .logo-image {
+//         background-image: url("https://i.ibb.co/Ms1Ybp3/logo.png"); // Update the path
+//         background-size: cover;
+//         height: 80px;
+//         width: 80px;
+//         position: relative;
+//         display: flex;
+//         top: 15px;
+//       }
+//     }
+
+//     .burger-icon {
+//       display: none;
+//       cursor: pointer;
+//       font-size: 1.5em;
+//       margin-right: 20px;
+//     }
+
+//     .home-text {
+//       display: none;
+//     }
+
+//     .icons {
+//       display: flex;
+//       align-items: center;
+
+//       a {
+//         text-decoration: none;
+//         color: white;
+//         font-weight: bold;
+//         font-size: 1.2em;
+
+//         &:hover {
+//           color: $accent-color;
+//         }
+//       }
+//     }
+//   }
+
+//   /* Tablet responsiveness */
+//   @media (max-width: 1024px) {
+//     .main-header li {
+//       margin-right: 40px;
+//       margin-left: 40px;
+//     }
+//   }
+
+//   /* Mobile responsiveness */
+//   @media (max-width: 768px) {
+//     .main-header {
+//       .burger-icon {
+//         display: block;
+//       }
+
+//       ul {
+//         display: none;
+//         list-style: none;
+//         padding: 0;
+//         margin: 0;
+
+//         &.open {
+//           display: flex;
+//           flex-direction: column;
+//           position: absolute;
+//           top: 60px;
+//           left: 0;
+//           background-color: #333;
+//           width: 100%;
+//           height: 100vh;
+
+//           li {
+//             margin: 0;
+//             text-align: center;
+//             position: relative;
+
+//             a {
+//               color: white;
+//               text-decoration: none;
+//               font-weight: bold;
+
+//               &:hover {
+//                 color: $accent-color;
+//               }
+//             }
+//           }
+//         }
+//       }
+
+//       .home-text {
+//         display: flex;
+//       }
+
+//       .icons {
+//         display: none;
+//       }
+//     }
+//   }
+// }

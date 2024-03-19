@@ -1,0 +1,63 @@
+/* RegistrationForm.module.scss */
+
+.registrationFormContainer {
+  background: #fff; /* Add background color to the modal */
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  width: 100%;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .inputField {
+    margin-bottom: 1rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  }
+
+  .checkboxField {
+    display: flex;
+    align-items: center;
+
+    input {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .registerButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+  .errorMessage {
+    color: red; /* Add color to the error message */
+    margin-top: 1rem; /* Add margin-top for spacing */
+  }
+}
+
+
+

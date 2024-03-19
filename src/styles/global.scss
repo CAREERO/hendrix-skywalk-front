@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@0,100..900;1,100..900&display=swap");
+
+$Grandstander: "Grandstander";
+
+// colors
+
+$primary-color: #FDE767; // Define primary color // Define accent color
+$dark: rgb(29, 29 ,29);
+$bg: rgb(244, 244, 244);
+$light: #fff;
+$btn: #b9ae73;
+$nav-bar-2: #151965;
+$nav-bar: #F9F54B;
+
+//spacing
+
+$spacing-md: 16px;
+$spacing-lg: 32px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+
+
+// border radius
+$borderRadius: 12px;
+
+// Header height
+$headerHeight: 100px;
+
+
+@mixin breakpoint($point) {
+  @if $point == md {
+    //768
+    @media (min-width: 48em) {
+      @content
+    }
+  }
+}

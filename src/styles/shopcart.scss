@@ -1,0 +1,24 @@
+/* src/shopcart.scss */
+
+.shopping-cart-container {
+    background-color: beige;
+    padding: 20px;
+}
+
+.cart-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cart-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    max-width: 300px;
+}
+
+.item-details {
+    margin-top: 10px;
+}
+
+/* Add more styles as needed */
