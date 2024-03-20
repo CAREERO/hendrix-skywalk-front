@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './productCard.scss';
 
 interface Product {
@@ -22,19 +23,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
   };
 
   return (
-    <div
-      className={`product-item ${isHovered ? 'hovered' : ''}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <img className="product-image" src={`${process.env.REACT_APP_API_TARGET}${product.image}`} alt={`Product ${product.id}`} />
-      <div className="product-details">
-        <h3>{product.name}</h3>
-        <p>{product.description}</p>
-        <p>${product.price}</p>
-        <button className="add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>
+    <Link to={`/api/product/${product.id}`} className={`product-item ${isHovered ? 'hovered' : ''}`}>
+      <div
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <img className="product-image" src={`${process.env.REACT_APP_API_TARGET}${product.image}`} alt={`Product ${product.id}`} />
+        <div className="product-details">
+          <h3 className="product-title">{product.name}</h3>
+          <p className="product-description">{product.description}</p>
+          <p>${product.price}</p>
+          <button className="add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
