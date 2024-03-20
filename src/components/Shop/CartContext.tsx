@@ -44,9 +44,13 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const addProductsToCart = (products: Product[]) => {
-    setCart((prevCart) => [...prevCart, ...products.map((product) => ({ ...product, quantity: 1 }))]);
+    if (Array.isArray(products)) {
+      setCart((prevCart) => [...prevCart, ...products.map((product) => ({ ...product, quantity: 1 }))]);
+    } else {
+      console.error('Products fetched from API is not an array:', products);
+    }
   };
-
+  
   useEffect(() => {
     const fetchProducts = async () => {
       try {
