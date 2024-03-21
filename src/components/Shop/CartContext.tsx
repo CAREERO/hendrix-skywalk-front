@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 import api from "../../services/api";
 
 interface Product {
@@ -6,13 +6,13 @@ interface Product {
   name: string;
   price: number;
   image?: string;
-  quantity?: number; // Add quantity field
+  quantity?: number;
 }
 
 interface CartContextProps {
   cart: Product[];
-  addToCart: (product: Product) => void;
-  removeFromCart: (product: Product) => void; // Add removeFromCart function
+  addToCart: (productId: number, quantity: number) => Promise<void>;
+  removeFromCart: (product: Product) => void;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -20,49 +20,28 @@ const CartContext = createContext<CartContextProps | undefined>(undefined);
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<Product[]>([]);
 
-  const addToCart = (product: Product) => {
-    const existingProduct = cart.find((item) => item.id === product.id);
-    if (existingProduct) {
-      const updatedCart = cart.map((item) => {
-        if (item.id === existingProduct.id) {
-          return {
-            ...item,
-            quantity: (item.quantity || 0) + 1,
-          };
-        }
-        return item;
+  const addToCart = async (productId: number, quantity: number) => {
+    try {
+      const response = await api.post(`${process.env.REACT_APP_API_TARGET}/cart/add/`, {
+        product: { id: productId },
+        quantity: quantity
       });
-      setCart(updatedCart);
-    } else {
-      setCart((prevCart) => [...prevCart, { ...product, quantity: 1 }]);
+      if (response.data.message === "Item added to cart") {
+        // Update the local cart state with the added product
+        setCart(prevCart => [...prevCart, { id: productId, quantity }] as Product[]);
+      }
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
     }
   };
 
   const removeFromCart = (product: Product) => {
+    // Implement removing a product from the cart locally
     const updatedCart = cart.filter((item) => item.id !== product.id);
     setCart(updatedCart);
   };
 
-  const addProductsToCart = (products: Product[]) => {
-    if (Array.isArray(products)) {
-      setCart((prevCart) => [...prevCart, ...products.map((product) => ({ ...product, quantity: 1 }))]);
-    } else {
-      console.error('Products fetched from API is not an array:', products);
-    }
-  };
-  
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await api.get(`${process.env.REACT_APP_API_TARGET}/api/products`);
-        const products: Product[] = response.data;
-        addProductsToCart(products);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-    fetchProducts();
-  }, []); // Run only once on component mount
+  // Other functions...
 
   return (
     <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>

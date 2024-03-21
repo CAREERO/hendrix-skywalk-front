@@ -1,4 +1,3 @@
-// ProductList.tsx
 import React, { useState, useEffect } from 'react';
 import './productList.scss';
 import ProductCard from '../../ProductCard/ProductCard';
@@ -35,6 +34,10 @@ const ProductList: React.FC = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentProducts = products.slice(startIndex, endIndex);
 
+  const handleAddToCart = (productId: number) => {
+    addToCart(productId, 1); // Pass the productId and quantity
+  };
+
   return (
     <div className="product-list">
       <h2>Product List</h2>
@@ -44,7 +47,7 @@ const ProductList: React.FC = () => {
           <ProductCard
             key={product.id}
             product={product}
-            addToCart={() => addToCart(product)} // Pass the product to addToCart
+            addToCart={() => handleAddToCart(product.id)} // Pass productId to handleAddToCart
           />
         ))}
       </div>

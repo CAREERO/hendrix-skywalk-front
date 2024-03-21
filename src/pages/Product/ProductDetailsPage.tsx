@@ -32,8 +32,19 @@ const ProductDetailsPage: React.FC = () => {
     }, [id]);
 
     const handleAddToCart = () => {
-        // Implement your logic to add the product to the cart
-        console.log('Product added to cart:', product);
+        if (product) {
+            axios.post(`${process.env.REACT_APP_API_TARGET}/cart/add/`, {
+                product_id: product.id,
+                quantity: quantity
+            })
+                .then(response => {
+                    console.log('Product added to cart:', response.data);
+                    // Optionally, you can perform additional actions after adding to cart
+                })
+                .catch(error => {
+                    console.error('Error adding product to cart:', error);
+                });
+        }
     };
 
     const decrementQuantity = () => {
@@ -50,7 +61,7 @@ const ProductDetailsPage: React.FC = () => {
 
     return (
         <>
-        <Header />
+            <Header />
             <div className="product-details-container">
                 <div className="product-images">
                     <img src={`${process.env.REACT_APP_API_TARGET}${product.image}`} alt={`Product ${product.id}`} />
