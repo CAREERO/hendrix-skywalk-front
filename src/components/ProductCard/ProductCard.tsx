@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import './productCard.scss';
 
 interface Product {
@@ -12,18 +11,15 @@ interface Product {
 
 interface ProductCardProps {
   product: Product;
-  addToCart: (productId: number) => void;
+  addToCart: (product: Product) => void;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation(); // Prevent the Link from handling the click event
-    addToCart(product.id); // Pass the product ID to addToCart function
+  const handleAddToCart = () => {
+    addToCart(product);
   };
-
-  const apiUrl = process.env.REACT_APP_API_TARGET || ''; // Get the API endpoint from environment variable
 
   return (
     <div
@@ -31,19 +27,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link to={`${apiUrl}/product/${product.id}`}> {/* Use the API endpoint in the Link */}
-        <img className="product-image" src={`${apiUrl}${product.image}`} alt={`Product ${product.id}`} />
-        <div className="product-details">
-          <h3 className="product-title">{product.name}</h3>
-          <p className="product-description">{product.description}</p>
-          <p>${product.price}</p>
-        </div>
-      </Link>
-      {isHovered && (
-        <button className="add-to-cart-button" onClick={handleAddToCart}>
-          Add to Cart
-        </button>
-      )}
+      <img className="product-image" src={`${process.env.REACT_APP_API_TARGET}${product.image}`} alt={`Product ${product.id}`} />
+      <div className="product-details">
+        <h3>{product.name}</h3>
+        <p>{product.description}</p>
+        <p>${product.price}</p>
+        <button className="add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>
+      </div>
     </div>
   );
 };
