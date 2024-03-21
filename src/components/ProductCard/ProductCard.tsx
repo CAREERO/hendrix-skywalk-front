@@ -23,14 +23,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
     addToCart(product.id); // Pass the product ID to addToCart function
   };
 
+  const apiUrl = process.env.REACT_APP_API_TARGET || ''; // Get the API endpoint from environment variable
+
   return (
     <div
       className={`product-item ${isHovered ? 'hovered' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link to={`/api/product/${product.id}`}>
-        <img className="product-image" src={`${process.env.REACT_APP_API_TARGET}${product.image}`} alt={`Product ${product.id}`} />
+      <Link to={`${apiUrl}/product/${product.id}`}> {/* Use the API endpoint in the Link */}
+        <img className="product-image" src={`${apiUrl}${product.image}`} alt={`Product ${product.id}`} />
         <div className="product-details">
           <h3 className="product-title">{product.name}</h3>
           <p className="product-description">{product.description}</p>
