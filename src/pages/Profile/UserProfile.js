@@ -1,6 +1,6 @@
 // UserProfile.tsx
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
 
 const UserProfile = () => {
   const [profile, setProfile] = useState({});
@@ -9,7 +9,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get(`http://54.146.118.222:8000/accounts/profile/`);
+        const response = await api.get(`http://54.146.118.222:8000/accounts/profile/`);
         setProfile(response.data);
         setLoading(false);
       } catch (error) {

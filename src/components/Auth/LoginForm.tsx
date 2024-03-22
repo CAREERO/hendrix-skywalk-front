@@ -26,7 +26,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
       console.log("Username:", username);
       console.log("Password:", password);
       const response = await axios.post(
-        `http://54.146.118.222:8000/account/login/`,
+        'http://54.146.118.222:8000/account/login/',
         { username, password },
         {
           headers: {

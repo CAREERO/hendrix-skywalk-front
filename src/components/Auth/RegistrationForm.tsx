@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SHA256 } from "crypto-js";
+import axios from "axios";
 import classes from "./RegistrationForm.module.scss";
-import api from '../../services/api'; // Import the api module
 
 interface RegistrationFormProps {
   onRegister: (username: string, email: string, hashedPassword: string) => void;
@@ -17,14 +17,13 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [termsChecked, setTermsChecked] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null); // Define the type of error explicitly
   const [loading, setLoading] = useState<boolean>(false);
 
   const isValidUsername = (username: string): boolean => {
     const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
     return usernameRegex.test(username);
   };
-
 
   const isValidEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -43,11 +42,15 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     try {
       console.log("Sending registration request with data:", userData);
 
-      const response = await api.post('http://54.146.118.222:8000/account/register/', userData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post(
+        `http://54.146.118.222:8000/account/register/`,
+        userData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       console.log("Registration response:", response.data);
 
@@ -103,7 +106,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
       } else {
         setError(
           registrationResponse.message ||
-            "Registration Successful. You may close this window to login."
+          "Registration Successful. You may close this window to login."
         );
       }
     } catch (error) {
@@ -113,6 +116,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
       setLoading(false);
     }
   };
+
 
   return (
     <div className={classes.registrationFormContainer}>
@@ -184,4 +188,4 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
   );
 };
 
-export default RegistrationForm
+export default RegistrationForm;
