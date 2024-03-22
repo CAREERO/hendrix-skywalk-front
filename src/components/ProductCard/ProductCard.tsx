@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img className="product-image" src={`http://54.146.118.222:8000${product.image}`} alt={`Product ${product.id}`} />
+      <img className="product-image" src={`${product.image}`} alt={`Product ${product.id}`} />
       <div className="product-details">
         <h3>{product.name}</h3>
         <p>{product.description}</p>

@@ -3,7 +3,6 @@ import './productList.scss';
 import ProductCard from '../../ProductCard/ProductCard';
 import { useCart } from '../CartContext';
 import Product from '../../../services/Product';
-import api from '../../../services/api';
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -14,10 +13,8 @@ const ProductList: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await api.get(
-          `http://54.146.118.222:8000/api/products/`
-        );
-        const data = response.data;
+        const response = await fetch(`http://54.146.118.222:8000/api/products/`);
+        const data = await response.json();
         setProducts(data);
       } catch (error) {
         console.error('Error fetching products:', error);
