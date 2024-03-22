@@ -45,7 +45,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
       console.log("Sending registration request with data:", userData);
 
       const response = await axios.post(
-        `${process.env.REACT_APP_API_TARGET}/account/register/`,
+        `${process.env.REACT_APP_API_TARGET_PROD}/account/register/`,
         userData,
         {
           headers: {

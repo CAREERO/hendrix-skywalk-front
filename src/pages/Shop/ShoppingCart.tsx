@@ -11,7 +11,7 @@ const ShoppingCart: React.FC = () => {
     useEffect(() => {
         const fetchCartData = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_TARGET}/api/shopping-cart/`);
+                const response = await axios.get(`${process.env.REACT_APP_API_TARGET_PROD}/api/shopping-cart/`);
                 setCartItems(response.data.items);
             } catch (error) {
                 console.error('Error fetching cart data from Django:', error);

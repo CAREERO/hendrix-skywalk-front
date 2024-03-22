@@ -4,19 +4,26 @@ import axios from 'axios';
 
 const UserProfile = () => {
   const [profile, setProfile] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get('/api/accounts/profile/');
+        const response = await axios.get(`${process.env.REACT_APP_API_TARGET_PROD}/api/accounts/profile/`);
         setProfile(response.data);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching user profile:', error);
+        setLoading(false);
       }
     };
 
     fetchUserProfile();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>

@@ -15,7 +15,7 @@ const Shop: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_TARGET}/api/products/`);
+        const response = await fetch(`${process.env.REACT_APP_API_TARGET_PROD}/api/products/`);
         const data = await response.json();
         setProducts(data);
       } catch (error) {

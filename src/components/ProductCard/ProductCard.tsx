@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img className="product-image" src={`${process.env.REACT_APP_API_TARGET}${product.image}`} alt={`Product ${product.id}`} />
+      <img className="product-image" src={`${process.env.REACT_APP_API_TARGET_PROD}${product.image}`} alt={`Product ${product.id}`} />
       <div className="product-details">
         <h3>{product.name}</h3>
         <p>{product.description}</p>

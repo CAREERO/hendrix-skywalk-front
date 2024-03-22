@@ -22,7 +22,7 @@ const ProductDetailsPage: React.FC = () => {
     const [quantity, setQuantity] = useState<number>(1); // State to store quantity
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_TARGET}/api/product/${id}/`)
+        axios.get(`${process.env.REACT_APP_API_TARGET_PROD}/api/product/${id}/`)
             .then(response => {
                 setProduct(response.data);
             })
@@ -33,7 +33,7 @@ const ProductDetailsPage: React.FC = () => {
 
     const handleAddToCart = () => {
         if (product) {
-            axios.post(`${process.env.REACT_APP_API_TARGET}/cart/add/`, {
+            axios.post(`${process.env.REACT_APP_API_TARGET_PROD}/cart/add/`, {
                 product_id: product.id,
                 quantity: quantity
             })
@@ -64,7 +64,7 @@ const ProductDetailsPage: React.FC = () => {
             <Header />
             <div className="product-details-container">
                 <div className="product-images">
-                    <img src={`${process.env.REACT_APP_API_TARGET}${product.image}`} alt={`Product ${product.id}`} />
+                    <img src={`${process.env.REACT_APP_API_TARGET_PROD}${product.image}`} alt={`Product ${product.id}`} />
                 </div>
                 <div className="product-details">
                     <h2 className="product-title">Title: {product.name}</h2>

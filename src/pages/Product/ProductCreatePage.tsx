@@ -18,7 +18,6 @@ const ProductCreatePage: React.FC = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    // Use optional chaining to simplify null check
     const storedUserInfo = localStorage.getItem('userInfo');
     const storedAccessToken = localStorage.getItem('accessToken');
     
@@ -45,7 +44,7 @@ const ProductCreatePage: React.FC = () => {
       formData.append('stock', stock.toString());
       formData.append('image', image || '');
 
-      const { data } = await axios.post('/api/product-create/', formData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_TARGET_PROD}/api/product-create/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${accessToken}`,
@@ -54,7 +53,7 @@ const ProductCreatePage: React.FC = () => {
 
       setSuccessMessage('Product created successfully!');
       setShowModal(true);
-      console.log('Product created:', data);
+      console.log('Product created:', response.data);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError<ErrorResponse>;
@@ -73,7 +72,6 @@ const ProductCreatePage: React.FC = () => {
     <div className={classes.formContainer}>
       {isAdmin && (
         <>
-          {/* Extract the input fields into a separate function for better readability */}
           {renderFormInputs()}
 
           <button className={classes.createButton} onClick={() => setShowModal(true)}>
@@ -87,7 +85,6 @@ const ProductCreatePage: React.FC = () => {
                   Close
                 </button>
                 <form onSubmit={onSubmit}>
-                  {/* Render the form inputs again inside the modal */}
                   {renderFormInputs()}
 
                   <button className={classes.submitButton} type="submit">
@@ -105,7 +102,6 @@ const ProductCreatePage: React.FC = () => {
     </div>
   );
 
-  // Extract the input fields for better readability
   function renderFormInputs() {
     return (
       <>
