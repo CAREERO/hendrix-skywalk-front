@@ -9,7 +9,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_TARGET_PROD}/api/accounts/profile/`);
+        const response = await axios.get(`${process.env.REACT_APP_API_TARGET_PROD}/accounts/profile/`);
         setProfile(response.data);
         setLoading(false);
       } catch (error) {

@@ -15,7 +15,7 @@ const HomePage = () => {
     const fetchData = async () => {
       try {
         const response = await api.get(
-          `${process.env.REACT_APP_API_TARGET}/api/products/`
+          "/api/products/"
         );
         console.log(response.data.message);
       } catch (error) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../services/api'; // Import the api module
 import './ProductDetailsPage.scss';
 import Footer from '../../components/common/Footer/Footer';
 import Header from '../../components/common/Header/Header';
@@ -22,18 +22,21 @@ const ProductDetailsPage: React.FC = () => {
     const [quantity, setQuantity] = useState<number>(1); // State to store quantity
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_TARGET_PROD}/api/product/${id}/`)
-            .then(response => {
+        const fetchProduct = async () => {
+            try {
+                const response = await api.get(`/api/product/${id}/`);
                 setProduct(response.data);
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error fetching product:', error);
-            });
+            }
+        };
+
+        fetchProduct();
     }, [id]);
 
     const handleAddToCart = () => {
         if (product) {
-            axios.post(`${process.env.REACT_APP_API_TARGET_PROD}/cart/add/`, {
+            api.post('/cart/add/', {
                 product_id: product.id,
                 quantity: quantity
             })

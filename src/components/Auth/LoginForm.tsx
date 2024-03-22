@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classes from "./LoginForm.module.scss"; // Update the import path
-import axios from "axios";
+import api from "../../services/api"; // Import the api module
 import RegistrationForm from "../Auth/RegistrationForm";
 import { useNavigate } from "react-router-dom";
 
@@ -18,22 +18,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
   const setAuthHeader = (token: string) => {
     // Set the token in the headers for future requests
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   };
 
   const handleLogin = async () => {
     try {
       console.log("Username:", username);
       console.log("Password:", password);
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_TARGET_PROD}/account/login/`,
-        { username, password },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await api.post("/account/login/", { username, password });
 
       console.log("Login response:", response.data);
 

@@ -1,7 +1,6 @@
-// src/pages/Shop/ShoppingCart.tsx
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/common/Header/Header';
-import axios from 'axios';
+import api from '../../services/api'; // Import the api module
 import '../../styles/shopcart.scss'; // Import the styles
 
 const ShoppingCart: React.FC = () => {
@@ -11,7 +10,7 @@ const ShoppingCart: React.FC = () => {
     useEffect(() => {
         const fetchCartData = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_TARGET_PROD}/api/shopping-cart/`);
+                const response = await api.get('/api/shopping-cart/');
                 setCartItems(response.data.items);
             } catch (error) {
                 console.error('Error fetching cart data from Django:', error);

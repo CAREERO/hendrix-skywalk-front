@@ -1,8 +1,7 @@
-// RegistrationForm.tsx
 import React, { useState } from "react";
 import { SHA256 } from "crypto-js";
-import axios from "axios";
 import classes from "./RegistrationForm.module.scss";
+import api from '../../services/api'; // Import the api module
 
 interface RegistrationFormProps {
   onRegister: (username: string, email: string, hashedPassword: string) => void;
@@ -44,15 +43,11 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     try {
       console.log("Sending registration request with data:", userData);
 
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_TARGET_PROD}/account/register/`,
-        userData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await api.post('/account/register/', userData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       console.log("Registration response:", response.data);
 
@@ -189,4 +184,4 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
   );
 };
 
-export default RegistrationForm;
+export default RegistrationForm

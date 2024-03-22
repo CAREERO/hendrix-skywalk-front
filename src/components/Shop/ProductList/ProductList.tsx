@@ -3,6 +3,7 @@ import './productList.scss';
 import ProductCard from '../../ProductCard/ProductCard';
 import { useCart } from '../CartContext';
 import Product from '../../../services/Product';
+import api from '../../../services/api'; // Import the api module
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -13,9 +14,8 @@ const ProductList: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_TARGET_PROD}/api/products/`);
-        const data = await response.json();
-        setProducts(data);
+        const response = await api.get('/api/products/'); // Use api.get to fetch products
+        setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
       }

@@ -33,8 +33,16 @@ const AppRoutes: React.FC = () => {
           path="/profile"
           element={isLoggedIn ? <Profile /> : <Navigate to="/api/login" state={{ from: '/profile' }} replace />}
         />
-        {/* Add route for ProductCreatePage */}
-        <Route path="/productCreate" element={isLoggedIn ? <ProductCreatePage /> : <Navigate to="/api/login" state={{ from: '/productCreate' }} replace />} />
+        <Route
+          path="/productCreate"
+          element={
+            isLoggedIn ? (
+              <ProductCreatePage />
+            ) : (
+              <Navigate to="/api/login" state={{ from: '/productCreate' }} replace />
+            )
+          }
+        />
       </Routes>
     </CartProvider>
   );

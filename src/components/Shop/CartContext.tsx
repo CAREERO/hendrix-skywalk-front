@@ -22,8 +22,8 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const addToCart = async (productId: number, quantity: number) => {
     try {
-      const response = await api.post(`${process.env.REACT_APP_API_TARGET_PROD}/cart/add/`, {
-        product: { id: productId },
+      const response = await api.post('/cart/add/', {
+        product_id: productId,
         quantity: quantity
       });
       if (response.data.message === "Item added to cart") {

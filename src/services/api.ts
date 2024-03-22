@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-const apiUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_API_TARGET_PROD : process.env.REACT_APP_API_TARGET_LOCAL;
-
+// Remove the apiUrl variable if it's not used elsewhere
 const api = axios.create({
-  baseURL: apiUrl,
+  baseURL: process.env.NODE_ENV === 'production' ? process.env.REACT_APP_API_TARGET_PROD : process.env.REACT_APP_API_TARGET_LOCAL,
 });
 
 export default api;
