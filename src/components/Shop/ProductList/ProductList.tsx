@@ -14,7 +14,7 @@ const ProductList: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await api.get('/api/products/'); // Use api.get to fetch products
+        const response = await api.get('http://54.146.118.222:8000/api/products/'); // Use api.get to fetch products
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);

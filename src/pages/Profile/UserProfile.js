@@ -9,7 +9,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_TARGET_PROD}/accounts/profile/`);
+        const response = await axios.get(`http://54.146.118.222:8000/accounts/profile/`);
         setProfile(response.data);
         setLoading(false);
       } catch (error) {

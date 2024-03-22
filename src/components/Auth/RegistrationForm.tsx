@@ -43,7 +43,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     try {
       console.log("Sending registration request with data:", userData);
 
-      const response = await api.post('/account/register/', userData, {
+      const response = await api.post('http://54.146.118.222:8000/account/register/', userData, {
         headers: {
           "Content-Type": "application/json",
         },

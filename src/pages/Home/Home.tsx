@@ -15,7 +15,7 @@ const HomePage = () => {
     const fetchData = async () => {
       try {
         const response = await api.get(
-          "/api/products/"
+         'http://54.146.118.222:8000/api/products/'
         );
         console.log(response.data.message);
       } catch (error) {

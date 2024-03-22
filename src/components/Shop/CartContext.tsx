@@ -22,7 +22,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const addToCart = async (productId: number, quantity: number) => {
     try {
-      const response = await api.post('/cart/add/', {
+      const response = await api.post('http://54.146.118.222:8000/cart/add/', {
         product_id: productId,
         quantity: quantity
       });
