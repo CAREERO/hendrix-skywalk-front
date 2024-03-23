@@ -1,8 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './CheckoutPage.scss';
 import { FaChevronLeft } from 'react-icons/fa';
+import axios from 'axios';
+
+interface CartItem {
+    id: number;
+    name: string;
+    image: string;
+    price: number;
+}
 
 const CheckoutPage: React.FC = () => {
+    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const [subtotal, setSubtotal] = useState<number>(0);
+
+    useEffect(() => {
+        const fetchCartItems = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/cart/items');
+                setCartItems(response.data);
+                calculateSubtotal(response.data);
+            } catch (error) {
+                console.error('Error fetching cart items:', error);
+            }
+        };
+
+        fetchCartItems();
+    }, []);
+
+    const calculateSubtotal = (items: CartItem[]) => {
+        const total = items.reduce((acc: number, curr: CartItem) => acc + curr.price, 0);
+        setSubtotal(total);
+    };
+
     return (
         <>
             <section className='checkout-page-main'>
@@ -53,15 +83,14 @@ const CheckoutPage: React.FC = () => {
                         <div className="scrollable-section">
                             <h2>Order Summary</h2>
                             <hr />
-                            {/* Add summary of products here */}
                             <div className="product-summary">
                                 <div className="new-product-list">
-                                    {/* Product items */}
-                                    {[...Array(10)].map((_, index) => (
-                                        <div key={index} className="product-item">
-                                            <img src="https://via.placeholder.com/25" alt="" className="cartModal__productImage" />
-                                            <span>Product Name</span>
-                                            <span>$10.00</span>
+                                    {cartItems.map((item: CartItem) => (
+                                        <div key={item.id} className="product-item">
+                                            <img src={item.image} alt="" className="cartModal__productImage" />
+                                            <span>{item.name}</span>
+                                            <span>${item.price}</span>
+                                            <span>{item.id}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -70,7 +99,7 @@ const CheckoutPage: React.FC = () => {
                             <div className="fixed-section">
                                 <div className="subtotal">
                                     <span>Subtotal:</span>
-                                    <span>$100.00</span>
+                                    <span>${subtotal.toFixed(2)}</span>
                                 </div>
                                 <div className="shipping-info">
                                     <span>Shipping:</span>
@@ -78,7 +107,7 @@ const CheckoutPage: React.FC = () => {
                                 </div>
                                 <div className="total">
                                     <span>Total:</span>
-                                    <span>USD $100.00</span>
+                                    <span>USD ${subtotal.toFixed(2)}</span>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +115,6 @@ const CheckoutPage: React.FC = () => {
                 </div>
             </section>
         </>
-
     );
 };
 

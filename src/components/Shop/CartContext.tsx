@@ -9,6 +9,7 @@ export interface Product {
   price: number;
   image?: string;
   quantity?: number;
+  total_price?: number; // Add total_price property
 }
 
 // Define the CartContextProps interface
@@ -26,6 +27,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [cart, setCart] = useState<Product[]>([]);
 
   // Function to add a product to the cart
+  // Function to add a product to the cart
   const addToCart = async (productId: number, quantity: number) => {
     try {
       const response = await api.post(`http://localhost:8000/cart/add/${productId}/`, {
@@ -33,12 +35,20 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       });
       if (response.data.message === "Item added to cart") {
         // Update the local cart state with the added product
-        setCart(prevCart => [...prevCart, { id: productId, quantity }] as Product[]);
+        const addedProduct: Product = {
+          id: productId,
+          name: response.data.name, // Include the name property
+          quantity: quantity,
+          price: response.data.price, // Assuming the price is returned in the response
+          total_price: response.data.price * quantity // Calculate the total price
+        };
+        setCart(prevCart => [...prevCart, addedProduct]);
       }
     } catch (error) {
       console.error('Error adding product to cart:', error);
     }
   };
+
 
   // Function to remove a product from the cart
   const removeFromCart = (product: Product) => {

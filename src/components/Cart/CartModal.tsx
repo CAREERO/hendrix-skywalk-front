@@ -9,6 +9,7 @@ interface Product {
     description: string;
     price: number;
     quantity: number;
+    total_price: number;
 }
 
 interface CartModalProps {
@@ -24,7 +25,7 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
-                const response = await axios.get('/api/cart/items/');
+                const response = await axios.get('http://localhost:8000/cart/items/');
                 setProducts(response.data);
                 calculateSubtotal(response.data);
             } catch (error) {
@@ -36,7 +37,7 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
     }, []);
 
     const calculateSubtotal = (cartItems: Product[]) => {
-        const total = cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+        const total = cartItems.reduce((acc, curr) => acc + curr.total_price * curr.quantity, 0);
         setSubtotal(total);
     };
 
@@ -48,12 +49,41 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
         navigate('/checkout');
     };
 
+    const handleQuantityChange = async (productId: number, newQuantity: number) => {
+        try {
+            const response = await axios.put(`http://localhost:8000/cart/update/${productId}/`, {
+                quantity: newQuantity
+            });
+            if (response.data.message === "Item quantity updated") {
+                const updatedProducts = products.map(product =>
+                    product.id === productId ? { ...product, quantity: newQuantity } : product
+                );
+                setProducts(updatedProducts);
+                calculateSubtotal(updatedProducts);
+            }
+        } catch (error) {
+            console.error('Error updating product quantity:', error);
+        }
+    };
+
+    const handleRemoveItem = async (productId: number) => {
+        try {
+            const response = await axios.delete(`http://localhost:8000/cart/remove/${productId}/`);
+            if (response.data.message === "Item removed from cart") {
+                const updatedProducts = products.filter(product => product.id !== productId);
+                setProducts(updatedProducts);
+                calculateSubtotal(updatedProducts);
+            }
+        } catch (error) {
+            console.error('Error removing product from cart:', error);
+        }
+    };
+
     return (
         <div className={`${classes.overlay} ${classes.open}`} onClick={closeModal}>
             <div className={`${classes.cartModal} ${classes.open}`} onClick={stopPropagation}>
                 <div className={classes.cartModal__header}>
                     <h2>Your Shopping Cart</h2>
-                    {/* Close icon */}
                     <div className={classes.cartModal__closeBtn} onClick={closeModal}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z" />
@@ -61,7 +91,6 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
                     </div>
                 </div>
                 <div className={classes.cartModal__content}>
-                    {/* Product details */}
                     <div className={classes.cartModal__productList}>
                         {products.map(product => (
                             <div className={classes.cartModal__product} key={product.id}>
@@ -70,25 +99,23 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
                                     <h3>{product.name}</h3>
                                     <p>{product.description}</p>
                                     <div className={classes.cartModal__quantity}>
-                                        <button>-</button>
+                                        <button onClick={() => handleQuantityChange(product.id, product.quantity - 1)}>-</button>
                                         <span>{product.quantity}</span>
-                                        <button>+</button>
+                                        <button onClick={() => handleQuantityChange(product.id, product.quantity + 1)}>+</button>
                                     </div>
-                                    <button className={classes.cartModal__removeBtn}>Remove</button>
+                                    <button className={classes.cartModal__removeBtn} onClick={() => handleRemoveItem(product.id)}>Remove</button>
                                 </div>
                                 <div className={classes.cartModal__productPrice}>
-                                    ${(product.price * product.quantity).toFixed(2)}
+                                    ${(product.total_price * product.quantity).toFixed(2)}
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
-                {/* Notes input */}
                 <textarea
                     className={classes.cartModal__notes}
                     placeholder="Add a note to your order"
                 />
-                {/* Total section */}
                 <div className={classes.cartModal__total}>
                     <div className={classes.cartModal__subtotal}>
                         <p>Subtotal:</p>
@@ -98,7 +125,6 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
                         <div className={classes.cartModal__shippingInfo}>
                             Shipping & taxes calculated at checkout
                         </div>
-                        {/* Checkout button */}
                         <button className={classes.cartModal__checkoutBtn} onClick={handleCheckout}>Checkout</button>
                     </div>
                 </div>
