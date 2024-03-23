@@ -26,8 +26,17 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
             try {
                 const response = await axios.get('http://localhost:8000/cart/items/');
                 console.log('Response data:', response.data); // Log response data
+                // Check if products array is empty
+                if (response.data.length === 0) {
+                    console.log('No items in cart');
+                }
                 setProducts(response.data);
-                calculateSubtotal(response.data);
+
+                // Calculate subtotal based on fetched product data
+                const total = response.data.reduce((acc: number, curr: Product) => {
+                    return acc + curr.total_price * curr.quantity;
+                }, 0);
+                setSubtotal(total);
             } catch (error) {
                 console.error('Error fetching cart items:', error);
             }
@@ -35,16 +44,10 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
         fetchCartItems();
     }, []);
 
-    // Function to calculate subtotal
-    const calculateSubtotal = (cartItems: Product[]) => {
-        const total = cartItems.reduce((acc, curr) => acc + curr.total_price * curr.quantity, 0);
-        setSubtotal(total);
-    };
 
     const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
     };
-
 
     // Function to handle checkout
     const handleCheckout = () => {
@@ -73,7 +76,6 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
         }
     };
 
-
     // Function to handle removing item from cart
     const handleRemoveItem = async (productId: number) => {
         try {
@@ -88,7 +90,6 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
             console.error('Error removing product from cart:', error);
         }
     };
-
 
     return (
         <div className={`${classes.overlay} ${classes.open}`} onClick={closeModal}>
@@ -110,6 +111,7 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
                                 <div className={classes.cartModal__product} key={product.id}>
                                     <img src="https://via.placeholder.com/50" alt="" className={classes.cartModal__productImage} />
                                     <div className={classes.cartModal__productDetails}>
+                                        {/* Make sure to display name and price */}
                                         <h3>{product.name}</h3>
                                         <p>{product.description}</p>
                                         <div className={classes.cartModal__quantity}>
@@ -120,11 +122,12 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
                                         <button className={classes.cartModal__removeBtn} onClick={() => handleRemoveItem(product.id)}>Remove</button>
                                     </div>
                                     <div className={classes.cartModal__productPrice}>
+                                        {/* Ensure total_price and quantity are correctly calculated */}
                                         ${(product.total_price * product.quantity).toFixed(2)}
-                                        ${product.total_price}
                                     </div>
                                 </div>
                             ))}
+
                         </div>
                     )}
                 </div>
