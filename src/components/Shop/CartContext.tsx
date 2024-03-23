@@ -1,7 +1,9 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+// CartContext.tsx
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import api from "../../services/api";
 
-interface Product {
+// Define the Product type
+export interface Product {
   id: number;
   name: string;
   price: number;
@@ -9,20 +11,24 @@ interface Product {
   quantity?: number;
 }
 
+// Define the CartContextProps interface
 interface CartContextProps {
   cart: Product[];
   addToCart: (productId: number, quantity: number) => Promise<void>;
   removeFromCart: (product: Product) => void;
 }
 
+// Create the CartContext
 const CartContext = createContext<CartContextProps | undefined>(undefined);
 
+// Create the CartProvider component
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<Product[]>([]);
 
+  // Function to add a product to the cart
   const addToCart = async (productId: number, quantity: number) => {
     try {
-      const response = await api.post(`${process.env.REACT_APP_API_TARGET_PROD}/cart/add/`, {
+      const response = await api.post('http://54.146.118.222:8000/cart/add/', {
         product: { id: productId },
         quantity: quantity
       });
@@ -35,14 +41,27 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
+  // Function to remove a product from the cart
   const removeFromCart = (product: Product) => {
-    // Implement removing a product from the cart locally
+    // Filter out the product from the cart
     const updatedCart = cart.filter((item) => item.id !== product.id);
     setCart(updatedCart);
   };
 
-  // Other functions...
+  // Load cart data from localStorage on component mount
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+  }, []);
 
+  // Save cart data to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
+  // Provide the cart data and functions to children components
   return (
     <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
       {children}
@@ -50,6 +69,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   );
 };
 
+// Custom hook to access the CartContext
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {

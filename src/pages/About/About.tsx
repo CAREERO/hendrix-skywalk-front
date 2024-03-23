@@ -1,16 +1,16 @@
 // src/pages/About/About.tsx
 import React from 'react';
 import Header from '../../components/common/Header/Header';
-import VideoCarousel from '../../components/common/VideoCarousel/VideoCarousel';
+// import VideoCarousel from '../../components/common/VideoCarousel/VideoCarousel';
 import Footer from '../../components/common/Footer/Footer';
 import '../../styles/about.scss';
 
 const About: React.FC = () => {
-  const videos = [
-    'https://www.youtube.com/watch?v=j1gi4sT7AHY',
-    'https://www.youtube.com/watch?v=j1gi4sT7AHY',
-    // Add more video URLs as needed
-  ];
+  // const videos = [
+  //   'https://www.youtube.com/watch?v=j1gi4sT7AHY',
+  //   'https://www.youtube.com/watch?v=j1gi4sT7AHY',
+  //   // Add more video URLs as needed
+  // ];
 
   return (
     <div>
@@ -71,8 +71,9 @@ const About: React.FC = () => {
         />
       </svg>
       <section className="videolist-section">
-        <h2>Video Showcase</h2>
-        <VideoCarousel videos={videos} />
+        <h2 className='video-heading'>Video Showcase</h2>
+        <p>No videos uploaded yet</p>
+        {/* <VideoCarousel videos={videos} /> */}
       </section>
       <Footer />
     </div>

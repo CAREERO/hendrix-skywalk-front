@@ -6,16 +6,15 @@ import { FaUserNinja } from "react-icons/fa6";
 import { FaCartShopping } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import Tooltip from "../../common/Tooltip/Tooltip";
+import CartModal from "../../Cart/CartModal"; // Import CartModal component
 import classes from "./Header.module.scss";
 
 const Header: React.FC = () => {
-
-
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [userName, setUserName] = useState<string>("");
   const [menuOpen, setMenuOpen] = useState(false);
   const [submenuOpen, setSubmenuOpen] = useState(false);
-
+  const [cartOpen, setCartOpen] = useState(false);
   const history = useNavigate();
 
   useEffect(() => {
@@ -31,12 +30,9 @@ const Header: React.FC = () => {
         console.error("Error parsing userInfo:", error);
       }
     }
-    console.log(isLoggedIn);
 
     setLoggedIn(!!userIsLoggedIn);
-  }, [isLoggedIn]);
-
-
+  }, []);
 
   const openUserMenuHandler = () => {
     if (isLoggedIn) {
@@ -45,10 +41,10 @@ const Header: React.FC = () => {
       setSubmenuOpen(true);
     }
   };
+
   const menuToggleHandler = () => {
     setMenuOpen((prevMenuOpen) => !prevMenuOpen);
-    // Close the submenu when the main menu is toggled
-    setSubmenuOpen(false);
+    setSubmenuOpen(false); // Close the submenu when the main menu is toggled
   };
 
   const openUserSubMenuHandler = () => {
@@ -59,6 +55,10 @@ const Header: React.FC = () => {
     localStorage.removeItem("userInfo");
     setLoggedIn(false);
     history("/");
+  };
+
+  const toggleCartModal = () => {
+    setCartOpen((prevCartOpen) => !prevCartOpen);
   };
 
   return (
@@ -98,19 +98,20 @@ const Header: React.FC = () => {
               </Link>
             </li>
           </ul>
-          <Link to="/shopping-cart">
-            <Tooltip text="Cart">
-              <button
-                className={classes.btn_cart}
-                onClick={openUserMenuHandler}
-              >
-                <FaCartShopping />
-              </button>
-            </Tooltip>
-          </Link>
+          <Tooltip text="Cart">
+            <button
+              className={classes.btn_cart}
+              onClick={toggleCartModal} // Toggle cart modal on click
+            >
+              <FaCartShopping />
+            </button>
+          </Tooltip>
           {isLoggedIn ? (
             <div className={classes.userContainer}>
-              <span className={classes.userName} onClick={openUserSubMenuHandler}>
+              <span
+                className={classes.userName}
+                onClick={openUserSubMenuHandler}
+              >
                 {userName}
               </span>
               <button onClick={openUserMenuHandler} className={classes.btn_ninja}>
@@ -119,7 +120,10 @@ const Header: React.FC = () => {
               {submenuOpen && (
                 <ul className={classes.subMenu}>
                   <li>
-                    <Link to="/profile" onClick={() => setSubmenuOpen(false)}>
+                    <Link
+                      to="/profile"
+                      onClick={() => setSubmenuOpen(false)}
+                    >
                       Profile
                     </Link>
                   </li>
@@ -129,7 +133,10 @@ const Header: React.FC = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/productCreate" onClick={() => setSubmenuOpen(false)}>
+                    <Link
+                      to="/productCreate"
+                      onClick={() => setSubmenuOpen(false)}
+                    >
                       Create Product
                     </Link>
                   </li>
@@ -161,6 +168,8 @@ const Header: React.FC = () => {
           )}
         </div>
       </div>
+      {/* Render CartModal component with conditional rendering based on modal visibility */}
+      {cartOpen && <CartModal closeModal={toggleCartModal} />}
     </header>
   );
 };
