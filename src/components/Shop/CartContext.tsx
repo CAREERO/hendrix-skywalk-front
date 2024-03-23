@@ -27,7 +27,6 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [cart, setCart] = useState<Product[]>([]);
 
   // Function to add a product to the cart
-  // Function to add a product to the cart
   const addToCart = async (productId: number, quantity: number) => {
     try {
       const response = await api.post(`http://localhost:8000/cart/add/${productId}/`, {
@@ -48,7 +47,6 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       console.error('Error adding product to cart:', error);
     }
   };
-
 
   // Function to remove a product from the cart
   const removeFromCart = (product: Product) => {

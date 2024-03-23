@@ -20,7 +20,6 @@ interface CartModalProps {
 const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
     const [products, setProducts] = useState<Product[]>([]);
     const [subtotal, setSubtotal] = useState(0);
-
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -33,10 +32,10 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
                 console.error('Error fetching cart items:', error);
             }
         };
-
         fetchCartItems();
     }, []);
 
+    // Function to calculate subtotal
     const calculateSubtotal = (cartItems: Product[]) => {
         const total = cartItems.reduce((acc, curr) => acc + curr.total_price * curr.quantity, 0);
         setSubtotal(total);
@@ -46,39 +45,51 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
         e.stopPropagation();
     };
 
+
+    // Function to handle checkout
     const handleCheckout = () => {
         navigate('/checkout');
     };
 
+    // Function to handle quantity change
     const handleQuantityChange = async (productId: number, newQuantity: number) => {
         try {
-            const response = await axios.put(`http://localhost:8000/cart/update/${productId}/`, {
-                quantity: newQuantity
-            });
-            if (response.data.message === "Item quantity updated") {
-                const updatedProducts = products.map(product =>
-                    product.id === productId ? { ...product, quantity: newQuantity } : product
-                );
-                setProducts(updatedProducts);
-                calculateSubtotal(updatedProducts);
+            // Ensure new quantity is non-negative
+            if (newQuantity < 0) {
+                return;
             }
+
+            // Update local state immediately
+            const updatedProducts = products.map(product =>
+                product.id === productId ? { ...product, quantity: newQuantity } : product
+            );
+            setProducts(updatedProducts);
+
+            // Send PUT request to update quantity on the server
+            await axios.put(`http://localhost:8000/cart/items/update/${productId}/`, { quantity: newQuantity });
+            // Rest of the code...
         } catch (error) {
             console.error('Error updating product quantity:', error);
         }
     };
 
+
+    // Function to handle removing item from cart
+    // Function to handle removing item from cart
     const handleRemoveItem = async (productId: number) => {
         try {
-            const response = await axios.delete(`http://localhost:8000/cart/remove/${productId}/`);
-            if (response.data.message === "Item removed from cart") {
+            await axios.delete(`http://localhost:8000/cart/item/remove/${productId}/`);
+            const removedProduct = products.find(product => product.id === productId);
+            if (removedProduct) {
                 const updatedProducts = products.filter(product => product.id !== productId);
                 setProducts(updatedProducts);
-                calculateSubtotal(updatedProducts);
+                setSubtotal(prevSubtotal => prevSubtotal - removedProduct.quantity * removedProduct.total_price);
             }
         } catch (error) {
             console.error('Error removing product from cart:', error);
         }
     };
+
 
     return (
         <div className={`${classes.overlay} ${classes.open}`} onClick={closeModal}>
