@@ -1,4 +1,3 @@
-// CartModal.tsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './CartModal.module.scss';
@@ -26,6 +25,7 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
         const fetchCartItems = async () => {
             try {
                 const response = await axios.get('http://localhost:8000/cart/items/');
+                console.log('Response data:', response.data); // Log response data
                 setProducts(response.data);
                 calculateSubtotal(response.data);
             } catch (error) {
@@ -75,7 +75,6 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
 
 
     // Function to handle removing item from cart
-    // Function to handle removing item from cart
     const handleRemoveItem = async (productId: number) => {
         try {
             await axios.delete(`http://localhost:8000/cart/item/remove/${productId}/`);
@@ -103,26 +102,31 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
                     </div>
                 </div>
                 <div className={classes.cartModal__content}>
-                    <div className={classes.cartModal__productList}>
-                        {products.map(product => (
-                            <div className={classes.cartModal__product} key={product.id}>
-                                <img src="https://via.placeholder.com/50" alt="" className={classes.cartModal__productImage} />
-                                <div className={classes.cartModal__productDetails}>
-                                    <h3>{product.name}</h3>
-                                    <p>{product.description}</p>
-                                    <div className={classes.cartModal__quantity}>
-                                        <button onClick={() => handleQuantityChange(product.id, product.quantity - 1)}>-</button>
-                                        <span>{product.quantity}</span>
-                                        <button onClick={() => handleQuantityChange(product.id, product.quantity + 1)}>+</button>
+                    {products.length === 0 ? (
+                        <p>No items in cart</p>
+                    ) : (
+                        <div className={classes.cartModal__productList}>
+                            {products.map(product => (
+                                <div className={classes.cartModal__product} key={product.id}>
+                                    <img src="https://via.placeholder.com/50" alt="" className={classes.cartModal__productImage} />
+                                    <div className={classes.cartModal__productDetails}>
+                                        <h3>{product.name}</h3>
+                                        <p>{product.description}</p>
+                                        <div className={classes.cartModal__quantity}>
+                                            <button onClick={() => handleQuantityChange(product.id, product.quantity - 1)}>-</button>
+                                            <span>{product.quantity}</span>
+                                            <button onClick={() => handleQuantityChange(product.id, product.quantity + 1)}>+</button>
+                                        </div>
+                                        <button className={classes.cartModal__removeBtn} onClick={() => handleRemoveItem(product.id)}>Remove</button>
                                     </div>
-                                    <button className={classes.cartModal__removeBtn} onClick={() => handleRemoveItem(product.id)}>Remove</button>
+                                    <div className={classes.cartModal__productPrice}>
+                                        ${(product.total_price * product.quantity).toFixed(2)}
+                                        ${product.total_price}
+                                    </div>
                                 </div>
-                                <div className={classes.cartModal__productPrice}>
-                                    ${(product.total_price * product.quantity).toFixed(2)}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
                 <textarea
                     className={classes.cartModal__notes}

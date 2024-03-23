@@ -5,6 +5,8 @@ interface Product {
   price: number;
   image: string;
   stock: boolean;
+  quantity: number;
+  total_price: number;
 }
 
 export default Product;
