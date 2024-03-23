@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import classes from './CartModal.module.scss';
+import axios from 'axios';
 
 interface Product {
     id: number;
@@ -14,37 +16,37 @@ interface CartModalProps {
 }
 
 const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
-    const [products, setProducts] = useState<Product[]>([
-        { id: 1, name: 'Product 1', description: 'Description of Product 1', price: 10.00, quantity: 1 },
-        { id: 2, name: 'Product 2', description: 'Description of Product 2', price: 15.00, quantity: 1 },
-        { id: 3, name: 'Product 3', description: 'Description of Product 3', price: 20.00, quantity: 1 },
-        { id: 4, name: 'Product 4', description: 'Description of Product 4', price: 5.00, quantity: 1 },
-        { id: 5, name: 'Product 5', description: 'Description of Product 5', price: 8.00, quantity: 1 },
-        { id: 6, name: 'Product 6', description: 'Description of Product 6', price: 20.99, quantity: 1 },
-    ]);
+    const [products, setProducts] = useState<Product[]>([]);
+    const [subtotal, setSubtotal] = useState(0);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchCartItems = async () => {
+            try {
+                const response = await axios.get('/api/cart/items/');
+                setProducts(response.data);
+                calculateSubtotal(response.data);
+            } catch (error) {
+                console.error('Error fetching cart items:', error);
+            }
+        };
+
+        fetchCartItems();
+    }, []);
+
+    const calculateSubtotal = (cartItems: Product[]) => {
+        const total = cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+        setSubtotal(total);
+    };
 
     const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
     };
 
-    const increaseQuantity = (productId: number) => {
-        setProducts(prevProducts =>
-            prevProducts.map(product =>
-                product.id === productId ? { ...product, quantity: product.quantity + 1 } : product
-            )
-        );
+    const handleCheckout = () => {
+        navigate('/checkout');
     };
-
-    const decreaseQuantity = (productId: number) => {
-        setProducts(prevProducts =>
-            prevProducts.map(product =>
-                product.id === productId && product.quantity > 1 ? { ...product, quantity: product.quantity - 1 } : product
-            )
-        );
-    };
-
-    // Calculate subtotal and total price
-    const subtotal = products.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
 
     return (
         <div className={`${classes.overlay} ${classes.open}`} onClick={closeModal}>
@@ -54,7 +56,7 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
                     {/* Close icon */}
                     <div className={classes.cartModal__closeBtn} onClick={closeModal}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"/>
+                            <path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z" />
                         </svg>
                     </div>
                 </div>
@@ -68,9 +70,9 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
                                     <h3>{product.name}</h3>
                                     <p>{product.description}</p>
                                     <div className={classes.cartModal__quantity}>
-                                        <button onClick={() => decreaseQuantity(product.id)}>-</button>
+                                        <button>-</button>
                                         <span>{product.quantity}</span>
-                                        <button onClick={() => increaseQuantity(product.id)}>+</button>
+                                        <button>+</button>
                                     </div>
                                     <button className={classes.cartModal__removeBtn}>Remove</button>
                                 </div>
@@ -97,7 +99,7 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
                             Shipping & taxes calculated at checkout
                         </div>
                         {/* Checkout button */}
-                        <button className={classes.cartModal__checkoutBtn}>Checkout</button>
+                        <button className={classes.cartModal__checkoutBtn} onClick={handleCheckout}>Checkout</button>
                     </div>
                 </div>
             </div>

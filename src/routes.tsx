@@ -10,7 +10,8 @@ import Profile from './pages/Profile/UserProfile';
 import ProductCreatePage from './pages/Product/ProductCreatePage';
 import { CartProvider } from '../src/components/Shop/CartContext';
 import ProductDetailsPage from '../src/pages/Product/ProductDetailsPage';
-import Rewards from './pages/Rewards/Rewards'; // Import Rewards component
+import Rewards from './pages/Rewards/Rewards';
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage'; // Import Rewards component
 
 const AppRoutes: React.FC = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -26,10 +27,11 @@ const AppRoutes: React.FC = () => {
         <Route path="/about" element={<About />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/reviews" element={<Reviews />} />
-        <Route path="/shopping-cart" element={<ShoppingCart />} />
+        <Route path="/cart" element={<ShoppingCart />} />
         <Route path="/api/login" element={<LoginPage onLogin={handleLogin} />} />
         <Route path="/api/product/:id" element={<ProductDetailsPage />} />
         <Route path="/rewards" element={<Rewards />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
         <Route
           path="/profile"
           element={isLoggedIn ? <Profile /> : <Navigate to="/api/login" state={{ from: '/profile' }} replace />}
