@@ -6,10 +6,10 @@ import api from "../../services/api";
 export interface Product {
   id: number;
   name: string;
+  description?: string;
   price: number;
-  image?: string;
-  quantity?: number;
-  total_price?: number; // Add total_price property
+  quantity: number;
+  total_price: number; // Add total_price property
 }
 
 // Define the CartContextProps interface

@@ -5,11 +5,18 @@ import axios from 'axios';
 
 interface Product {
     id: number;
-    name: string;
-    description: string;
-    price: number;
+    product: {
+        id: number;
+        name: string;
+        description: string;
+        price: number;
+        stock: boolean;
+        image: string;
+        quantity: number;
+    };
     quantity: number;
     total_price: number;
+    created_at: string;
 }
 
 interface CartModalProps {
@@ -107,28 +114,27 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
                         <p>No items in cart</p>
                     ) : (
                         <div className={classes.cartModal__productList}>
-                            {products.map(product => (
-                                <div className={classes.cartModal__product} key={product.id}>
-                                    <img src="https://via.placeholder.com/50" alt="" className={classes.cartModal__productImage} />
-                                    <div className={classes.cartModal__productDetails}>
-                                        {/* Make sure to display name and price */}
-                                        <h3>{product.name}</h3>
-                                        <p>{product.description}</p>
-                                        <div className={classes.cartModal__quantity}>
-                                            <button onClick={() => handleQuantityChange(product.id, product.quantity - 1)}>-</button>
-                                            <span>{product.quantity}</span>
-                                            <button onClick={() => handleQuantityChange(product.id, product.quantity + 1)}>+</button>
-                                        </div>
-                                        <button className={classes.cartModal__removeBtn} onClick={() => handleRemoveItem(product.id)}>Remove</button>
+                        {products.map(item => (
+                            <div className={classes.cartModal__product} key={item.id}>
+                                <img src={item.product.image} alt="" className={classes.cartModal__productImage} />
+                                <div className={classes.cartModal__productDetails}>
+                                    {/* Display the product name */}
+                                    <h3 className={classes.productName}>{item.product.name}</h3>
+                                    <div className={classes.cartModal__quantity}>
+                                        <button onClick={() => handleQuantityChange(item.id, item.quantity - 1)}>-</button>
+                                        <span>{item.quantity}</span>
+                                        <button onClick={() => handleQuantityChange(item.id, item.quantity + 1)}>+</button>
                                     </div>
-                                    <div className={classes.cartModal__productPrice}>
-                                        {/* Ensure total_price and quantity are correctly calculated */}
-                                        ${(product.total_price * product.quantity).toFixed(2)}
-                                    </div>
+                                    <button className={classes.cartModal__removeBtn} onClick={() => handleRemoveItem(item.id)}>Remove</button>
                                 </div>
-                            ))}
-
-                        </div>
+                                <div className={classes.cartModal__productPrice}>
+                                    {/* Display the total price */}
+                                    ${(item.total_price).toFixed(2)}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    
                     )}
                 </div>
                 <textarea
