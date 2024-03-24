@@ -115,7 +115,7 @@ const CheckoutPage: React.FC = () => {
                                 </div>
                                 <div className="total">
                                     <span>Total:</span>
-                                    <span>USD ${subtotal.toFixed(2)}</span>
+                                    <span>USD ${subtotal}</span>
                                 </div>
                             </div>
                         </div>
