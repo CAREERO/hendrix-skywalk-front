@@ -26,7 +26,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
       console.log("Username:", username);
       console.log("Password:", password);
       const response = await axios.post(
-        process.env.REACT_APP_API_URL + '/account/login/', // Use environment variable for API URL
+        `${process.env.REACT_APP_API_URL}/account/login/`,
         { username, password },
         {
           headers: {
@@ -126,7 +126,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
             >
               &times; Close
             </span>
-            <RegistrationForm onClose={closeRegisterModal} onRegister={handleRegistration} />
+            <RegistrationForm
+              onClose={closeRegisterModal}
+              onRegister={handleRegistration}
+            />
           </div>
         </div>
       )}
