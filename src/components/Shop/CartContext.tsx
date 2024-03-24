@@ -29,7 +29,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Function to add a product to the cart
   const addToCart = async (productId: number, quantity: number) => {
     try {
-      const response = await api.post(`http://localhost:8000/cart/add/${productId}/`, {
+      const response = await api.post(`http://54.146.118.222:8000/cart/add/${productId}/`, {
         quantity: quantity
       });
       if (response.data.message === "Item added to cart") {

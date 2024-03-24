@@ -3,15 +3,24 @@ import './CheckoutPage.scss';
 import { FaChevronLeft } from 'react-icons/fa';
 import axios from 'axios';
 
-interface CartItem {
+interface Product {
     id: number;
-    name: string;
-    image: string;
-    price: number;
+    product: {
+        id: number;
+        name: string;
+        description: string;
+        price: number;
+        stock: boolean;
+        image: string;
+        quantity: number;
+    };
+    quantity: number;
+    total_price: number;
+    created_at: string;
 }
 
 const CheckoutPage: React.FC = () => {
-    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const [cartItems, setCartItems] = useState<Product[]>([]);
     const [subtotal, setSubtotal] = useState<number>(0);
 
     useEffect(() => {
@@ -28,8 +37,8 @@ const CheckoutPage: React.FC = () => {
         fetchCartItems();
     }, []);
 
-    const calculateSubtotal = (items: CartItem[]) => {
-        const total = items.reduce((acc: number, curr: CartItem) => acc + curr.price, 0);
+    const calculateSubtotal = (items: Product[]) => {
+        const total = items.reduce((acc: number, curr: Product) => acc + curr.total_price, 0);
         setSubtotal(total);
     };
 
@@ -85,12 +94,11 @@ const CheckoutPage: React.FC = () => {
                             <hr />
                             <div className="product-summary">
                                 <div className="new-product-list">
-                                    {cartItems.map((item: CartItem) => (
-                                        <div key={item.id} className="product-item">
-                                            <img src={item.image} alt="" className="cartModal__productImage" />
-                                            <span>{item.name}</span>
-                                            <span>${item.price}</span>
-                                            <span>{item.id}</span>
+                                    {cartItems.map((item: Product) => (
+                                        <div key={item.id} className="product-item-summary">
+                                            <img src={`http://54.146.118.222:8000${item.product.image}`} alt="" className="cartModal__productImage" />
+                                            <span>{item.product.name}</span>
+                                            <span>${item.product.price}</span>
                                         </div>
                                     ))}
                                 </div>
