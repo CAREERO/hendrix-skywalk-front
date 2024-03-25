@@ -81,3 +81,10 @@ button {
   border: none;
   background-color: #ffcc18;
 }
+
+button.shop-button {
+  display: flex;
+  position: absolute;
+  bottom: 23rem;
+  right: 21rem;
+}

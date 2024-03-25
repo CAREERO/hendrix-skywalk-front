@@ -116,7 +116,7 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
                         <div className={classes.cartModal__productList}>
                         {products.map(item => (
                             <div className={classes.cartModal__product} key={item.id}>
-                                <img src={`${item.product.image}`} alt="" className={classes.cartModal__productImage} />
+                                <img src={`http://localhost:8000${item.product.image}`} alt="" className={classes.cartModal__productImage} />
                                 <div className={classes.cartModal__productDetails}>
                                     {/* Display the product name */}
                                     <h3 className={classes.productName}>{item.product.name}</h3>

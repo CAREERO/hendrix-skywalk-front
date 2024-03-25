@@ -1274,6 +1274,13 @@ iframe {
     left: 25px;
   }
 
+  button.shop-button {
+    display: flex;
+    position: absolute;
+    bottom: 23rem;
+    right: 21rem;
+  }
+
   .gif-container {
     top: 30rem;
     display: flex;
