@@ -71,6 +71,15 @@ const CheckoutPage: React.FC = () => {
         navigate('/payment', { state: { selectedShippingOption: shippingOption } }); // Pass selectedShippingOption as state
     };
 
+    const handleReturnInfo = () => {
+        setShowShippingForm(true); // Show the hidden information form
+        setShippingOption(''); // Clear the selected shipping option
+    };
+
+    const handleReturnCart = () => {
+        navigate("/cart");
+    };
+
 
     const handleShippingOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedOption = event.target.value;
@@ -101,17 +110,17 @@ const CheckoutPage: React.FC = () => {
                                         <label className='subscribed'><input className='subscribed-checkbox' type="checkbox" /><p className='subscribed-text'>Email me with news and offers</p></label>
                                     </div>
                                     <div className="shipping-address">
+                                        <input type="text" placeholder="First Name" required />
+                                        <input type="text" placeholder="Last Name" required />
+                                        <input type="text" placeholder="Company (optional)" />
+                                        <input type="text" placeholder="Address" required />
+                                        <input type="text" placeholder="Apartment, suite, etc. (optional)" />
                                         <select>
                                             <option>Country/Region</option>
                                             {countries.sort().map((country, index) => (
                                                 <option key={index}>{country}</option>
                                             ))}
                                         </select>
-                                        <input type="text" placeholder="First Name" required />
-                                        <input type="text" placeholder="Last Name" required />
-                                        <input type="text" placeholder="Company (optional)" />
-                                        <input type="text" placeholder="Address" required />
-                                        <input type="text" placeholder="Apartment, suite, etc. (optional)" />
                                         <div className="city-state-zip">
                                             <input type="text" placeholder="City" required />
                                             <input type="text" placeholder="State" required />
@@ -120,7 +129,7 @@ const CheckoutPage: React.FC = () => {
                                         <input type="tel" placeholder="Phone" required />
                                     </div>
                                     <div className="checkout-navigation">
-                                        <button><FaChevronLeft /> Return to Cart</button>
+                                        <button className='return-btn' type="button" onClick={handleReturnCart}><FaChevronLeft /> Return to Cart</button>
                                         <button type="button" onClick={handleContinueShipping}>Continue Shipping</button>
                                     </div>
                                 </form>
@@ -128,17 +137,18 @@ const CheckoutPage: React.FC = () => {
                         )}
                         {!showShippingForm && (
                             <div className="shipping-options">
-                                <h2>Shipping Options</h2>
+                                <h2 className='shipping-header'>Shipping Options</h2>
                                 <hr />
                                 <div className="options">
-                                    <select onChange={handleShippingOptionChange} value={shippingOption}>
+                                    <h2 className='delivery-label'>Delivery:</h2>
+                                    <select className='shipping-dropdown' onChange={handleShippingOptionChange} value={shippingOption}>
                                         <option value="">Select Shipping Option</option>
-                                        <option value="standard">Standard Delivery</option>
-                                        <option value="express">Express Delivery</option>
+                                        <option value="standard">Standard Delivery - $5.00</option>
+                                        <option value="express">Express Delivery - $15.00</option>
                                     </select>
                                     <div className="shipping-navigation">
-                                        <button><FaChevronLeft /> Return to Information</button>
-                                        <button type="button" onClick={handleContinuePayment}>Continue Payment</button>
+                                        <button className='return-btn' type="button" onClick={handleReturnInfo}><FaChevronLeft /> Return to Information</button>
+                                        <button className='continue-btn' type="button" onClick={handleContinuePayment}>Continue Payment</button>
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +180,7 @@ const CheckoutPage: React.FC = () => {
                             <div className="fixed-section">
                                 <div className="subtotal">
                                     <span>Subtotal:</span>
-                                    <span>${(subtotal).toFixed(2)}</span>
+                                    <span>${(subtotal + shippingPrice).toFixed(2)}</span>
                                 </div>
                                 <div className="shipping-info">
                                     <span>Shipping:</span>
