@@ -75,7 +75,7 @@ const ShoppingCart: React.FC = () => {
                         cart.map((item: Product) => (
                             <div key={item.id} className="cart-item">
                                 <div className="item-info">
-                                    <img src={`http://localhost:8000${item.image}`} alt={item.name} className="item-image" />
+                                    <img src={`${item.image}`} alt={item.name} className="item-image" />
                                     <div className="item-details">
                                         <h3 className="item-name">{item.name}</h3>
                                     </div>

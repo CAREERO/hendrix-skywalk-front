@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './productList.scss';
-import ProductCard from '../../ProductCard/ProductCard';
-import { useCart } from '../CartContext';
-import Product from '../../../services/Product';
+import ProductCard from '../ProductCard/ProductCard';
+import { useCart } from '../Shop/CartContext';
+import Product from '../../services/Product';
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);

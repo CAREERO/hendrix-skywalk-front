@@ -30,10 +30,10 @@ const AppRoutes: React.FC = () => {
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/cart" element={<ShoppingCart />} />
         <Route path="/api/login" element={<LoginPage onLogin={handleLogin} />} />
-        <Route path="/api/product/:id" element={<ProductDetailsPage />} />
         <Route path="/rewards" element={<Rewards />} />
         <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/payment" element={<PaymentPage />} /> {/* Add the route for the payment page */}
+        <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/api/product/:id" element={<ProductDetailsPage />} />
         <Route
           path="/profile"
           element={isLoggedIn ? <Profile /> : <Navigate to="/api/login" state={{ from: '/profile' }} replace />}

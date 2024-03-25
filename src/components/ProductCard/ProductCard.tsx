@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './productCard.scss';
 
 interface Product {
@@ -16,9 +17,15 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
 
-  const handleAddToCart = () => {
-    addToCart(product);
+  const handleProductClick = () => {
+    navigate(`/api/product/${product.id}`); // Navigate to product details page
+  };
+
+  const handleAddToCart = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.stopPropagation(); // Prevent the click event from bubbling up to the product card
+    addToCart(product); // Add the product to the cart
   };
 
   return (
@@ -26,8 +33,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
       className={`product-item ${isHovered ? 'hovered' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleProductClick}
     >
-      <img className="product-image" src={`http://localhost:8000${product.image}`} alt={`Product ${product.id}`} />
+      <img className="product-image" src={product.image} alt={`Product ${product.id}`} />
       <div className="product-details">
         <h3>{product.name}</h3>
         <p>{product.description}</p>
