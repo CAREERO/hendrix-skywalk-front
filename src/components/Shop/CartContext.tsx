@@ -1,6 +1,6 @@
 // CartContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import api from "../../services/api";
+import axios from 'axios';
 
 // Define the Product type
 export interface Product {
@@ -9,14 +9,15 @@ export interface Product {
   description?: string;
   price: number;
   quantity: number;
-  total_price: number; // Add total_price property
+  total_price: number;
+  image: string;
 }
 
 // Define the CartContextProps interface
 interface CartContextProps {
   cart: Product[];
-  addToCart: (productId: number, quantity: number) => Promise<void>;
-  removeFromCart: (product: Product) => void;
+  addToCart: (productId: number, quantity: number) => Promise<void>; // Include addToCart function
+  fetchCartItems: () => Promise<void>;
 }
 
 // Create the CartContext
@@ -25,21 +26,23 @@ const CartContext = createContext<CartContextProps | undefined>(undefined);
 // Create the CartProvider component
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<Product[]>([]);
+  const [fetched, setFetched] = useState(false); // Flag to track whether data has been fetched or not
 
   // Function to add a product to the cart
   const addToCart = async (productId: number, quantity: number) => {
     try {
-      const response = await api.post(`http://54.146.118.222:8000/cart/add/${productId}/`, {
+      const response = await axios.post(`http://localhost:8000/cart/add/${productId}/`, {
         quantity: quantity
       });
       if (response.data.message === "Item added to cart") {
         // Update the local cart state with the added product
         const addedProduct: Product = {
           id: productId,
-          name: response.data.name, // Include the name property
+          name: response.data.name,
           quantity: quantity,
-          price: response.data.price, // Assuming the price is returned in the response
-          total_price: response.data.price * quantity // Calculate the total price
+          price: response.data.price,
+          total_price: response.data.price * quantity,
+          image: response.data.image
         };
         setCart(prevCart => [...prevCart, addedProduct]);
       }
@@ -48,29 +51,34 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
-  // Function to remove a product from the cart
-  const removeFromCart = (product: Product) => {
-    // Filter out the product from the cart
-    const updatedCart = cart.filter((item) => item.id !== product.id);
-    setCart(updatedCart);
+  // Function to fetch cart items
+  const fetchCartItems = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/cart/items/');
+      const cartItems: Product[] = response.data.map((item: any) => ({
+        id: item.product.id,
+        name: item.product.name,
+        description: item.product.description,
+        price: item.product.price,
+        quantity: item.quantity,
+        total_price: item.total_price,
+        image: item.product.image
+      }));
+      setCart(cartItems);
+      setFetched(true); // Set the flag to true after fetching data
+    } catch (error) {
+      console.error('Error fetching cart items:', error);
+    }
   };
 
-  // Load cart data from localStorage on component mount
   useEffect(() => {
-    const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-      setCart(JSON.parse(storedCart));
+    if (!fetched) { // Fetch data only if it hasn't been fetched before
+      fetchCartItems();
     }
-  }, []);
+  }, [fetched]); // Fetch data whenever the fetched flag changes
 
-  // Save cart data to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
-
-  // Provide the cart data and functions to children components
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart, addToCart, fetchCartItems }}>
       {children}
     </CartContext.Provider>
   );
