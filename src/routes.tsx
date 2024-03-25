@@ -11,7 +11,8 @@ import ProductCreatePage from './pages/Product/ProductCreatePage';
 import { CartProvider } from '../src/components/Shop/CartContext';
 import ProductDetailsPage from '../src/pages/Product/ProductDetailsPage';
 import Rewards from './pages/Rewards/Rewards';
-import CheckoutPage from './pages/CheckoutPage/CheckoutPage'; // Import Rewards component
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
+import PaymentPage from './pages/PaymentPage/PaymentPage'; // Import PaymentPage component
 
 const AppRoutes: React.FC = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -32,6 +33,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/api/product/:id" element={<ProductDetailsPage />} />
         <Route path="/rewards" element={<Rewards />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/payment" element={<PaymentPage />} /> {/* Add the route for the payment page */}
         <Route
           path="/profile"
           element={isLoggedIn ? <Profile /> : <Navigate to="/api/login" state={{ from: '/profile' }} replace />}
@@ -46,8 +48,6 @@ const AppRoutes: React.FC = () => {
             )
           }
         />
-        {/* Add the route for the rewards page */}
-
       </Routes>
     </CartProvider>
   );

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './CheckoutPage.scss';
 import { FaChevronLeft } from 'react-icons/fa';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 interface Product {
     id: number;
@@ -22,6 +23,11 @@ interface Product {
 const CheckoutPage: React.FC = () => {
     const [cartItems, setCartItems] = useState<Product[]>([]);
     const [subtotal, setSubtotal] = useState<number>(0);
+    const [countries, setCountries] = useState<string[]>([]);
+    const [showShippingForm, setShowShippingForm] = useState<boolean>(true);
+    const [shippingOption, setShippingOption] = useState<string>('');
+    const [shippingPrice, setShippingPrice] = useState<number>(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCartItems = async () => {
@@ -37,49 +43,106 @@ const CheckoutPage: React.FC = () => {
         fetchCartItems();
     }, []);
 
+    useEffect(() => {
+        const fetchCountries = async () => {
+            try {
+                const response = await fetch('https://restcountries.com/v3.1/all');
+                const data = await response.json();
+                const countryNames = data.map((country: any) => country.name.common);
+                setCountries(countryNames);
+            } catch (error) {
+                console.error('Error fetching countries:', error);
+            }
+        };
+
+        fetchCountries();
+    }, []);
+
     const calculateSubtotal = (items: Product[]) => {
         const total = items.reduce((acc: number, curr: Product) => acc + curr.total_price, 0);
         setSubtotal(total);
     };
 
+    const handleContinueShipping = () => {
+        setShowShippingForm(false);
+    };
+
+    const handleContinuePayment = () => {
+        navigate('/payment', { state: { selectedShippingOption: shippingOption } }); // Pass selectedShippingOption as state
+    };
+
+
+    const handleShippingOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedOption = event.target.value;
+        setShippingOption(selectedOption);
+        // Set shipping price based on the selected option
+        if (selectedOption === 'standard') {
+            setShippingPrice(5);
+        } else if (selectedOption === 'express') {
+            setShippingPrice(15);
+        }
+    };
     return (
         <>
             <section className='checkout-page-main'>
                 <div className="checkout-container">
                     <div className="left-section">
-                        <h2>Shipping Address and Details</h2>
-                        <hr />
-                        <div className="contact-info">
-                            <p>Contact:</p>
-                            <button>Login</button>
-                        </div>
-                        <form className="checkout-form">
-                            <div className="email-checkbox">
-                                <input type="email" placeholder="Email" required />
-                                <label className='subscribed'><input className='subscribed-checkbox' type="checkbox" /><p className='subscribed-text'>Email me with news and offers</p></label>
-                            </div>
-                            <div className="shipping-address">
-                                <select>
-                                    <option>Country/Region</option>
-                                    {/* Add country options here */}
-                                </select>
-                                <input type="text" placeholder="First Name" required />
-                                <input type="text" placeholder="Last Name" required />
-                                <input type="text" placeholder="Company (optional)" />
-                                <input type="text" placeholder="Address" required />
-                                <input type="text" placeholder="Apartment, suite, etc. (optional)" />
-                                <div className="city-state-zip">
-                                    <input type="text" placeholder="City" required />
-                                    <input type="text" placeholder="State" required />
-                                    <input type="text" placeholder="ZIP Code" required />
+                        {showShippingForm && (
+                            <>
+                                <h2>Shipping Address and Details</h2>
+                                <hr />
+                                <div className="contact-info">
+                                    <p>Contact:</p>
+                                    <button>Login</button>
                                 </div>
-                                <input type="tel" placeholder="Phone" required />
+                                <form className="checkout-form">
+                                    <div className="email-checkbox">
+                                        <input type="email" placeholder="Email" required />
+                                        <label className='subscribed'><input className='subscribed-checkbox' type="checkbox" /><p className='subscribed-text'>Email me with news and offers</p></label>
+                                    </div>
+                                    <div className="shipping-address">
+                                        <select>
+                                            <option>Country/Region</option>
+                                            {countries.sort().map((country, index) => (
+                                                <option key={index}>{country}</option>
+                                            ))}
+                                        </select>
+                                        <input type="text" placeholder="First Name" required />
+                                        <input type="text" placeholder="Last Name" required />
+                                        <input type="text" placeholder="Company (optional)" />
+                                        <input type="text" placeholder="Address" required />
+                                        <input type="text" placeholder="Apartment, suite, etc. (optional)" />
+                                        <div className="city-state-zip">
+                                            <input type="text" placeholder="City" required />
+                                            <input type="text" placeholder="State" required />
+                                            <input type="text" placeholder="ZIP Code" required />
+                                        </div>
+                                        <input type="tel" placeholder="Phone" required />
+                                    </div>
+                                    <div className="checkout-navigation">
+                                        <button><FaChevronLeft /> Return to Cart</button>
+                                        <button type="button" onClick={handleContinueShipping}>Continue Shipping</button>
+                                    </div>
+                                </form>
+                            </>
+                        )}
+                        {!showShippingForm && (
+                            <div className="shipping-options">
+                                <h2>Shipping Options</h2>
+                                <hr />
+                                <div className="options">
+                                    <select onChange={handleShippingOptionChange} value={shippingOption}>
+                                        <option value="">Select Shipping Option</option>
+                                        <option value="standard">Standard Delivery</option>
+                                        <option value="express">Express Delivery</option>
+                                    </select>
+                                    <div className="shipping-navigation">
+                                        <button><FaChevronLeft /> Return to Information</button>
+                                        <button type="button" onClick={handleContinuePayment}>Continue Payment</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="checkout-navigation">
-                                <button><FaChevronLeft /> Return to Cart</button>
-                                <button type="submit">Continue Shipping</button>
-                            </div>
-                        </form>
+                        )}
                         <div className="links-section">
                             <button>Refund Policy</button>
                             <button>Privacy Policy</button>
@@ -96,7 +159,7 @@ const CheckoutPage: React.FC = () => {
                                 <div className="new-product-list">
                                     {cartItems.map((item: Product) => (
                                         <div key={item.id} className="product-item-summary">
-                                            <img src={`http://54.146.118.222:8000${item.product.image}`} alt="" className="cartModal__productImage" />
+                                            <img src={`http://localhost:8000${item.product.image}`} alt="" className="cartModal__productImage" />
                                             <span>{item.product.name}</span>
                                             <span>${item.product.price}</span>
                                         </div>
@@ -107,15 +170,15 @@ const CheckoutPage: React.FC = () => {
                             <div className="fixed-section">
                                 <div className="subtotal">
                                     <span>Subtotal:</span>
-                                    <span>${subtotal.toFixed(2)}</span>
+                                    <span>${(subtotal).toFixed(2)}</span>
                                 </div>
                                 <div className="shipping-info">
                                     <span>Shipping:</span>
-                                    <span>Calculated at next step</span>
+                                    <span>{shippingPrice ? `$${(shippingPrice).toFixed(2)}` : 'Shipping & taxes calculated at payment'}</span>
                                 </div>
                                 <div className="total">
                                     <span>Total:</span>
-                                    <span>USD ${subtotal}</span>
+                                    <span>USD ${(subtotal + shippingPrice).toFixed(2)}</span>
                                 </div>
                             </div>
                         </div>

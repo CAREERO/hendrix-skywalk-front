@@ -1,0 +1,92 @@
+section.payment-page-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(255, 123, 123);
+}
+
+.payment-container-1 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: rgb(255, 243, 77);
+  gap: 20px;
+  padding: 20px;
+  overflow: hidden;
+  height: calc(100vh - 40px);
+  width: 25%;
+}
+
+.payment-container-2 {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  overflow: hidden;
+  height: calc(100vh - 40px);
+  background: rgb(255, 250, 181);
+  width: 25%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.payment-container-3 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  overflow: hidden;
+  height: calc(100vh - 40px);
+  width: 25%;
+  background: rgb(255, 80, 80);
+  justify-content: center;
+}
+
+.scrollable-section {
+  overflow-y: auto; /* Add overflow-y: auto */
+  height: calc(
+    100% - 20px
+  ); /* Set a height that allows scrolling (checkout-container height - padding) */
+}
+
+.left-section {
+  width: 50%;
+}
+
+.payment-summary {
+  margin-bottom: 20px;
+}
+
+.new-payment-list {
+  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 300px; /* Set a maximum height for the product list */
+}
+
+.payment-item-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center vertically */
+  margin-bottom: 10px;
+}
+
+.payment-item-summary img {
+  width: 100px; /* Set width to 30px */
+  height: 100px; /* Set height to 30px */
+  margin-right: 10px; /* Add some margin for spacing */
+  margin-top: 10px;
+}
+
+.subtotal,
+.shipping-info,
+.total {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.subtotal span,
+.shipping-info span,
+.total span {
+  font-weight: bold;
+}

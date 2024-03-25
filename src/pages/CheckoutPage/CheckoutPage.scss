@@ -16,15 +16,15 @@ section.checkout-page-main {
 }
 
 .checkout-container-2 {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 20px;
-    overflow: hidden;
-    height: calc(100vh - 40px);
-    background: rgb(255, 250, 181);
-    width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  overflow: hidden;
+  height: calc(100vh - 40px);
+  background: rgb(255, 250, 181);
+  width: 80%;
 }
 
 .contact-info {
@@ -84,7 +84,7 @@ label.subscribed {
 label.subscribed {
   display: flex;
   position: relative;
-  right: 12rem;
+  right: 6rem;
 }
 
 .shipping-address {
@@ -178,4 +178,16 @@ label.subscribed {
 
 .fixed-section {
   margin: 15px;
+}
+
+.options {
+  width: 100%; // Set the width to 100% to fill the container
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  background-color: white; // Optional: Set background color
+  color: black; // Optional: Set text color
+  font-size: 16px; // Optional: Adjust font size
+  // Add any additional styling here...
 }

@@ -1,0 +1,43 @@
+.saved-cards-container {
+  .saved-cards-heading {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .saved-card-item {
+    border: 1px solid #c6ace7;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .saved-card-details {
+    .card-buttons {
+      display: flex;
+      align-items: center;
+      margin-top: 1rem;
+
+      .card-button {
+        border: none;
+        background-color: transparent;
+        color: #007bff;
+        cursor: pointer;
+        margin-right: 0.5rem;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .edit-card-button {
+        cursor: pointer;
+        margin-left: auto;
+        padding: 0.5rem;
+
+        .edit-card-icon {
+          font-size: 1.5rem;
+          color: #333;
+        }
+      }
+    }
+  }
+}
