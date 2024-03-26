@@ -29,14 +29,14 @@ const AppRoutes: React.FC = () => {
         <Route path="/shop" element={<Shop />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/cart" element={<ShoppingCart />} />
-        <Route path="/api/login" element={<LoginPage onLogin={handleLogin} />} />
+        <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
         <Route path="/rewards" element={<Rewards />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/payment" element={<PaymentPage />} />
-        <Route path="/api/product/:id" element={<ProductDetailsPage />} />
+        <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route
           path="/profile"
-          element={isLoggedIn ? <Profile /> : <Navigate to="/api/login" state={{ from: '/profile' }} replace />}
+          element={isLoggedIn ? <Profile /> : <Navigate to="/login" state={{ from: '/profile' }} replace />}
         />
         <Route
           path="/productCreate"
@@ -44,7 +44,7 @@ const AppRoutes: React.FC = () => {
             isLoggedIn ? (
               <ProductCreatePage />
             ) : (
-              <Navigate to="/api/login" state={{ from: '/productCreate' }} replace />
+              <Navigate to="/login" state={{ from: '/productCreate' }} replace />
             )
           }
         />

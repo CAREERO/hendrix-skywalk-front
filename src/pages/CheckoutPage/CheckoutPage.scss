@@ -185,7 +185,7 @@ label.subscribed {
   display: flex;
   align-items: center;
   position: absolute;
-  margin: 10px;
+  margin: 20px;
 }
 
 .shipping-header {
@@ -200,15 +200,16 @@ label.subscribed {
   font-size: 16px;
 }
 
-select .shipping-dropdown {
+select.shipping-dropdown {
   display: flex;
-  padding: 10px;
-  border-radius: 10px;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
+  padding: 15px;
+  margin-left: 14rem;
+  border-radius: 5px;
+  margin-top: 5px;
   margin-bottom: 10px;
-  margin-left: 14.5rem;
 }
 
 button.return-btn {
