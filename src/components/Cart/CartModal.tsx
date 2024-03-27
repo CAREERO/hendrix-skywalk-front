@@ -31,7 +31,7 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/cart/items/');
+                const response = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/cart/items/`);
                 console.log('Response data:', response.data); // Log response data
                 // Check if products array is empty
                 if (response.data.length === 0) {
@@ -76,7 +76,7 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
             setProducts(updatedProducts);
 
             // Send PUT request to update quantity on the server
-            await axios.put(`http://localhost:8000/cart/items/update/${productId}/`, { quantity: newQuantity });
+            await axios.put(`${process.env.REACT_APP_API_BASE_PROD}/cart/items/update/${productId}/`, { quantity: newQuantity });
             // Rest of the code...
         } catch (error) {
             console.error('Error updating product quantity:', error);
@@ -86,7 +86,7 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
     // Function to handle removing item from cart
     const handleRemoveItem = async (productId: number) => {
         try {
-            await axios.delete(`http://localhost:8000/cart/item/remove/${productId}/`);
+            await axios.delete(`${process.env.REACT_APP_API_BASE_PROD}/cart/item/remove/${productId}/`);
             const removedProduct = products.find(product => product.id === productId);
             if (removedProduct) {
                 const updatedProducts = products.filter(product => product.id !== productId);
@@ -116,7 +116,7 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
                         <div className={classes.cartModal__productList}>
                         {products.map(item => (
                             <div className={classes.cartModal__product} key={item.id}>
-                                <img src={`http://localhost:8000${item.product.image}`} alt="" className={classes.cartModal__productImage} />
+                                <img src={`${process.env.REACT_APP_API_BASE_PROD}${item.product.image}`} alt="" className={classes.cartModal__productImage} />
                                 <div className={classes.cartModal__productDetails}>
                                     {/* Display the product name */}
                                     <h3 className={classes.productName}>{item.product.name}</h3>

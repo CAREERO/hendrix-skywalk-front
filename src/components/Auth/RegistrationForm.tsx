@@ -43,7 +43,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
       console.log("Sending registration request with data:", userData);
 
       const response = await axios.post(
-        `http://54.146.118.222:8000/account/register/`,
+        `${process.env.REACT_APP_API_BASE_PROD}/account/register/`,
         userData,
         {
           headers: {

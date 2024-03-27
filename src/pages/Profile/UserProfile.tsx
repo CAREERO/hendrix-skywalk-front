@@ -2,14 +2,21 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 
-const UserProfile = () => {
-  const [profile, setProfile] = useState({});
+interface Profile {
+  username: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+}
+
+const UserProfile: React.FC = () => {
+  const [profile, setProfile] = useState<Profile | null>(null); // Change the initial state to null
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await api.get(`http://54.146.118.222:8000/accounts/profile/`);
+        const response = await api.get<Profile>(`${process.env.REACT_APP_API_BASE_PROD}/accounts/profile/`);
         setProfile(response.data);
         setLoading(false);
       } catch (error) {
@@ -21,7 +28,7 @@ const UserProfile = () => {
     fetchUserProfile();
   }, []);
 
-  if (loading) {
+  if (loading || profile === null) { // Add null check for profile
     return <div>Loading...</div>;
   }
 
