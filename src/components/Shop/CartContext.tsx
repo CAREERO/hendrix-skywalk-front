@@ -16,7 +16,7 @@ export interface Product {
 // Define the CartContextProps interface
 interface CartContextProps {
   cart: Product[];
-  addToCart: (productId: number, quantity: number) => Promise<void>; // Include addToCart function
+  addToCart: (productId: number, quantity: number) => Promise<void>; 
   fetchCartItems: () => Promise<void>;
 }
 
