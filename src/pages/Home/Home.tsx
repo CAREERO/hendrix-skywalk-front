@@ -31,7 +31,7 @@ const HomePage = () => {
   }, []);
 
   const handleShopClick = () => {
-    navigate("shop"); // Navigate to Shop Page
+    navigate("/shop"); // Navigate to Shop Page
   };
 
   return (
@@ -46,7 +46,6 @@ const HomePage = () => {
               title="Embedded Video"
               src="https://streamable.com/e/yeuk3h?autoplay=1&muted=1&nocontrols=1"
               allow="fullscreen;autoplay"
-              allowFullScreen
               ref={videoRef}
               style={{
                 border: "none",
