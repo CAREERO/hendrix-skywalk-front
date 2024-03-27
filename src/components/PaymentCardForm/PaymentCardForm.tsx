@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaLock } from "react-icons/fa";
 import styles from "../PaymentCardForm/PaymentCardForm.module.scss";
 
-interface PaymentCardFormProps {
+export interface PaymentCardFormProps {
   onSaveCard: (formData: FormData) => void;
   showCardDetails?: () => void;
   payWithSavedCard: () => void;
@@ -20,6 +20,8 @@ interface FormData {
   cvc: string;
   saveCard: boolean;
 }
+
+
 
 const PaymentCardForm: React.FC<PaymentCardFormProps> = ({
   onSaveCard,

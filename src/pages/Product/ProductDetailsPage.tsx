@@ -26,7 +26,7 @@ const ProductDetailsPage: React.FC = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await api.get(`http://localhost:8000/api/product/${id}/`);
+        const response = await api.get(`${process.env.REACT_APP_API_BASE_PROD}/api/product/${id}/`);
         setProduct(response.data);
         setIsLoading(false); // Set loading state to false after data is fetched
       } catch (error) {
@@ -40,7 +40,7 @@ const ProductDetailsPage: React.FC = () => {
   const handleAddToCart = () => {
     if (product) {
       api
-        .post('http://localhost:8000/cart/add/', {
+        .post(`${process.env.REACT_APP_API_BASE_PROD}/cart/add/`, {
           product_id: product.id,
           quantity: quantity
         })

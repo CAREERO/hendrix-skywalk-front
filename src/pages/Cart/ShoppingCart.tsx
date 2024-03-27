@@ -40,7 +40,7 @@ const ShoppingCart: React.FC = () => {
             }
 
             // Send PUT request to update quantity on the server
-            await axios.put(`http://localhost:8000/cart/items/update/${productId}/`, { quantity: newQuantity });
+            await axios.put(`${process.env.REACT_APP_API_BASE_PROD}/cart/items/update/${productId}/`, { quantity: newQuantity });
             // Refetch cart items to update the UI
             fetchCartItems();
         } catch (error) {
@@ -52,7 +52,7 @@ const ShoppingCart: React.FC = () => {
     const handleRemoveItem = async (productId: number) => {
         try {
             // Send DELETE request to remove item from the server
-            await axios.delete(`http://localhost:8000/cart/item/remove/${productId}/`);
+            await axios.delete(`${process.env.REACT_APP_API_BASE_PROD}/cart/item/remove/${productId}/`);
             // Refetch cart items to update the UI
             fetchCartItems();
         } catch (error) {

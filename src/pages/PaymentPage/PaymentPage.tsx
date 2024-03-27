@@ -32,7 +32,7 @@ const PaymentPage: React.FC = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/cart/items");
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/cart/items`);
         setCartItems(response.data);
         calculateSubtotal(response.data);
       } catch (error) {

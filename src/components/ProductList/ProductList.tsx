@@ -13,7 +13,7 @@ const ProductList: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_PROD}/api/products`);
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_}/api/products`);
         const data = await response.json();
         setProducts(data);
       } catch (error) {

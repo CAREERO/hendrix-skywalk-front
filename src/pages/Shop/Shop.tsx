@@ -15,7 +15,7 @@ const Shop: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://54.146.118.222:8000/api/products/`);
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_PROD}/api/products/`);
         const data = await response.json();
         setProducts(data);
       } catch (error) {
