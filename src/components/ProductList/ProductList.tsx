@@ -13,7 +13,7 @@ const ProductList: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/products`); // Use relative URL to connect to your API
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_PROD}/api/products`);
         const data = await response.json();
         setProducts(data);
       } catch (error) {

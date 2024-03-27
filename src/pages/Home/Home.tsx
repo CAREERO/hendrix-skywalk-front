@@ -18,7 +18,7 @@ const HomePage = () => {
     const fetchData = async () => {
       try {
         const response = await api.get(
-          "http://localhost:8000/api/products/"
+          `${process.env.REACT_APP_API_BASE_PROD}/api/products/`
         );
         console.log(response.data.message);
         setLoading(false);
@@ -31,7 +31,7 @@ const HomePage = () => {
   }, []);
 
   const handleShopClick = () => {
-    navigate("/shop"); // Navigate to Shop Page
+    navigate("shop"); // Navigate to Shop Page
   };
 
   return (

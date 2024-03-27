@@ -32,7 +32,7 @@ const CheckoutPage: React.FC = () => {
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/cart/items');
+                const response = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/cart/items/`);
                 setCartItems(response.data);
                 calculateSubtotal(response.data);
             } catch (error) {
@@ -169,7 +169,7 @@ const CheckoutPage: React.FC = () => {
                                 <div className="new-product-list">
                                     {cartItems.map((item: Product) => (
                                         <div key={item.id} className="product-item-summary">
-                                            <img src={`http://localhost:8000${item.product.image}`} alt="" className="cartModal__productImage" />
+                                            <img src={`${process.env.REACT_APP_API_BASE_PROD}${item.product.image}`} alt="" className="cartModal__productImage" />
                                             <span>{item.product.name}</span>
                                             <span>${item.product.price}</span>
                                         </div>

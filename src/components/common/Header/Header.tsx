@@ -83,17 +83,17 @@ const Header: React.FC = () => {
               </Link>
             </li>
             <li>
-              <Link to="/about" title="About">
+              <Link to="about" title="About">
                 About
               </Link>
             </li>
             <li>
-              <Link to="/shop" title="Shop">
+              <Link to="shop" title="Shop">
                 Shop
               </Link>
             </li>
             <li>
-              <Link to="/rewards" title="Rewards">
+              <Link to="rewards" title="Rewards">
                 Rewards
               </Link>
             </li>
@@ -121,20 +121,20 @@ const Header: React.FC = () => {
                 <ul className={classes.subMenu}>
                   <li>
                     <Link
-                      to="/profile"
+                      to="profile"
                       onClick={() => setSubmenuOpen(false)}
                     >
                       Profile
                     </Link>
                   </li>
                   <li>
-                    <Link to="/orders" onClick={() => setSubmenuOpen(false)}>
+                    <Link to="orders" onClick={() => setSubmenuOpen(false)}>
                       Orders
                     </Link>
                   </li>
                   <li>
                     <Link
-                      to="/productCreate"
+                      to="productCreate"
                       onClick={() => setSubmenuOpen(false)}
                     >
                       Create Product
@@ -147,7 +147,7 @@ const Header: React.FC = () => {
               )}
             </div>
           ) : (
-            <Link to="api/login">
+            <Link to="login">
               <Tooltip text="Login">
                 <button
                   className={classes.btn_cart}

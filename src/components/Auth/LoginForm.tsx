@@ -26,7 +26,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
       console.log("Username:", username);
       console.log("Password:", password);
       const response = await axios.post(
-        `/account/login/`,
+        `${process.env.REACT_APP_API_BASE_PROD}/account/login/`,
         { username, password },
         {
           headers: {

@@ -31,7 +31,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Function to add a product to the cart
   const addToCart = async (productId: number, quantity: number) => {
     try {
-      const response = await axios.post(`http://localhost:8000/cart/add/${productId}/`, {
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_PROD}/cart/add/${productId}/`, {
         quantity: quantity
       });
       if (response.data.message === "Item added to cart") {
@@ -54,7 +54,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Function to fetch cart items
   const fetchCartItems = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/cart/items/');
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/cart/items/`);
       const cartItems: Product[] = response.data.map((item: any) => ({
         id: item.product.id,
         name: item.product.name,

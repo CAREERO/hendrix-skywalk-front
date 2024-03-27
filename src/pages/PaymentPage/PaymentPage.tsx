@@ -87,7 +87,7 @@ const PaymentPage: React.FC = () => {
                   {cartItems.map((item: Product) => (
                     <div key={item.id} className="payment-item-summary">
                       <img
-                        src={`http://localhost:8000${item.product.image}`}
+                        src={`${process.env.REACT_APP_API_BASE_PROD}${item.product.image}`}
                         alt=""
                         className="cartModal__paymentImage"
                       />
