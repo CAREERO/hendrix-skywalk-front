@@ -52,24 +52,33 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   // Function to fetch cart items
+  // Function to fetch cart items
   const fetchCartItems = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/cart/items/`);
-      const cartItems: Product[] = response.data.map((item: any) => ({
-        id: item.product.id,
-        name: item.product.name,
-        description: item.product.description,
-        price: item.product.price,
-        quantity: item.quantity,
-        total_price: item.total_price,
-        image: item.product.image
-      }));
-      setCart(cartItems);
-      setFetched(true); // Set the flag to true after fetching data
+      const responseData = response.data;
+
+      // Check if responseData has the expected structure
+      if (responseData && Array.isArray(responseData.cartItems)) {
+        const cartItems: Product[] = responseData.cartItems.map((item: any) => ({
+          id: item.product.id,
+          name: item.product.name,
+          description: item.product.description,
+          price: item.product.price,
+          quantity: item.quantity,
+          total_price: item.total_price,
+          image: item.product.image
+        }));
+        setCart(cartItems);
+        setFetched(true); // Set the flag to true after fetching data
+      } else {
+        console.error('Invalid response data structure:', responseData);
+      }
     } catch (error) {
       console.error('Error fetching cart items:', error);
     }
   };
+
 
   useEffect(() => {
     if (!fetched) { // Fetch data only if it hasn't been fetched before
