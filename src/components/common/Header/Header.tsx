@@ -83,11 +83,6 @@ const Header: React.FC = () => {
               </Link>
             </li>
             <li>
-              <Link to="/about" title="About">
-                About
-              </Link>
-            </li>
-            <li>
               <Link to="/shop" title="Shop">
                 Shop
               </Link>
