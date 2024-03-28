@@ -1,4 +1,15 @@
-@import "../../styles/global.scss"; // Import the global styles for fonts
+@import "../../styles/global.scss";
+.Header_header__content__logo__Ia4Is {
+  font-size: 2rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  position: relative;
+  top: 15px;
+  bottom: 0;
+  width: 120px;
+  height: 120px;
+}
 
 .home-banner-text {
   color: #fff;
@@ -842,18 +853,6 @@ iframe {
     left: 30rem;
   }
 
-  .Header_header__content__logo__Ia4Is {
-    font-size: 2rem;
-    font-weight: bold;
-    text-decoration: none;
-    color: #fff;
-    position: relative;
-    top: 15px;
-    bottom: 0;
-    width: 120px;
-    height: 120px;
-  }
-
   .home-banner-text {
     color: #fff;
     font-size: 2em;
@@ -1166,6 +1165,19 @@ iframe {
 }
 
 @media only screen and (max-width: 1920px) {
+  .Header_header__content__logo__Ia4Is {
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+    top: 15px;
+    bottom: 0;
+    width: 100px;
+    height: 100px;
+    z-index: 1000;
+  }
+
   .home-banner-text {
     color: #fff;
     font-size: 5em;
@@ -1234,7 +1246,7 @@ iframe {
     bottom: 18rem;
     display: flex;
     justify-content: space-around;
-    flex-wrap: wrap; /* Wrap images to the next line on smaller screens */
+    flex-wrap: wrap;
   }
 
   .video-holder {
@@ -1243,7 +1255,7 @@ iframe {
     height: 130%;
     position: absolute;
     left: 0px;
-    top: 5rem;
+    top: 4rem;
     overflow: hidden;
     z-index: -100;
   }
