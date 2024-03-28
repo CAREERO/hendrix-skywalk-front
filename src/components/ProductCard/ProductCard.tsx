@@ -34,9 +34,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleProductClick} // Call handleProductClick on click
     >
-      <img className="product-image" src={`${product.image}`} alt={`Product ${product.id}`} />
+      <img className="product-image" src={`${process.env.REACT_APP_API_BASE_PROD}${product.image}`} alt={`Product ${product.id}`} />
       <div className="product-details">
-        <h3>{product.name}</h3>
+        <h3>{product.name}</h3>{/*  */}
         <p>{product.description}</p>
         <p>${product.price}</p>
         <button className="add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>

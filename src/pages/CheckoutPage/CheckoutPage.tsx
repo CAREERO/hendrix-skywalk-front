@@ -27,6 +27,8 @@ const CheckoutPage: React.FC = () => {
     const [showShippingForm, setShowShippingForm] = useState<boolean>(true);
     const [shippingOption, setShippingOption] = useState<string>('');
     const [shippingPrice, setShippingPrice] = useState<number>(0);
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [userEmail, setUserEmail] = useState<string>('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -80,7 +82,6 @@ const CheckoutPage: React.FC = () => {
         navigate("/cart");
     };
 
-
     const handleShippingOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedOption = event.target.value;
         setShippingOption(selectedOption);
@@ -91,6 +92,19 @@ const CheckoutPage: React.FC = () => {
             setShippingPrice(15);
         }
     };
+
+    const handleLogin = () => {
+        // Simulate login process, set isLoggedIn to true and set user email
+        setIsLoggedIn(true);
+        setUserEmail("user@example.com");
+    };
+
+    const handleLogout = () => {
+        // Simulate logout process, set isLoggedIn to false and clear user email
+        setIsLoggedIn(false);
+        setUserEmail("");
+    };
+
     return (
         <>
             <section className='checkout-page-main'>
@@ -101,8 +115,14 @@ const CheckoutPage: React.FC = () => {
                                 <h2>Shipping Address and Details</h2>
                                 <hr />
                                 <div className="contact-info">
-                                    <p>Contact:</p>
-                                    <button>Login</button>
+                                    {isLoggedIn ? (
+                                        <>
+                                            <div>Email: {userEmail}</div>
+                                            <button onClick={handleLogout} className='btn-logout-checkout'>Logout</button>
+                                        </>
+                                    ) : (
+                                        <button onClick={handleLogin} className='btn-login-checkout'>Login</button>
+                                    )}
                                 </div>
                                 <form className="checkout-form">
                                     <div className="email-checkbox">
@@ -200,3 +220,4 @@ const CheckoutPage: React.FC = () => {
 };
 
 export default CheckoutPage;
+
