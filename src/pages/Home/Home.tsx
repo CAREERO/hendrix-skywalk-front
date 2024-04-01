@@ -37,60 +37,63 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      {loading ? (
-        <Spinner />
-      ) : (
-        <div className="container">
-          <div className="video-holder">
-            <iframe
-              title="Embedded Video"
-              src="https://streamable.com/e/yeuk3h?autoplay=1&muted=1&nocontrols=1"
-              allow="fullscreen;autoplay"
-              ref={videoRef}
-              style={{
-                border: "none",
-                width: "100%",
-                height: "100%",
-                position: "absolute",
-                left: "0px",
-                top: "-10rem",
-                overflow: "hidden",
-                zIndex: -100,
-              }}
-            ></iframe>
-            <div className="container-text">
-              <h4 className="home-banner-text">How to be <br /> a YouTuber?</h4>
-              <p className="home-banner-subtext">
-                Want to know how to start <br /> your own YouTube channel?
-              </p>
-              <button className="video-play">Play and Learn</button>
+      <div className="main-content">
+        {loading ? (
+          <Spinner />
+        ) : (
+          <div className="container">
+            <div className="video-holder">
+              <iframe
+                title="Embedded Video"
+                src="https://streamable.com/e/yeuk3h?autoplay=1&muted=1&nocontrols=1"
+                allow="fullscreen;autoplay"
+                ref={videoRef}
+                style={{
+                  border: "none",
+                  width: "100%",
+                  height: "100%",
+                  position: "absolute",
+                  left: "0px",
+                  top: "-10rem",
+                  overflow: "hidden",
+                  zIndex: -100,
+                }}
+              ></iframe>
+              <div className="container-text">
+                <h4 className="home-banner-text">How to be <br /> a YouTuber?</h4>
+                <p className="home-banner-subtext">
+                  Want to know how to start <br /> your own YouTube channel?
+                </p>
+                <button className="video-play">Play and Learn</button>
+              </div>
             </div>
-          </div>
-          <div className="image-gallery">
-            <img
-              src="https://i.imgur.com/ZFPYkJp.png"
-              alt="Footer Decoration"
-              className="footer-image"
-            />
-            <img
-              src="https://i.ibb.co/QrnTdtP/ninjastar.png"
-              alt="Flowers Decoration"
-              className="ninjastar-image"
-            />
-            <div className="shop-here">
-              <h5 className="home-banner-merchtext">Check Out <br /> Our Merch</h5>
-              <button className="shop-button" onClick={handleShopClick}>Shop Here</button>
+            <div className="image-gallery">
+              <img
+                src="https://i.imgur.com/ZFPYkJp.png"
+                alt="Footer Decoration"
+                className="footer-image"
+              />
+              <img
+                src="https://i.ibb.co/QrnTdtP/ninjastar.png"
+                alt="Flowers Decoration"
+                className="ninjastar-image"
+              />
+              <div className="shop-here">
+                <h5 className="home-banner-merchtext">Check Out <br /> Our Merch</h5>
+                <button className="shop-button" onClick={handleShopClick}>Shop Here</button>
+              </div>
             </div>
+            <div className="gif-container">
+              <img src={Gif} alt="Your GIF" className="gif-image" />
+            </div>
+            <section className="productlist-section">
+              <ProductList />
+            </section>
+            <Footer />
           </div>
-          <div className="gif-container">
-            <img src={Gif} alt="Your GIF" className="gif-image" />
-          </div>
-          <section className="productlist-section">
-            <ProductList />
-          </section>
-        </div>
-      )}
-      <Footer />
+        )}
+      </div>
+
     </>
   );
 };
