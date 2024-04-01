@@ -15,10 +15,10 @@
 .video-holder {
   border: none;
   width: 100%;
-  height: 65%;
+  height: 117%;
   position: absolute;
   left: 0px;
-  top: 4rem;
+  top: 3rem;
   overflow: hidden;
   z-index: -100;
 }
@@ -79,13 +79,18 @@ h5.home-banner-merchtext {
   justify-content: center;
   flex-direction: column;
   bottom: 2rem;
-  left: 24rem;
+  left: 56rem;
+  font-size: 20px;
 }
-
 .image-gallery {
   position: relative;
-  top: 55rem;
+  display: flex;
   z-index: -1;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 40rem;
+  margin-bottom: 5rem;
 }
 
 iframe {
@@ -94,16 +99,14 @@ iframe {
   height: 128vh;
   position: relative;
   left: 0px;
-  top: -18rem;
+  top: 0;
   overflow: hidden;
   z-index: -100;
 }
-
 .footer-image {
   width: 100%;
-  height: 200px;
+  height: 125px;
   position: relative;
-  bottom: 22rem;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -114,31 +117,33 @@ iframe {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  position: relative;
-  bottom: 32rem;
-  left: 12rem;
+  position: absolute;
+  left: 35rem;
+  bottom: 1rem;
   padding: 0;
   margin: 0;
+  width: 100%;
 }
 
 .ninjastar-image {
-  width: 28%;
+  width: 17%;
   height: 100px;
-  position: relative;
+  position: absolute;
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
-  bottom: 32rem;
-  left: 25px;
+  left: 38px;
+  align-items: center;
+  justify-content: center;
 }
 
 .gif-container {
-  top: 12rem;
-  left: 25rem;
+  bottom: 10rem;
+  right: 6rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   margin-bottom: 0;
-  position: relative;
+  position: absolute;
+  align-items: center;
 }
 
 .gif-image {
@@ -150,14 +155,16 @@ iframe {
 .productlist-section {
   display: flex;
   position: relative;
-  top: 20rem;
+  top: 35rem;
+  background: #fff;
+  padding: 20px;
+
 
   .product-list {
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
     position: relative;
-    bottom: 25rem;
   }
 }
 
@@ -769,6 +776,15 @@ iframe {
     top: 0;
     z-index: -1;
   }
+
+  .footer {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    display: block;
+    position: relative;
+    top: 40rem;
+}
 
   .footer-image {
     width: 100%;

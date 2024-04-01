@@ -59,9 +59,9 @@ const HomePage = () => {
               }}
             ></iframe>
             <div className="container-text">
-              <h4 className="home-banner-text">How to be <br/> a YouTuber?</h4>
+              <h4 className="home-banner-text">How to be <br /> a YouTuber?</h4>
               <p className="home-banner-subtext">
-                Want to know how to start <br/> your own YouTube channel?
+                Want to know how to start <br /> your own YouTube channel?
               </p>
               <button className="video-play">Play and Learn</button>
             </div>
@@ -78,7 +78,7 @@ const HomePage = () => {
               className="ninjastar-image"
             />
             <div className="shop-here">
-              <h5 className="home-banner-merchtext">Check Out Our Merch</h5>
+              <h5 className="home-banner-merchtext">Check Out <br /> Our Merch</h5>
               <button className="shop-button" onClick={handleShopClick}>Shop Here</button>
             </div>
           </div>
