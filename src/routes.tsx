@@ -11,7 +11,8 @@ import { CartProvider } from '../src/components/Shop/CartContext';
 import ProductDetailsPage from '../src/pages/Product/ProductDetailsPage';
 import Rewards from './pages/Rewards/Rewards';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
-import PaymentPage from './pages/PaymentPage/PaymentPage'; // Import PaymentPage component
+import PaymentPage from './pages/PaymentPage/PaymentPage';
+import SummaryPage from './pages/SummaryPage/SummaryPage'; // Import SummaryPage component
 
 const AppRoutes: React.FC = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -31,6 +32,24 @@ const AppRoutes: React.FC = () => {
         <Route path="/rewards" element={<Rewards />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/payment" element={<PaymentPage />} />
+        <Route
+          path="/summary"
+          element={
+            <SummaryPage
+              subtotal={100}
+              taxes={10}
+              selectedShippingOption="Standard"
+              total={120}
+              shippingInformation="123 Shipping St, City, Country"
+              customerName="John Doe"
+              orderNumber="123456789"
+              paymentOption="Visa"
+              maskedCardNumber="**** **** **** 1234"
+              cartItems={[]} // Provide empty array or actual array of cart items
+              shippingPrice={10} // Provide the shipping price
+            />
+          }
+        />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route
           path="/profile"

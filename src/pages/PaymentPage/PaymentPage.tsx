@@ -22,12 +22,22 @@ interface Product {
   created_at: string;
 }
 
+interface CardType {
+  id: number;
+  card_number: string;
+  exp_month: number;
+  exp_year: number;
+  cvc: number;
+  email: string;
+}
+
 const PaymentPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [shippingPrice, setShippingPrice] = useState<number>(0);
+  const [stripeCards, setStripeCards] = useState<CardType[]>([]);
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -41,6 +51,20 @@ const PaymentPage: React.FC = () => {
     };
 
     fetchCartItems();
+  }, []);
+
+  useEffect(() => {
+    const fetchStripeCards = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/stripe/cards`);
+        setStripeCards(response.data);
+        console.log("Fetched stripe cards:", response.data); // Add logging here
+      } catch (error) {
+        console.error("Error fetching stripe cards:", error);
+      }
+    };
+
+    fetchStripeCards();
   }, []);
 
   useEffect(() => {
@@ -69,7 +93,6 @@ const PaymentPage: React.FC = () => {
 
   const totalPrice = subtotal + shippingPrice;
 
-  // Function to handle navigation back to the shipping page
   const handleChangeShipping = () => {
     navigate("/checkout");
   };
@@ -133,11 +156,11 @@ const PaymentPage: React.FC = () => {
         <div className="payment-container-3">
           <h2>Saved Cards</h2>
           <SavedCardsComponent
-            stripeCards={[]} // Pass your stripeCards data here
-            showCardDetails={() => { }} // Implement this function
-            payWithSavedCard={() => { }} // Implement this function
-            setCardDetails={() => { }} // Implement this function
-            setCardDetailsId={() => { }} // Implement this function
+            stripeCards={stripeCards}
+            showCardDetails={() => { }}
+            payWithSavedCard={() => { }}
+            setCardDetails={() => { }}
+            setCardDetailsId={() => { }}
             navigateToEditCard={() => { }}
           />
         </div>

@@ -1,43 +1,84 @@
 .saved-cards-container {
-  .saved-cards-heading {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.saved-cards-heading {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.saved-card-item {
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #f5f5f5;
   }
 
-  .saved-card-item {
-    border: 1px solid #c6ace7;
-    padding: 1rem;
-    margin-bottom: 1rem;
+  &.selected {
+    background-color: #f0f0f0;
   }
 
   .saved-card-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+      margin: 0;
+    }
+
     .card-buttons {
       display: flex;
       align-items: center;
-      margin-top: 1rem;
 
       .card-button {
         border: none;
-        background-color: transparent;
-        color: #007bff;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        margin-right: 10px;
         cursor: pointer;
-        margin-right: 0.5rem;
+        transition: background-color 0.3s ease;
 
-        &:hover {
-          text-decoration: underline;
+        &.active {
+          background-color: #28a745;
         }
       }
 
       .edit-card-button {
         cursor: pointer;
         margin-left: auto;
-        padding: 0.5rem;
+        transition: color 0.3s ease;
 
-        .edit-card-icon {
-          font-size: 1.5rem;
-          color: #333;
+        &:hover {
+          color: #007bff;
         }
       }
     }
   }
+}
+
+// Add background colors for different card types
+.visa {
+  background-color: #f7df1e; // Yellow
+}
+
+.mastercard {
+  background-color: #ec691e; // Orange
+}
+
+.american-express {
+  background-color: #007bc3; // Blue
+}
+
+.unknown {
+  background-color: #ccc; // Gray
 }

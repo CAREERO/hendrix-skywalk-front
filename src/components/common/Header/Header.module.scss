@@ -175,21 +175,24 @@
 
 
   .subMenu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    left: 38rem;
-    background: rgba(29, 29, 29, 0.9);
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
-    border-radius: 12px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    opacity: 1;
-    transition: 0.3s ease all;
-    width: 150px;
-    height: 135px;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      left: 29rem;
+      background: rgba(29, 29, 29, 0.9);
+      -webkit-backdrop-filter: blur(2px);
+      backdrop-filter: blur(2px);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      opacity: 1;
+      transition: 0.3s ease all;
+      width: 150px;
+      height: 135px;
+      align-items: center;
+      justify-content: center;
+  
     
     a,
     button {

@@ -28,7 +28,7 @@ const CheckoutPage: React.FC = () => {
     const [shippingOption, setShippingOption] = useState<string>('');
     const [shippingPrice, setShippingPrice] = useState<number>(0);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    const [userEmail, setUserEmail] = useState<string>('');
+    const [username, setUsername] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
     const [company, setCompany] = useState<string>('');
@@ -39,7 +39,9 @@ const CheckoutPage: React.FC = () => {
     const [state, setState] = useState<string>('');
     const [zipCode, setZipCode] = useState<string>('');
     const [phone, setPhone] = useState<string>('');
+    const [showLoginForm, setShowLoginForm] = useState<boolean>(false);
     const navigate = useNavigate();
+
 
     useEffect(() => {
         const fetchCartItems = async () => {
@@ -51,7 +53,6 @@ const CheckoutPage: React.FC = () => {
                 console.error('Error fetching cart items:', error);
             }
         };
-
         fetchCartItems();
     }, []);
 
@@ -69,6 +70,24 @@ const CheckoutPage: React.FC = () => {
 
         fetchCountries();
     }, []);
+
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            const userInfo = localStorage.getItem("userInfo");
+            if (userInfo) {
+                try {
+                    const userInfoData = JSON.parse(userInfo);
+                    setUsername(userInfoData.username ?? "");
+                    setIsLoggedIn(true);
+                } catch (error) {
+                    console.error("Error parsing userInfo:", error);
+                }
+            }
+        };
+
+        fetchUserProfile();
+    }, []);
+
 
     const calculateSubtotal = (items: Product[]) => {
         const total = items.reduce((acc: number, curr: Product) => acc + curr.total_price, 0);
@@ -103,19 +122,25 @@ const CheckoutPage: React.FC = () => {
         }
     };
 
-    const handleLogin = () => {
-        // Simulate login process, set isLoggedIn to true and set user email
-        setIsLoggedIn(true);
-        setUserEmail("user@example.com");
-        // Fetch user's shipping info and populate the state variables
-        // Example: fetchShippingInfo();
+    const handleLogin = async () => {
+        setShowLoginForm(true);
     };
 
     const handleLogout = () => {
         // Simulate logout process, set isLoggedIn to false and clear user email
         setIsLoggedIn(false);
-        setUserEmail("");
+        setUsername("");
         // Clear shipping info state variables
+        setFirstName("");
+        setLastName("");
+        setCompany("");
+        setAddress("");
+        setApartment("");
+        setCountry("");
+        setCity("");
+        setState("");
+        setZipCode("");
+        setPhone("");
     };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -136,7 +161,7 @@ const CheckoutPage: React.FC = () => {
                                 <div className="contact-info">
                                     {isLoggedIn ? (
                                         <>
-                                            <div>Email: {userEmail}</div>
+                                            <div>User: {username}</div>
                                             <button onClick={handleLogout} className='btn-logout-checkout'>Logout</button>
                                         </>
                                     ) : (
@@ -188,7 +213,7 @@ const CheckoutPage: React.FC = () => {
                                     {/* Display user information and logout button */}
                                     {isLoggedIn && (
                                         <div className="user-info">
-                                            <p>User: {userEmail}</p>
+                                            <p>User: {username}</p>
                                             <button className='checkout-logout-btn' onClick={handleLogout}>Logout</button>
                                         </div>
                                     )}
@@ -203,6 +228,16 @@ const CheckoutPage: React.FC = () => {
                                     </div>
                                 </div>
 
+                            </div>
+                        )}
+                        {showLoginForm && (
+                            <div className="login-form">
+                                {/* Your login form component */}
+                                <form>
+                                    <input type="text" placeholder="Username" />
+                                    <input type="password" placeholder="Password" />
+                                    <button type="submit">Login</button>
+                                </form>
                             </div>
                         )}
                         <div className="links-section">
