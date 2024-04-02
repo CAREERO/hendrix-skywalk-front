@@ -542,12 +542,19 @@ iframe {
   }
 }
 
-/* Media query for large desktop */
-@media only screen and (min-width: 1920px) {
+@media only screen and (min-width: 1280px) {
   .Header_header__content__logo__Ia4Is {
     width: 100px;
     height: 100px;
   }
+
+  .home-banner-text {
+    font-size: 4em;
+    left: 7rem;
+    margin-bottom: 10px;
+    padding: 0;
+    top: 3rem;
+}
 
   .home-banner-subtext {
     font-size: 2em;
@@ -555,6 +562,77 @@ iframe {
     margin-left: 3em;
   }
 
+  .container-text {
+    display: flex;
+    position: relative;
+    top: 15rem;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .productlist-section {
+    margin-top: 10rem;
+  }
+
+  .video-play {
+    width: 350px;
+    height: 70px;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gif-container {
+    bottom: 25rem;
+    right: 3rem;
+    top: -1rem;
+    position: absolute;
+  }
+
+  .gif-container .gif-image {
+    width: 200px;
+  }
+
+  .ninjastar-image {
+    height: 110px;
+  }
+
+  .shop-here {
+    left: 45rem;
+  }
+
+  h4,
+  h5 {
+    font-size: 30px;
+  }
+
+  h5.home-banner-merchtext {
+    top: -40px;
+    right: 56rem;
+    position: absolute;
+  }
+
+  .image-gallery {
+    top: 36rem;
+  }
+}
+
+/* Media query for large desktop */
+@media only screen and (min-width: 1920px) {
+  .Header_header__content__logo__Ia4Is {
+    width: 100px;
+    height: 100px;
+  }
+
+  .home-banner-text {
+    font-size: 4em;
+    left: 7rem;
+    margin-bottom: 10px;
+    padding: 0;
+    top: 3rem;
+}
   .home-banner-subtext {
     font-size: 2em;
     margin-top: 9em;
