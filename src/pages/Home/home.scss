@@ -111,7 +111,6 @@ iframe {
   position: relative;
   top: 40rem;
 }
-
 .footer-image {
   width: 100%;
   height: 125px;
@@ -199,150 +198,179 @@ iframe {
   }
 }
 
-/* Media Queries for iPhone 12 and iPhone 15 */
-@media only screen and (max-width: 428px) {
+@media only screen and (max-width: 1024px) and (min-width: 720px) {
+  .Header_header__content__logo__Ia4Is {
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+    top: 15px;
+    bottom: 0;
+    width: 100px;
+    height: 100px;
+    z-index: 1000;
+  }
+
   .home-banner-text {
-    font-size: 18px;
-    top: 3rem;
-    left: 3rem;
+    font-size: 35px;
+    position: absolute;
+    top: 8rem;
+    left: 8rem;
   }
 
   .home-banner-subtext {
-    font-size: 9px;
-    margin-top: 9em;
-    margin-left: 4.5em;
+    font-size: 15px;
+    margin-top: 12em;
+    margin-left: 10em;
   }
 
   .productlist-section {
-    top: 32rem;
-    margin-top: 28rem;
+    position: relative;
+    top: 34rem;
+    margin-top: 30rem;
   }
-
-  .video-holder {
-    height: 87%;
-    top: -2rem;
+  .product-list {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
   }
 
   .video-play {
-    position: absolute;
-    top: 6rem;
-    width: 131px;
-    height: 22px;
-    left: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    top: 15rem;
+    left: 7em;
+    width: 250px;
+    height: 50px;
   }
 
-  .gif-container {
-    right: 1rem;
-    top: 25rem;
-
-    .gif-image {
-      width: 60px;
-    }
-  }
-
-  .productlist-section {
-    top: 22rem;
-  }
-
-  iframe {
+  .video-holder {
     border: none;
-    width: 170%;
-    height: 120%;
+    width: 100%;
+    height: 118%;
     position: absolute;
     left: 0px;
-    top: -16rem;
+    top: 4rem;
     overflow: hidden;
     z-index: -100;
   }
 
-  button.shop-button {
-    display: flex;
-    width: 6rem;
-    height: 1rem;
-    position: relative;
-    left: -33px;
-    top: 34px;
-    font-size: 12px;
-    align-items: center;
-    justify-content: center;
+  .gif-container {
+    bottom: 30rem;
+    right: 2rem;
+    top: 33rem;
+
+    .gif-image {
+      height: auto;
+      width: 150px;
+      z-index: 1;
+    }
   }
 
   .ninjastar-image {
-    width: 23%;
-    height: 40px;
-    top: 38rem;
-    left: 10px;
-  }
-
-  .image-gallery {
-    top: -13rem;
-  }
-
-  .footer {
-    top: 42rem;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
+    width: 25%;
+    height: 110px;
+    top: 27rem;
   }
 
   .footer-image {
-    top: 37rem;
     width: 100%;
-    height: 4rem;
-  }
-
-  .footer-content {
+    height: 130px;
+    position: relative;
+    top: 35rem;
+    bottom: 18rem;
     display: flex;
-    max-width: 1200px;
-    margin: 0 auto;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
   }
 
-  .footer-section {
-    text-align: center;
-    margin-top: 15px;
-    margin-bottom: 15px;
+  .footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    position: relative;
+    top: 45rem;
   }
 
   .shop-here {
-    top: 22rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: 117px;
+    top: 25rem;
   }
 
   h4 {
-    bottom: 21em;
-    left: 16em;
+    margin: 0.5rem 0;
+    position: relative;
+    text-align: center;
+    bottom: 23em;
+    left: 18em;
+    font-size: 25px;
+    color: #fff; // Adjust as needed for spacing
   }
 
   h5 {
-    bottom: 24em;
-    left: 28em;
+    margin: 0.5rem 0;
+    position: relative;
+    text-align: center;
+    bottom: 26em;
+    left: 30em;
+    font-size: 25px;
+    color: #fff; // Adjust as needed for spacing
   }
 
   h5.home-banner-merchtext {
     display: flex;
     position: relative;
-    align-items: center;
+    top: -33px;
+    left: 14rem;
     justify-content: center;
-    flex-direction: column;
-    top: 38px;
-    left: -2rem;
-    font-size: 12px;
+    align-items: center;
+  }
+
+  button.shop-button {
+    display: flex;
+    position: relative;
+    left: 50px;
+  }
+
+  .image-gallery {
+    bottom: 0;
+    display: block;
+    height: 0;
+    margin-bottom: 0;
+    position: relative;
+    padding: 0;
+    top: 26rem;
+    z-index: -1;
+  }
+
+  .footer {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    display: block;
+    position: relative;
+    top: 40rem;
   }
 
   .footer-image {
-    top: 36rem;
     width: 100%;
-    height: 5rem;
+    height: 130px;
+    position: relative;
+    top: 35rem;
+    bottom: 18rem;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
   }
 }
 
-@media only screen and (max-width: 1024px) and (min-width: 720px) {
+
+@media only screen and (max-width: 1024px) {
   .Header_header__content__logo__Ia4Is {
     width: 100px;
     height: 100px;
@@ -357,18 +385,7 @@ iframe {
   .home-banner-subtext {
     font-size: 15px;
     margin-top: 12em;
-    margin-left: 8.5em;
-  }
-
-  iframe {
-    border: none;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0px;
-    top: -10rem;
-    overflow: hidden;
-    z-index: -100;
+    margin-left: 10em;
   }
 
   .productlist-section {
@@ -376,15 +393,14 @@ iframe {
   }
 
   .video-play {
-    position: absolute;
-    top: 14rem;
-    width: 131px;
-    height: 36px;
-    left: 10rem;
+    top: 15rem;
+    left: 7wem; /* Typo fixed */
+    width: 250px;
+    height: 50px;
   }
 
   .video-holder {
-    height: 88%;
+    height: 55%;
     top: 4rem;
   }
 
@@ -431,79 +447,80 @@ iframe {
   }
 
   .image-gallery {
-    top: -4rem;
+    top: -8rem;
   }
 }
+
 /* Media query for large desktop */
-@media only screen and (max-width: 1920px) {
+@media only screen and (min-width: 1920px) {
   .Header_header__content__logo__Ia4Is {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
   }
 
   .home-banner-text {
-    font-size: 4em;
-    margin-left: 10px;
-    top: 8px;
+    font-size: 5em;
+    margin-left: 15px;
+    top: 10px;
   }
 
   .home-banner-subtext {
-    font-size: 1.5em;
-    margin-top: 15em;
-    margin-left: 4em;
+    font-size: 2em;
+    margin-top: 19em;
+    margin-left: 5em;
   }
 
   .productlist-section {
-    margin-top: 8rem;
+    margin-top: 10rem;
   }
 
   .video-play {
-    width: 300px;
-    height: 60px;
+    width: 350px;
+    height: 70px;
   }
 
   .video-holder {
-    height: 110%;
-    top: 2.5rem;
+    height: 115%;
+    top: 3rem;
   }
 
   .gif-container {
-    bottom: 18rem;
-    right: 2rem;
-    top: 30rem;
+    bottom: 20rem;
+    right: 3rem;
+    top: 34rem;
   }
 
   .gif-container .gif-image {
-    width: 180px;
+    width: 200px;
   }
 
   .ninjastar-image {
-    width: 20%;
-    height: 90px;
-    top: 20rem;
+    width: 25%;
+    height: 110px;
+    top: 23rem;
   }
 
   .footer-image {
-    top: 30rem;
-    bottom: 15rem;
+    top: 34rem;
+    bottom: 18rem;
   }
 
   .shop-here {
-    left: 20rem;
-    top: 20rem;
+    left: 23rem;
+    top: 22rem;
   }
 
   h4,
   h5 {
-    font-size: 25px;
+    font-size: 30px;
   }
 
   h5.home-banner-merchtext {
-    top: -30px;
-    left: 14rem;
+    top: -40px;
+    left: 16rem;
   }
 
   .image-gallery {
-    top: 28rem;
+    top: 32rem;
   }
 }
