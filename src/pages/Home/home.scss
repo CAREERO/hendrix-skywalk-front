@@ -199,7 +199,151 @@ iframe {
   }
 }
 
-@media only screen and (max-width: 1024px) and (min-width: 720px) {
+
+/* Media Queries for iPhone 12 and iPhone 15 */
+@media only screen and (min-width: 375px) and (max-width: 428px) {
+  .home-banner-text {
+    font-size: 18px;
+    top: 3rem;
+    left: 3rem;
+  }
+
+  .home-banner-subtext {
+    font-size: 9px;
+    margin-top: 9em;
+    margin-left: 4.5em;
+  }
+
+  .productlist-section {
+    top: 32rem;
+    margin-top: 28rem;
+  }
+
+  .video-holder {
+    height: 87%;
+    top: -2rem;
+  }
+
+  .video-play {
+    position: absolute;
+    top: 6rem;
+    width: 131px;
+    height: 22px;
+    left: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gif-container {
+    right: 1rem;
+    top: 25rem;
+
+    .gif-image {
+      width: 60px;
+    }
+  }
+
+  .productlist-section {
+    top: 22rem;
+  }
+
+  iframe {
+    border: none;
+    width: 170%;
+    height: 120%;
+    position: absolute;
+    left: 0px;
+    top: -16rem;
+    overflow: hidden;
+    z-index: -100;
+  }
+
+  button.shop-button {
+    display: flex;
+    width: 6rem;
+    height: 1rem;
+    position: relative;
+    left: -33px;
+    top: 34px;
+    font-size: 12px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ninjastar-image {
+    width: 23%;
+    height: 40px;
+    top: 38rem;
+    left: 10px;
+  }
+
+  .image-gallery {
+    top: -13rem;
+  }
+
+  .footer {
+    top: 42rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .footer-image {
+    top: 37rem;
+    width: 100%;
+    height: 4rem;
+  }
+
+  .footer-content {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-section {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .shop-here {
+    top: 22rem;
+  }
+
+  h4 {
+    bottom: 21em;
+    left: 16em;
+  }
+
+  h5 {
+    bottom: 24em;
+    left: 28em;
+  }
+
+  h5.home-banner-merchtext {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    top: 38px;
+    left: -2rem;
+    font-size: 12px;
+  }
+
+  .footer-image {
+    top: 36rem;
+    width: 100%;
+    height: 5rem;
+  }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 720px) {
   .Header_header__content__logo__Ia4Is {
     font-size: 2rem;
     font-weight: bold;
@@ -464,75 +608,75 @@ iframe {
 }
 
 /* Media query for large desktop */
-@media only screen and (min-width: 1920px) {
+@media only screen and (max-width: 1920px) {
   .Header_header__content__logo__Ia4Is {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
   }
 
   .home-banner-text {
-    font-size: 5em;
-    margin-left: 15px;
-    top: 10px;
+    font-size: 4em;
+    margin-left: 10px;
+    top: 8px;
   }
 
   .home-banner-subtext {
-    font-size: 2em;
-    margin-top: 19em;
-    margin-left: 5em;
+    font-size: 1.5em;
+    margin-top: 15em;
+    margin-left: 4em;
   }
 
   .productlist-section {
-    margin-top: 10rem;
+    margin-top: 8rem;
   }
 
   .video-play {
-    width: 350px;
-    height: 70px;
+    width: 300px;
+    height: 60px;
   }
 
   .video-holder {
-    height: 115%;
-    top: 3rem;
+    height: 110%;
+    top: 2.5rem;
   }
 
   .gif-container {
-    bottom: 20rem;
-    right: 3rem;
-    top: 34rem;
+    bottom: 18rem;
+    right: 2rem;
+    top: 30rem;
   }
 
   .gif-container .gif-image {
-    width: 200px;
+    width: 180px;
   }
 
   .ninjastar-image {
-    width: 25%;
-    height: 110px;
-    top: 23rem;
+    width: 20%;
+    height: 90px;
+    top: 20rem;
   }
 
   .footer-image {
-    top: 34rem;
-    bottom: 18rem;
+    top: 30rem;
+    bottom: 15rem;
   }
 
   .shop-here {
-    left: 23rem;
-    top: 22rem;
+    left: 20rem;
+    top: 20rem;
   }
 
   h4,
   h5 {
-    font-size: 30px;
+    font-size: 25px;
   }
 
   h5.home-banner-merchtext {
-    top: -40px;
-    left: 16rem;
+    top: -30px;
+    left: 14rem;
   }
 
   .image-gallery {
-    top: 32rem;
+    top: 28rem;
   }
 }
