@@ -73,7 +73,7 @@ const SummaryPage: React.FC<SummaryProps> = ({
             <img src={`${process.env.REACT_APP_API_BASE_PROD}${item.product.image}`} alt="" className="cartModal__productImage" />
             <span>{item.product.name}</span>
             <span>Quantity: {item.quantity}</span>
-            <span>Price: ${item.product.price.toFixed(2)}</span>
+            <span>Price: ${item.product.price}</span>
           </div>
         ))}
         <div className="order-number">
@@ -90,11 +90,11 @@ const SummaryPage: React.FC<SummaryProps> = ({
         </div>
         <div className="subtotal">
           <span>Subtotal:</span>
-          <span>${subtotal.toFixed(2)}</span>
+          <span>${subtotal}</span>
         </div>
         <div className="taxes">
           <span>Taxes:</span>
-          <span>${taxes.toFixed(2)}</span>
+          <span>${taxes}</span>
         </div>
         <div className="shipping">
           <span>Shipping:</span>
@@ -110,7 +110,7 @@ const SummaryPage: React.FC<SummaryProps> = ({
         </div>
         <div className="total">
           <span>Total:</span>
-          <span>${calculateTotalPrice().toFixed(2)}</span>
+          <span>${calculateTotalPrice()}</span>
         </div>
       </div>
       <button className="place-order-btn" onClick={handlePlaceOrder}>Place Order</button>
