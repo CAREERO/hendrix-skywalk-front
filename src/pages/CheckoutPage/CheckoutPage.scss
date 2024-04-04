@@ -150,6 +150,20 @@ label.subscribed {
   align-items: center;
 }
 
+.user-email {
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  right: 7rem;
+  bottom: 10px;
+}
+
+.house-address{
+  display: flex;
+  gap: 10px;
+}
+
 .scrollable-section {
   overflow-y: auto;
   height: calc(100% - 20px);

@@ -20,6 +20,23 @@ interface Product {
     created_at: string;
 }
 
+interface Address {
+    id: number;
+    firstname: string;
+    lastname: string;
+    street_address: string;
+    city: string;
+    state: string;
+    zip_code: string;
+    country: string;
+    company?: string; // Optional property for company
+    house_no?: string; // Optional property for house number
+    apartment?: string; // Optional property for apartment
+    landmark?: string; // Optional property for landmark
+    phone_number?: string; // Optional property for phone number
+}
+
+
 const CheckoutPage: React.FC = () => {
     const [cartItems, setCartItems] = useState<Product[]>([]);
     const [subtotal, setSubtotal] = useState<number>(0);
@@ -43,6 +60,7 @@ const CheckoutPage: React.FC = () => {
     const [zipCode, setZipCode] = useState<string>('');
     const [phone, setPhone] = useState<string>('');
     const [showLoginForm, setShowLoginForm] = useState<boolean>(false);
+    const [savedAddresses, setSavedAddresses] = useState<Address[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -81,6 +99,7 @@ const CheckoutPage: React.FC = () => {
                     const userInfoData = JSON.parse(userInfo);
                     setUsername(userInfoData.username ?? "");
                     setIsLoggedIn(true);
+                    setEmail(userInfoData.email);
                 } catch (error) {
                     console.error("Error parsing userInfo:", error);
                 }
@@ -88,6 +107,33 @@ const CheckoutPage: React.FC = () => {
         };
 
         fetchUserProfile();
+    }, []);
+
+    useEffect(() => {
+        const fetchSavedAddresses = async () => {
+            const userInfo = localStorage.getItem("userInfo");
+            const accessToken = localStorage.getItem("accessToken");
+            const userIsLoggedIn = userInfo !== null && accessToken;
+
+            try {
+                let config = {};
+                if (userIsLoggedIn) {
+                    config = {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`
+                        }
+                    };
+                }
+
+                const response = await axios.get(`${process.env.REACT_APP_API_TARGET_LOCAL}/account/addresses`, config);
+                const addresses = response.data;
+                setSavedAddresses(addresses);
+            } catch (error) {
+                console.error('Error fetching saved addresses:', error);
+            }
+        };
+
+        fetchSavedAddresses();
     }, []);
 
     const calculateSubtotal = (items: Product[]) => {
@@ -133,14 +179,12 @@ const CheckoutPage: React.FC = () => {
                 username,
                 password
             });
-            const userData = response.data; // Assuming the API returns user information upon successful login
+            const userData = response.data;
             setUsername(userData.username);
             setIsLoggedIn(true);
             setShowLoginForm(false);
-            // Additional logic if needed
         } catch (error) {
             console.error('Login error:', error);
-            // Handle login error here
         }
     };
 
@@ -201,7 +245,6 @@ const CheckoutPage: React.FC = () => {
                     });
                     console.log("Backend database updated with shipping information:", updateResponse.data);
                 } else {
-                    // If no addresses exist, create a new one
                     const createResponse = await axios.post(`${process.env.REACT_APP_API_TARGET_LOCAL}/account/addresses/create/`, shippingInfo, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`
@@ -225,13 +268,38 @@ const CheckoutPage: React.FC = () => {
         console.log("Shipping information saved:", shippingInfo);
     };
 
-
-
-
-    // Define a function for handling login button click event
     const handleLoginButtonClick = () => {
         setShowLoginForm(true);
     };
+
+    const [selectedValue, setSelectedValue] = useState<string>('');
+
+    const handleSavedAddressChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedValue = event.target.value;
+
+        if (selectedValue === "new") {
+            // Handle adding a new address
+            setSelectedValue('');
+        } else {
+            // Handle selecting a saved address
+            setSelectedValue(selectedValue);
+            const selectedAddress = JSON.parse(selectedValue) as Address;
+            setFirstName(selectedAddress?.firstname || '');
+            setLastName(selectedAddress?.lastname || '');
+            setCompany(selectedAddress?.company || '');
+            setHouseNo(selectedAddress?.house_no || '');
+            setApartment(selectedAddress?.apartment || '');
+            setStreetAddress(selectedAddress?.street_address || '');
+            setLandmark(selectedAddress?.landmark || '');
+            setCountry(selectedAddress?.country || '');
+            setCity(selectedAddress?.city || '');
+            setState(selectedAddress?.state || '');
+            setZipCode(selectedAddress?.zip_code || '');
+            setPhone(selectedAddress?.phone_number || '');
+        }
+    };
+
+
 
     return (
         <>
@@ -254,20 +322,36 @@ const CheckoutPage: React.FC = () => {
                                 </div>
                                 <form className="checkout-form" onSubmit={handleSubmit}>
                                     <div className="email-checkbox">
-                                        <input type="email" placeholder="Email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+                                        {isLoggedIn ? (
+                                            <div className="user-email">Email:{email}</div>
+                                        ) : (
+                                            <input type="email" placeholder="Email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+                                        )}
                                         <label className='subscribed'>
                                             <input className='subscribed-checkbox' type="checkbox" />
                                             <p className='subscribed-text'>Email me with news and offers</p>
                                         </label>
                                     </div>
                                     <div className="shipping-address">
+                                        <select onChange={handleSavedAddressChange} value={selectedValue}>
+                                            <option value="" disabled hidden>Select Saved Address</option>
+                                            {savedAddresses.map((address) => (
+                                                <option key={address.id} value={JSON.stringify(address)}>
+                                                    {`${address.firstname} ${address.lastname}, ${address.street_address}, ${address.city}, ${address.state}, ${address.zip_code}, ${address.country}`}
+                                                </option>
+                                            ))}
+                                            <option value="new">Add New Address</option>
+                                        </select>
                                         <input type="text" placeholder="First Name" required value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                                         <input type="text" placeholder="Last Name" required value={lastName} onChange={(e) => setLastName(e.target.value)} />
                                         <input type="text" placeholder="Company (optional)" value={company} onChange={(e) => setCompany(e.target.value)} />
-                                        <input type="text" placeholder="House No." required value={houseNo} onChange={(e) => setHouseNo(e.target.value)} />
-                                        <input type="text" placeholder="Apartment, suite, etc. (optional)" value={apartment} onChange={(e) => setApartment(e.target.value)} />
+                                        <div className="house-address">
+                                            <input type="text" placeholder="House No." required value={houseNo} onChange={(e) => setHouseNo(e.target.value)} />
+                                            <input type="text" placeholder="Apartment, suite, etc. (optional)" value={apartment} onChange={(e) => setApartment(e.target.value)} />
+                                            <input type="text" placeholder="Landmark" required value={landmark} onChange={(e) => setLandmark(e.target.value)} />
+                                        </div>
                                         <input type="text" placeholder="Street Address" required value={streetAddress} onChange={(e) => setStreetAddress(e.target.value)} />
-                                        <input type="text" placeholder="Landmark" required value={landmark} onChange={(e) => setLandmark(e.target.value)} />
+
                                         <select value={country} onChange={(e) => setCountry(e.target.value)}>
                                             <option>Country/Region</option>
                                             {countries.sort().map((country, index) => (
