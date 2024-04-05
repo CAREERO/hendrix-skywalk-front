@@ -13,6 +13,10 @@ import Rewards from './pages/Rewards/Rewards';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
 import SummaryPage from './pages/SummaryPage/SummaryPage'; // Import SummaryPage component
+import { Elements } from '@stripe/react-stripe-js'; // Import Elements from Stripe package
+import { loadStripe } from '@stripe/stripe-js'; // Import loadStripe from Stripe package
+
+const stripePromise = loadStripe('YOUR_PUBLISHABLE_KEY'); // Replace 'YOUR_PUBLISHABLE_KEY' with your actual Stripe publishable key
 
 const AppRoutes: React.FC = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -30,8 +34,23 @@ const AppRoutes: React.FC = () => {
         <Route path="/cart" element={<ShoppingCart />} />
         <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
         <Route path="/rewards" element={<Rewards />} />
+        <Route path="/product/:id" element={<ProductDetailsPage />} />
+        <Route
+          path="/profile"
+          element={isLoggedIn ? <Profile /> : <Navigate to="/login" state={{ from: '/profile' }} replace />}
+        />
+        <Route
+          path="/productCreate"
+          element={
+            isLoggedIn ? (
+              <ProductCreatePage />
+            ) : (
+              <Navigate to="/login" state={{ from: '/productCreate' }} replace />
+            )
+          }
+        />
         <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/payment" element={<Elements stripe={stripePromise}><PaymentPage /></Elements>} />
         <Route
           path="/summary"
           element={
@@ -48,21 +67,6 @@ const AppRoutes: React.FC = () => {
               cartItems={[]} // Provide empty array or actual array of cart items
               shippingPrice={10} // Provide the shipping price
             />
-          }
-        />
-        <Route path="/product/:id" element={<ProductDetailsPage />} />
-        <Route
-          path="/profile"
-          element={isLoggedIn ? <Profile /> : <Navigate to="/login" state={{ from: '/profile' }} replace />}
-        />
-        <Route
-          path="/productCreate"
-          element={
-            isLoggedIn ? (
-              <ProductCreatePage />
-            ) : (
-              <Navigate to="/login" state={{ from: '/productCreate' }} replace />
-            )
           }
         />
       </Routes>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import PaymentCardForm from "../../components/PaymentCardForm/PaymentCardForm";
+import PaymentCardForm, { PaymentCardFormData } from "../../components/PaymentCardForm/PaymentCardForm";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-import SavedCardsComponent from "../../components/savedCards/SavedCards";
+import SavedCardsComponent, { CardType } from "../../components/savedCards/SavedCardsComponent";
 import { FaChevronLeft } from 'react-icons/fa';
+import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import "./PaymentPage.scss";
 
 interface Product {
@@ -22,15 +23,6 @@ interface Product {
   created_at: string;
 }
 
-interface CardType {
-  id: number;
-  card_number: string;
-  exp_month: number;
-  exp_year: number;
-  cvc: number;
-  email: string;
-}
-
 const PaymentPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,6 +30,11 @@ const PaymentPage: React.FC = () => {
   const [subtotal, setSubtotal] = useState<number>(0);
   const [shippingPrice, setShippingPrice] = useState<number>(0);
   const [stripeCards, setStripeCards] = useState<CardType[]>([]);
+  const [userEmail, setUserEmail] = useState<string>(''); 
+  const stripe = useStripe(); 
+  const elements = useElements(); 
+
+  let totalPrice = subtotal + shippingPrice;
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -51,14 +48,19 @@ const PaymentPage: React.FC = () => {
     };
 
     fetchCartItems();
+
+    const userEmail = localStorage.getItem('userEmail');
+    if (userEmail) {
+      setUserEmail(userEmail);
+    }
   }, []);
 
   useEffect(() => {
     const fetchStripeCards = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/stripe/cards`);
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/account/stripe/cards/`);
         setStripeCards(response.data);
-        console.log("Fetched stripe cards:", response.data); // Add logging here
+        console.log("Fetched stripe cards:", response.data);
       } catch (error) {
         console.error("Error fetching stripe cards:", error);
       }
@@ -86,86 +88,150 @@ const PaymentPage: React.FC = () => {
     }
   };
 
-  const handlePayment = (formData: any) => {
-    console.log("Payment form data:", formData);
-    navigate("/thank-you");
+
+// Function to save card details
+const saveCard = async (formData: PaymentCardFormData) => {
+  console.log("Card data to be saved:", formData);
+  try {
+    if (!stripe || !elements) {
+      console.error("Stripe or Elements is not initialized.");
+      return;
+    }
+
+    const cardElement = elements.getElement(CardElement);
+    console.log("Card Element:", cardElement);
+
+    if (!cardElement) {
+      console.error("Card Element is not available.");
+      return;
+    }
+
+    // Validate card number completion
+    const cardBrand = cardElement.card?.brand;
+    if (!cardBrand || !['visa', 'mastercard', 'amex', 'discover'].includes(cardBrand)) {
+      console.error("Invalid card brand.");
+      return;
+    }
+
+    // Create token from card element
+    const { token, error } = await stripe.createToken(cardElement);
+
+    if (error) {
+      console.error("Error creating token:", error.message);
+      return;
+    }
+
+    if (!token) {
+      console.error("Token is undefined.");
+      return;
+    }
+
+    console.log("Token:", token);
+
+    // Append token to form data
+    const formDataWithEmail = { ...formData, email: userEmail };
+    const formDataComplete = { ...formDataWithEmail, token: token.id };
+
+    // Send form data to backend
+    await axios.post(`${process.env.REACT_APP_API_BASE_PROD}/payments/create-card/`, formDataComplete);
+    await axios.post(`${process.env.REACT_APP_API_BASE_PROD}/payments/process-payment/`, { token });
+
+    // Fetch updated stripe cards
+    const fetchCardsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/account/stripe/cards/`);
+    setStripeCards(fetchCardsResponse.data);
+  } catch (error: any) {
+    if (error.response) {
+      console.error("Error saving card:", error.response.data);
+    } else if (error.message) {
+      console.error("Error saving card:", error.message);
+    } else {
+      console.error("Error saving card:", error);
+    }
+  }
+};
+
+
+  const showCardDetails = (cardData: CardType) => {
+    // Your implementation here
   };
 
-  const totalPrice = subtotal + shippingPrice;
+  const payWithSavedCard = (cardData: CardType) => {
+    // Your implementation here
+  };
 
-  const handleChangeShipping = () => {
-    navigate("/checkout");
+  const setCardDetails = (value: boolean) => {
+    // Your implementation here
+  };
+
+  const setCardDetailsId = (id: number) => {
+    // Your implementation here
+  };
+
+  const navigateToEditCard = () => {
+    // Your implementation here
   };
 
   return (
-    <>
-      <section className="payment-page-main">
-        <div className="payment-container-1">
-          <div className="right-section">
-            <div className="scrollable-section">
-              <h2>Order Summary</h2>
-              <hr />
-              <div className="payment-summary">
-                <div className="new-product-list">
-                  {cartItems.map((item: Product) => (
-                    <div key={item.id} className="payment-item-summary">
-                      <img
-                        src={`${process.env.REACT_APP_API_BASE_PROD}${item.product.image}`}
-                        alt=""
-                        className="cartModal__paymentImage"
-                      />
-                      <span>{item.product.name}</span>
-                      <span>${item.product.price}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="shipping-navigation">
-                </div>
+    <section className="payment-page-main">
+      <div className="payment-container-1">
+        <div className="right-section">
+          <div className="scrollable-section">
+            <h2>Order Summary</h2>
+            <hr />
+            <div className="payment-summary">
+              <div className="new-product-list">
+                {cartItems.map((item: Product) => (
+                  <div key={item.id} className="payment-item-summary">
+                    <img
+                      src={`${process.env.REACT_APP_API_BASE_PROD}${item.product.image}`}
+                      alt=""
+                      className="cartModal__paymentImage"
+                    />
+                    <span>{item.product.name}</span>
+                    <span>${item.product.price}</span>
+                  </div>
+                ))}
               </div>
-              <hr />
-              <div className="fixed-section">
-                <div className="subtotal">
-                  <span>Subtotal:</span>
-                  <span>${subtotal.toFixed(2)}</span>
-                </div>
-                <div className="shipping-info">
-                  <span>Shipping:</span>
-                  <span>{shippingPrice ? `$${shippingPrice.toFixed(2)}` : "Calculated at next step"}</span>
-                </div>
-                <div className="total">
-                  <span>Total:</span>
-                  <span>USD ${totalPrice.toFixed(2)}</span>
-                </div>
-              </div>
-              <button onClick={handleChangeShipping}><FaChevronLeft /> Return to Shipping</button>
+              <div className="shipping-navigation"></div>
             </div>
+            <hr />
+            <div className="fixed-section">
+              <div className="subtotal">
+                <span>Subtotal:</span>
+                <span>${subtotal.toFixed(2)}</span>
+              </div>
+              <div className="shipping-info">
+                <span>Shipping:</span>
+                <span>{shippingPrice ? `$${shippingPrice.toFixed(2)}` : "Calculated at next step"}</span>
+              </div>
+              <div className="total">
+                <span>Total:</span>
+                <span>USD ${totalPrice.toFixed(2)}</span>
+              </div>
+            </div>
+            <button onClick={() => navigate("/checkout")}><FaChevronLeft /> Return to Shipping</button>
           </div>
         </div>
+      </div>
 
-        <div className="payment-container-2">
-          <h2>Payment Details</h2>
-          <PaymentCardForm
-            onSaveCard={handlePayment}
-            payWithSavedCard={() => { }}
-            setCardDetails={() => { }}
-            setCardDetailsId={() => { }}
-            navigateToEditCard={() => { }}
-          />
-        </div>
+      <div className="payment-container-2">
+        <h2>Payment Details</h2>
+        <PaymentCardForm onSaveCard={saveCard} userEmail={userEmail} />
+      </div>
 
-        <div className="payment-container-3">
-          <h2>Saved Cards</h2>
-          <SavedCardsComponent
-            stripeCards={stripeCards}
-            showCardDetails={() => { }}
-            payWithSavedCard={() => { }}
-            setCardDetails={() => { }}
-            setCardDetailsId={() => { }}
-            navigateToEditCard={() => { }}
-          />
-        </div>
-      </section>
-    </>
+      <div className="payment-container-3">
+        <h2>Saved Cards</h2>
+        <SavedCardsComponent
+          stripeCards={stripeCards}
+          setStripeCards={setStripeCards}
+          showCardDetails={showCardDetails}
+          payWithSavedCard={payWithSavedCard}
+          setCardDetails={setCardDetails}
+          setCardDetailsId={setCardDetailsId}
+          navigateToEditCard={navigateToEditCard}
+        />
+      </div>
+    </section>
   );
 };
 
