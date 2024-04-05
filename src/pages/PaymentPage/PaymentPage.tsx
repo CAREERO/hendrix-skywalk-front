@@ -88,68 +88,82 @@ const PaymentPage: React.FC = () => {
     }
   };
 
+  // Function to save card details
+  const saveCard = async (formData: PaymentCardFormData) => {
+    console.log("Card data to be saved:", formData);
+    try {
+      if (!stripe || !elements) {
+        console.error("Stripe or Elements is not initialized.");
+        return;
+      }
 
-// Function to save card details
-const saveCard = async (formData: PaymentCardFormData) => {
-  console.log("Card data to be saved:", formData);
-  try {
-    if (!stripe || !elements) {
-      console.error("Stripe or Elements is not initialized.");
-      return;
+      const cardElement = elements.getElement(CardElement);
+      console.log("Card Element:", cardElement);
+
+      if (!cardElement) {
+        console.error("Card Element is not available.");
+        return;
+      }
+
+      // Create token from card element
+      const { token, error } = await stripe.createToken(cardElement);
+
+      if (error) {
+        console.error("Error creating token:", error.message);
+        return;
+      }
+
+      if (!token || !token.card) {
+        console.error("Token or card information is undefined.");
+        return;
+      }
+
+      const cardBrand = token.card.brand;
+
+      if (!cardBrand || !isValidCardBrand(cardBrand)) {
+        console.error("Invalid card brand.");
+        return;
+      }
+
+      console.log("Token:", token);
+
+      // Append token to form data
+      const formDataWithEmail = { ...formData, email: userEmail };
+      const formDataComplete = { ...formDataWithEmail, token: token.id };
+
+      // Send form data to backend
+      await axios.post(`${process.env.REACT_APP_API_BASE_PROD}/payments/create-card/`, formDataComplete);
+      await axios.post(`${process.env.REACT_APP_API_BASE_PROD}/payments/process-payment/`, { token });
+
+      // Fetch updated stripe cards
+      const fetchCardsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/account/stripe/cards/`);
+      setStripeCards(fetchCardsResponse.data);
+    } catch (error: any) {
+      if (error.response) {
+        console.error("Error saving card:", error.response.data);
+      } else if (error.message) {
+        console.error("Error saving card:", error.message);
+      } else {
+        console.error("Error saving card:", error);
+      }
     }
+  };
 
-    const cardElement = elements.getElement(CardElement);
-    console.log("Card Element:", cardElement);
-
-    if (!cardElement) {
-      console.error("Card Element is not available.");
-      return;
-    }
-
-    // Validate card number completion
-    const cardBrand = cardElement.card?.brand;
-    if (!cardBrand || !['visa', 'mastercard', 'amex', 'discover'].includes(cardBrand)) {
-      console.error("Invalid card brand.");
-      return;
-    }
-
-    // Create token from card element
-    const { token, error } = await stripe.createToken(cardElement);
-
-    if (error) {
-      console.error("Error creating token:", error.message);
-      return;
-    }
-
-    if (!token) {
-      console.error("Token is undefined.");
-      return;
-    }
-
-    console.log("Token:", token);
-
-    // Append token to form data
-    const formDataWithEmail = { ...formData, email: userEmail };
-    const formDataComplete = { ...formDataWithEmail, token: token.id };
-
-    // Send form data to backend
-    await axios.post(`${process.env.REACT_APP_API_BASE_PROD}/payments/create-card/`, formDataComplete);
-    await axios.post(`${process.env.REACT_APP_API_BASE_PROD}/payments/process-payment/`, { token });
-
-    // Fetch updated stripe cards
-    const fetchCardsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/account/stripe/cards/`);
-    setStripeCards(fetchCardsResponse.data);
-  } catch (error: any) {
-    if (error.response) {
-      console.error("Error saving card:", error.response.data);
-    } else if (error.message) {
-      console.error("Error saving card:", error.message);
-    } else {
-      console.error("Error saving card:", error);
-    }
-  }
-};
-
+  const isValidCardBrand = (brand: string) => {
+    const validBrands = [
+      'visa',
+      'visaDebit',
+      'mastercard',
+      'mastercardDebit',
+      'mastercardPrepaid',
+      'amex',
+      'discover',
+      'dinersClub',
+      'jcb',
+      'unionPay'
+    ];
+    return validBrands.includes(brand);
+  };
 
   const showCardDetails = (cardData: CardType) => {
     // Your implementation here
