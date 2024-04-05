@@ -30,9 +30,9 @@ const PaymentPage: React.FC = () => {
   const [subtotal, setSubtotal] = useState<number>(0);
   const [shippingPrice, setShippingPrice] = useState<number>(0);
   const [stripeCards, setStripeCards] = useState<CardType[]>([]);
-  const [userEmail, setUserEmail] = useState<string>(''); 
-  const stripe = useStripe(); 
-  const elements = useElements(); 
+  const [userEmail, setUserEmail] = useState<string>('');
+  const stripe = useStripe();
+  const elements = useElements();
 
   let totalPrice = subtotal + shippingPrice;
 
@@ -88,6 +88,7 @@ const PaymentPage: React.FC = () => {
     }
   };
 
+  // Function to save card details
   // Function to save card details
   const saveCard = async (formData: PaymentCardFormData) => {
     console.log("Card data to be saved:", formData);
@@ -148,6 +149,7 @@ const PaymentPage: React.FC = () => {
       }
     }
   };
+
 
   const isValidCardBrand = (brand: string) => {
     const validBrands = [
