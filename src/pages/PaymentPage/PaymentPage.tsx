@@ -86,15 +86,24 @@ const PaymentPage: React.FC = () => {
     const totalPrice = cartItems.reduce((acc, curr) => acc + curr.total_price, 0);
   
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_BASE_PROD}/payments/create-checkout-session/`, {
-        product_name: cartItems.map(item => item.product.name).join(', '), // Concatenate product names
-        price: totalPrice,
-        quantity: cartItems.length, // Number of items in the cart
-        subtotal: subtotal,
-        shippingPrice: shippingPrice,
-        total: totalPrice + shippingPrice, // Total price including shipping
-        userEmail: localStorage.getItem('userEmail'),
-      });
+      const token = localStorage.getItem('accessToken');
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_PROD}/payments/create-checkout-session/`,
+        {
+          product_name: cartItems.map(item => item.product.name).join(', '), // Concatenate product names
+          price: totalPrice,
+          quantity: cartItems.length, // Number of items in the cart
+          subtotal: subtotal,
+          shippingPrice: shippingPrice,
+          total: totalPrice + shippingPrice, // Total price including shipping
+          userEmail: localStorage.getItem('userEmail'),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the authorization header
+          },
+        }
+      );
       console.log(response.data);
       window.location.href = response.data.url; // Redirect to checkout session URL
     } catch (error) {
