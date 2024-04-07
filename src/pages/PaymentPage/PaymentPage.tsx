@@ -101,6 +101,7 @@ const PaymentPage: React.FC = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include the authorization header
+            'Content-Type': 'application/json', // Specify content type
           },
         }
       );
@@ -110,8 +111,6 @@ const PaymentPage: React.FC = () => {
       console.error('Error creating checkout session:', error);
     }
   };
-  
-  
   
   return (
     <section className="payment-page-main">
