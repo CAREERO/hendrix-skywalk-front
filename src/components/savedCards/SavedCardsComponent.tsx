@@ -17,8 +17,8 @@ interface SavedCardsProps {
     setStripeCards: React.Dispatch<React.SetStateAction<CardType[]>>;
     showCardDetails: (cardData: CardType) => void;
     payWithSavedCard: (cardData: CardType) => void;
-    setCardDetails: (value: boolean) => void; // Fix: Change to a function that accepts boolean
-    setCardDetailsId: (id: number) => void; // Fix: Change to a function that accepts number
+    setCardDetails: (value: boolean) => void; 
+    setCardDetailsId: (id: number) => void;
     navigateToEditCard: () => void;
 }
 

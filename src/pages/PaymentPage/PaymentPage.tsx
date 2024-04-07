@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import PaymentCardForm, { PaymentCardFormData } from "../../components/PaymentCardForm/PaymentCardForm";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
-import SavedCardsComponent, { CardType } from "../../components/savedCards/SavedCardsComponent";
-import { FaChevronLeft } from 'react-icons/fa';
-import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import { useLocation } from "react-router-dom";
+import { FaChevronRight } from "react-icons/fa6";
 import "./PaymentPage.scss";
 
 interface Product {
@@ -24,15 +21,10 @@ interface Product {
 }
 
 const PaymentPage: React.FC = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [shippingPrice, setShippingPrice] = useState<number>(0);
-  const [stripeCards, setStripeCards] = useState<CardType[]>([]);
-  const [userEmail, setUserEmail] = useState<string>('');
-  const stripe = useStripe();
-  const elements = useElements();
 
   let totalPrice = subtotal + shippingPrice;
 
@@ -51,7 +43,7 @@ const PaymentPage: React.FC = () => {
 
     const userEmail = localStorage.getItem('userEmail');
     if (userEmail) {
-      setUserEmail(userEmail);
+      // setUserEmail(userEmail);
     }
   }, []);
 
@@ -59,7 +51,6 @@ const PaymentPage: React.FC = () => {
     const fetchStripeCards = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/account/stripe/cards/`);
-        setStripeCards(response.data);
         console.log("Fetched stripe cards:", response.data);
       } catch (error) {
         console.error("Error fetching stripe cards:", error);
@@ -88,105 +79,31 @@ const PaymentPage: React.FC = () => {
     }
   };
 
-  // Function to save card details
-  // Function to save card details
-  const saveCard = async (formData: PaymentCardFormData) => {
-    console.log("Card data to be saved:", formData);
+  const handleSubmitPayment = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  
+    // Calculate total price from cartItems
+    const totalPrice = cartItems.reduce((acc, curr) => acc + curr.total_price, 0);
+  
     try {
-      if (!stripe || !elements) {
-        console.error("Stripe or Elements is not initialized.");
-        return;
-      }
-
-      const cardElement = elements.getElement(CardElement);
-      console.log("Card Element:", cardElement);
-
-      if (!cardElement) {
-        console.error("Card Element is not available.");
-        return;
-      }
-
-      // Create token from card element
-      const { token, error } = await stripe.createToken(cardElement);
-
-      if (error) {
-        console.error("Error creating token:", error.message);
-        return;
-      }
-
-      if (!token || !token.card) {
-        console.error("Token or card information is undefined.");
-        return;
-      }
-
-      const cardBrand = token.card.brand;
-
-      if (!cardBrand || !isValidCardBrand(cardBrand)) {
-        console.error("Invalid card brand.");
-        return;
-      }
-
-      console.log("Token:", token);
-
-      // Append token to form data
-      const formDataWithEmail = { ...formData, email: userEmail };
-      const formDataComplete = { ...formDataWithEmail, token: token.id };
-
-      // Send form data to backend
-      await axios.post(`${process.env.REACT_APP_API_BASE_PROD}/payments/create-card/`, formDataComplete);
-      await axios.post(`${process.env.REACT_APP_API_BASE_PROD}/payments/process-payment/`, { token });
-
-      // Fetch updated stripe cards
-      const fetchCardsResponse = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/account/stripe/cards/`);
-      setStripeCards(fetchCardsResponse.data);
-    } catch (error: any) {
-      if (error.response) {
-        console.error("Error saving card:", error.response.data);
-      } else if (error.message) {
-        console.error("Error saving card:", error.message);
-      } else {
-        console.error("Error saving card:", error);
-      }
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_PROD}/payments/create-checkout-session/`, {
+        product_name: cartItems.map(item => item.product.name).join(', '), // Concatenate product names
+        price: totalPrice,
+        quantity: cartItems.length, // Number of items in the cart
+        subtotal: subtotal,
+        shippingPrice: shippingPrice,
+        total: totalPrice + shippingPrice, // Total price including shipping
+        userEmail: localStorage.getItem('userEmail'),
+      });
+      console.log(response.data);
+      window.location.href = response.data.url; // Redirect to checkout session URL
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
     }
   };
-
-
-  const isValidCardBrand = (brand: string) => {
-    const validBrands = [
-      'visa',
-      'visaDebit',
-      'mastercard',
-      'mastercardDebit',
-      'mastercardPrepaid',
-      'amex',
-      'discover',
-      'dinersClub',
-      'jcb',
-      'unionPay'
-    ];
-    return validBrands.includes(brand);
-  };
-
-  const showCardDetails = (cardData: CardType) => {
-    // Your implementation here
-  };
-
-  const payWithSavedCard = (cardData: CardType) => {
-    // Your implementation here
-  };
-
-  const setCardDetails = (value: boolean) => {
-    // Your implementation here
-  };
-
-  const setCardDetailsId = (id: number) => {
-    // Your implementation here
-  };
-
-  const navigateToEditCard = () => {
-    // Your implementation here
-  };
-
+  
+  
+  
   return (
     <section className="payment-page-main">
       <div className="payment-container-1">
@@ -225,27 +142,11 @@ const PaymentPage: React.FC = () => {
                 <span>USD ${totalPrice.toFixed(2)}</span>
               </div>
             </div>
-            <button onClick={() => navigate("/checkout")}><FaChevronLeft /> Return to Shipping</button>
+            <form onSubmit={handleSubmitPayment}>
+              <button type="submit"><FaChevronRight /> Proceed to Payment</button>
+            </form>
           </div>
         </div>
-      </div>
-
-      <div className="payment-container-2">
-        <h2>Payment Details</h2>
-        <PaymentCardForm onSaveCard={saveCard} userEmail={userEmail} />
-      </div>
-
-      <div className="payment-container-3">
-        <h2>Saved Cards</h2>
-        <SavedCardsComponent
-          stripeCards={stripeCards}
-          setStripeCards={setStripeCards}
-          showCardDetails={showCardDetails}
-          payWithSavedCard={payWithSavedCard}
-          setCardDetails={setCardDetails}
-          setCardDetailsId={setCardDetailsId}
-          navigateToEditCard={navigateToEditCard}
-        />
       </div>
     </section>
   );
