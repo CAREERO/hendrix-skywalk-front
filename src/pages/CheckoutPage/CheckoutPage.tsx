@@ -427,7 +427,8 @@ const CheckoutPage: React.FC = () => {
                                         <div key={item.id} className="product-item-summary">
                                             <img src={`${process.env.REACT_APP_API_BASE_PROD}${item.product.image}`} alt="" className="cartModal__productImage" />
                                             <span>{item.product.name}</span>
-                                            <span>${item.product.price}</span>
+                                            <span>Quantity: {item.quantity}</span>
+                                            <span>Total Price: ${(item.total_price).toFixed(2)}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -456,3 +457,4 @@ const CheckoutPage: React.FC = () => {
 };
 
 export default CheckoutPage;
+
