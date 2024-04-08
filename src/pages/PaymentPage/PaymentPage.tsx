@@ -61,7 +61,9 @@ const PaymentPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    console.log("Location state:", location.state);
     if (location.state && location.state.selectedShippingOption) {
+      console.log("Selected shipping option:", location.state.selectedShippingOption);
       calculateShippingPrice(location.state.selectedShippingOption);
     }
   }, [location.state]);
