@@ -83,14 +83,38 @@ const PaymentPage: React.FC = () => {
       const response = await axios.post(
         `${process.env.REACT_APP_API_BASE_PROD}/payments/create-checkout-session/`,
         {
-          product_name: cartItems.map(item => item.product.name).join(', '),
-          price: totalPrice,
-          quantity: cartItems.length,
-          subtotal: subtotal,
-          shippingPrice: shippingPrice,
-          total: totalPrice + shippingPrice,
-          userEmail: localStorage.getItem('userEmail'),
-          product_image: cartItems.map(item => item.product.image)[0], // Assuming the first item's image is used
+          line_items: {
+            "0": {
+              price_data: {
+                currency: 'usd',
+                unit_amount: Math.ceil(totalPrice * 100),
+                product_data: {
+                  name: cartItems.map(item => item.product.name).join(', '),
+                  images: [cartItems[0].product.image], // Using the first item's image URL
+                },
+              },
+              quantity: cartItems.length,
+            },
+            "1": {
+              price_data: {
+                currency: 'usd',
+                unit_amount: Math.ceil(shippingPrice * 100),
+                product_data: {
+                  name: 'Shipping',
+                },
+              },
+              quantity: 1,
+            },
+          },
+          mode: 'payment',
+          metadata: {
+            user_id: '1',
+            subtotal: subtotal,
+            shipping_price: shippingPrice,
+          },
+          success_url: `${window.location.origin}/payments/success/1`,
+          cancel_url: `${window.location.origin}/payments/cancel/1`,
+          payment_method_types: ['card'],
         },
         {
           headers: {
