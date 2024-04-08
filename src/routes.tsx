@@ -12,11 +12,13 @@ import ProductDetailsPage from '../src/pages/Product/ProductDetailsPage';
 import Rewards from './pages/Rewards/Rewards';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
-import SummaryPage from './pages/SummaryPage/SummaryPage'; // Import SummaryPage component
-import { Elements } from '@stripe/react-stripe-js'; // Import Elements from Stripe package
-import { loadStripe } from '@stripe/stripe-js'; // Import loadStripe from Stripe package
+import SummaryPage from './pages/SummaryPage/SummaryPage';
+import SuccessPaymentPage from './pages/PaymentPage/Success/SuccessPaymentPage'; // Import SuccessPaymentPage component
+import OrdersPage from './pages/OrderPage/OrdersPage'; // Import OrdersPage component
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe('YOUR_PUBLISHABLE_KEY'); // Replace 'YOUR_PUBLISHABLE_KEY' with your actual Stripe publishable key
+const stripePromise = loadStripe('YOUR_PUBLISHABLE_KEY');
 
 const AppRoutes: React.FC = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -64,11 +66,13 @@ const AppRoutes: React.FC = () => {
               orderNumber="123456789"
               paymentOption="Visa"
               maskedCardNumber="**** **** **** 1234"
-              cartItems={[]} // Provide empty array or actual array of cart items
-              shippingPrice={10} // Provide the shipping price
+              cartItems={[]} 
+              shippingPrice={10}
             />
           }
         />
+        <Route path="/orders" element={<OrdersPage />} /> {/* Route for OrdersPage */}
+        <Route path="/success" element={<SuccessPaymentPage />} /> {/* Route for SuccessPaymentPage */}
       </Routes>
     </CartProvider>
   );

@@ -1,4 +1,6 @@
-import React from 'react'; // Remove useState import
+import React from 'react';
+import Header from '../../components/common/Header/Header'; // Assuming you have a Header component
+import Footer from '../../components/common/Footer/Footer';
 import styles from './OrdersPage.module.scss';
 
 interface Order {
@@ -22,6 +24,7 @@ const OrdersPage: React.FC = () => {
 
   return (
     <div className={styles.ordersPage}>
+      <Header />
       <h1>Orders</h1>
       <div className={styles.ordersList}>
         {orders.map(order => (
@@ -38,6 +41,7 @@ const OrdersPage: React.FC = () => {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 };
