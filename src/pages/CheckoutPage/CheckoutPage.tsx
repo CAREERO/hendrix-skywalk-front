@@ -36,7 +36,6 @@ interface Address {
     phone_number?: string; // Optional property for phone number
 }
 
-
 const CheckoutPage: React.FC = () => {
     const [cartItems, setCartItems] = useState<Product[]>([]);
     const [subtotal, setSubtotal] = useState<number>(0);
@@ -146,7 +145,7 @@ const CheckoutPage: React.FC = () => {
     };
 
     const handleContinuePayment = () => {
-        navigate('/payment', { state: { selectedShippingOption: shippingOption } });
+        navigate('/payment', { state: { cartItems, subtotal, shippingPrice } }); // Pass data through location state
     };
 
     const handleReturnInfo = () => {
@@ -298,8 +297,6 @@ const CheckoutPage: React.FC = () => {
             setPhone(selectedAddress?.phone_number || '');
         }
     };
-
-
 
     return (
         <>
