@@ -616,42 +616,164 @@ iframe {
 //   }
 // }
 
-// @media only screen and (min-width: 360px) {
-//   .portrait {
-//     max-width: 350px;
-//   }
-//   .portrait {
-//     display: none; /* Hide portrait on mobile */
-//   }
+@media only screen and (min-width: 360px) {
+  .Header_header__content__logo__Ia4Is {
+    width: 100px;
+    height: 100px;
+  }
 
-//   .countdown-timer {
-//     text-align: center;
-//     margin-top: 20px;
-//     color: #e3b817;
-//     bottom: 55px;
-//     position: relative;
-//     font-size: 3em;
+  .home-banner-text {
+    font-size: 2em;
+    left: 3rem;
+    margin-bottom: 10px;
+    padding: 0;
+    top: 0rem;
+  }
 
-//     h2 {
-//       font-size: 1.5rem;
-//       margin-bottom: 10px;
-//     }
+  .home-banner-subtext {
+    font-size: 1em;
+    margin-top: 5em;
+    margin-left: 2.5em;
+  }
 
-//     .countdown {
-//       font-size: 1.5rem;
-//       font-weight: bold;
-//     }
-//   }
+  .container-text {
+    display: flex;
+    position: relative;
+    top: 4rem;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+  }
 
-//   .video-background iframe {
-//     width: 425vw;
-//     height: 150vh;
-//     position: absolute;
-//     top: 50%;
-//     left: 50%;
-//     transform: translate(-50%, -50%);
-//   }
-// }
+  .productlist-section {
+    display: flex;
+    position: relative;
+    bottom: 17rem;
+    top: 16rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .video-holder {
+    border: none;
+    width: 100%;
+    height: 76%;
+    position: absolute;
+    left: 0px;
+    overflow: hidden;
+    z-index: -100;
+  }
+
+  .video-play {
+    align-items: center;
+    display: flex;
+    font-size: 19px;
+    font-weight: 600;
+    height: 30px;
+    width: 188px;
+    justify-content: center;
+    position: relative;
+    top: 90px;
+    left: 42px;
+  }
+
+  .gif-container {
+    bottom: 34rem;
+    right: -3rem;
+    position: absolute;
+  }
+
+  .gif-container .gif-image {
+    width: 100px;
+    position: relative;
+    right: 3rem;
+  }
+
+  .shop-here {
+    left: 0rem;
+    background: #bc1823;
+    position: relative;
+    top: -1px;
+    height: 115%;
+    width: 100%;
+  }
+
+  .footer-image {
+    width: 100%;
+    height: 76%;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  h4,
+  h5 {
+    font-size: 30px;
+  }
+
+  h5.home-banner-merchtext {
+    position: relative;
+    top: 1rem;
+    left: -8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  button.shop-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 38px;
+    left: 3rem;
+    font-size: 28px;
+  }
+
+  .image-gallery {
+    top: 17rem;
+    height: 80px;
+    width: 100%;
+  }
+
+  .ninjastar-image {
+    height: 46px;
+    width: 104px;
+    position: absolute;
+    bottom: 58px;
+    left: 10px;
+  }
+
+  iframe {
+    border: none;
+    width: 100%;
+    height: 128vh;
+    position: relative;
+    left: 0px;
+    top: 0;
+    overflow: hidden;
+    z-index: -100;
+  }
+  .footer {
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex-direction: column;
+      align-items: center;
+      flex-wrap: nowrap;
+    }
+
+    .footer-section {
+      text-align: center;
+      margin: 20px;
+    }
+  }
+}
 
 @media only screen and (min-width: 390px) {
   .Header_header__content__logo__Ia4Is {
