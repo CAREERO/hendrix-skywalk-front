@@ -138,7 +138,7 @@ const PaymentPage: React.FC = () => {
             <div className="fixed-section">
               <div className="subtotal">
                 <span>Subtotal:</span>
-                <span>${(subtotal + shippingPrice).toFixed(2)}</span>
+                <span>${subtotal.toFixed(2)}</span>
               </div>
               <div className="shipping-info">
                 <span>Shipping:</span>
