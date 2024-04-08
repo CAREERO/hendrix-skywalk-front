@@ -238,7 +238,7 @@ const CheckoutPage: React.FC = () => {
 
                 if (existingAddresses.length > 0) {
                     const addressId = existingAddresses[0].id;
-                    const updateResponse = await axios.put(`${process.env.REACT_APP_API_BASE_PRODL}/account/addresses/update/${addressId}/`, shippingInfo, {
+                    const updateResponse = await axios.put(`${process.env.REACT_APP_API_BASE_PROD}/account/addresses/update/${addressId}/`, shippingInfo, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`
                         }

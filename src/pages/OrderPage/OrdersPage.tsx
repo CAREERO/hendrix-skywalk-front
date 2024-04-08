@@ -1,6 +1,5 @@
-import React from 'react';
-import Header from '../../components/common/Header/Header'; // Assuming you have a Header component
-import Footer from '../../components/common/Footer/Footer';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styles from './OrdersPage.module.scss';
 
 interface Order {
@@ -11,11 +10,34 @@ interface Order {
 }
 
 const OrdersPage: React.FC = () => {
-  const orders: Order[] = [
-    { id: 1, customerName: 'John Doe', totalAmount: 50, status: 'Processing' },
-    { id: 2, customerName: 'Jane Smith', totalAmount: 75, status: 'Processing' },
-    // Add more orders as needed
-  ];
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = async () => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        throw new Error('Access token not found');
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/payments/stripe-webhook`, config);
+      setOrders(response.data.paid_invoices);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error fetching paid invoices:', error);
+      setIsLoading(false);
+    }
+  };
 
   const reprintInvoice = (orderId: number) => {
     // Logic to reprint the invoice for the given orderId
@@ -24,24 +46,29 @@ const OrdersPage: React.FC = () => {
 
   return (
     <div className={styles.ordersPage}>
-      <Header />
       <h1>Orders</h1>
-      <div className={styles.ordersList}>
-        {orders.map(order => (
-          <div key={order.id} className={styles.order}>
-            <div className={styles.orderDetails}>
-              <p>Order ID: {order.id}</p>
-              <p>Customer Name: {order.customerName}</p>
-              <p>Total Amount: ${order.totalAmount}</p>
-              <p>Status: {order.status}</p>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className={styles.ordersList}>
+          {orders.map((order) => (
+            <div key={order.id} className={styles.order}>
+              <div className={styles.orderDetails}>
+                <p>Order ID: {order.id}</p>
+                <p>Customer Name: {order.customerName}</p>
+                <p>Total Amount: ${order.totalAmount}</p>
+                <p>Status: {order.status}</p>
+              </div>
+              <button
+                className={styles.reprintButton}
+                onClick={() => reprintInvoice(order.id)}
+              >
+                Reprint Invoice
+              </button>
             </div>
-            <button className={styles.reprintButton} onClick={() => reprintInvoice(order.id)}>
-              Reprint Invoice
-            </button>
-          </div>
-        ))}
-      </div>
-      <Footer />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
