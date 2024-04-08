@@ -75,9 +75,9 @@ const PaymentPage: React.FC = () => {
 
   const handleSubmitPayment = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  
+
     const totalPrice = cartItems.reduce((acc, curr) => acc + curr.total_price, 0);
-  
+
     try {
       const token = localStorage.getItem('accessToken');
       const response = await axios.post(
@@ -90,7 +90,7 @@ const PaymentPage: React.FC = () => {
           shippingPrice: shippingPrice,
           total: totalPrice + shippingPrice,
           userEmail: localStorage.getItem('userEmail'),
-          product_image: cartItems.map(item => `${process.env.REACT_APP_API_BASE_PROD}${item.product.image}`).join(', '), // Include product image URL
+          product_image: cartItems.map(item => item.product.image)[0], // Assuming the first item's image is used
         },
         {
           headers: {
@@ -105,7 +105,6 @@ const PaymentPage: React.FC = () => {
       console.error('Error creating checkout session:', error);
     }
   };
-  
 
   return (
     <section className="payment-page-main">
@@ -120,7 +119,7 @@ const PaymentPage: React.FC = () => {
                   <div key={item.id} className="product-item-summary">
                     <img
                       src={`${process.env.REACT_APP_API_BASE_PROD}${item.product.image}`}
-                      alt=""
+                      alt={item.product.name} // Added alt attribute
                       className="cartModal__productImage"
                     />
                     <span>{item.product.name}</span>
