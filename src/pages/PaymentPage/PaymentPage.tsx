@@ -75,7 +75,7 @@ const PaymentPage: React.FC = () => {
     if (option === "standard") {
       setShippingPrice(5);
     } else if (option === "express") {
-      setShippingPrice(10);
+      setShippingPrice(15); // Adjusted the shipping price according to the specification
     }
   };
 
