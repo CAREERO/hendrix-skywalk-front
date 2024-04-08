@@ -147,6 +147,7 @@ const CheckoutPage: React.FC = () => {
     const handleContinuePayment = () => {
         navigate('/payment', { state: { cartItems, subtotal: subtotal + shippingPrice, shippingPrice } });
     };
+    
 
     const handleReturnInfo = () => {
         setShowShippingForm(true);

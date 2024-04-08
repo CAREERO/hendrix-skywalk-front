@@ -58,26 +58,21 @@ const PaymentPage: React.FC = () => {
     fetchStripeCards();
   }, []);
 
+
   useEffect(() => {
-    console.log("Location state:", location.state);
-    if (location.state && location.state.selectedShippingOption) {
-      console.log("Selected shipping option:", location.state.selectedShippingOption);
-      calculateShippingPrice(location.state.selectedShippingOption);
-    }
+      console.log("Location state:", location.state);
+      if (location.state && location.state.shippingPrice) {
+          console.log("Shipping price:", location.state.shippingPrice);
+          setShippingPrice(location.state.shippingPrice);
+      }
   }, [location.state]);
+  
 
   const calculateSubtotal = (items: Product[]) => {
     const total = items.reduce((acc: number, curr: Product) => acc + curr.total_price, 0);
     setSubtotal(total);
   };
 
-  const calculateShippingPrice = (option: string) => {
-    if (option === "standard") {
-      setShippingPrice(5);
-    } else if (option === "express") {
-      setShippingPrice(15);
-    }
-  };
 
   const handleSubmitPayment = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
