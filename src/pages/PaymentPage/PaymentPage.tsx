@@ -90,7 +90,7 @@ const PaymentPage: React.FC = () => {
                 unit_amount: Math.ceil(totalPrice * 100),
                 product_data: {
                   name: cartItems.map(item => item.product.name).join(', '),
-                  images: [cartItems[0].product.image], // Using the first item's image URL
+            
                 },
               },
               quantity: cartItems.length,
