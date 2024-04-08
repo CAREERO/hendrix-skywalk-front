@@ -231,30 +231,6 @@ iframe {
 //   }
 // }
 
-// @media only screen and (min-width: 768px) {
-//   .portrait {
-//     max-width: 250px;
-//   }
-//   .video-background {
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     width: 100%;
-//     height: 100%;
-//     z-index: -1;
-//     overflow: hidden;
-//   }
-
-//   .video-background iframe {
-//     width: 240vw;
-//     height: 150vh;
-//     position: absolute;
-//     top: 50%;
-//     left: 50%;
-//     transform: translate(-50%, -50%);
-//   }
-// }
-
 // @media only screen and (max-width: 820px) {
 //   .portrait {
 //     max-width: 250px;
@@ -274,6 +250,17 @@ iframe {
 // }
 
 @media only screen and (min-width: 375px) {
+  .Header_header__content__logo__Ia4Is {
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+    top: 15px;
+    bottom: 0;
+    width: 120px;
+    height: 120px;
+  }
   .Header_header__content__logo__Ia4Is {
     width: 100px;
     height: 100px;
@@ -440,6 +427,17 @@ iframe {
 }
 
 @media only screen and (min-width: 430px) {
+  .Header_header__content__logo__Ia4Is {
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+    top: 15px;
+    bottom: 0;
+    width: 120px;
+    height: 120px;
+  }
   .Header_header__content__logo__Ia4Is {
     width: 100px;
     height: 100px;
@@ -618,6 +616,17 @@ iframe {
 
 @media only screen and (min-width: 360px) {
   .Header_header__content__logo__Ia4Is {
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+    top: 15px;
+    bottom: 0;
+    width: 120px;
+    height: 120px;
+  }
+  .Header_header__content__logo__Ia4Is {
     width: 100px;
     height: 100px;
   }
@@ -777,6 +786,17 @@ iframe {
 
 @media only screen and (min-width: 390px) {
   .Header_header__content__logo__Ia4Is {
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+    top: 15px;
+    bottom: 0;
+    width: 120px;
+    height: 120px;
+  }
+  .Header_header__content__logo__Ia4Is {
     width: 100px;
     height: 100px;
   }
@@ -931,6 +951,116 @@ iframe {
       text-align: center;
       margin: 20px;
     }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .Header_header__content__logo__Ia4Is {
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+    top: 15px;
+    bottom: 0;
+    width: 120px;
+    height: 120px;
+  }
+
+  .Header_header__content__logo__Ia4Is {
+    width: 100px;
+    height: 100px;
+  }
+
+  .home-banner-text {
+    font-size: 4em;
+    left: 7rem;
+    margin-bottom: 10px;
+    padding: 0;
+    top: 3rem;
+  }
+  .home-banner-subtext {
+    font-size: 2em;
+    margin-top: 9em;
+    margin-left: 3em;
+  }
+
+  .container-text {
+    display: flex;
+    position: relative;
+    top: 15rem;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .productlist-section {
+    margin-top: 10rem;
+  }
+
+  .video-play {
+    align-items: center;
+    display: flex;
+    font-size: 30px;
+    height: 45px;
+    width: 265px;
+    justify-content: center;
+  }
+
+  .gif-container {
+    bottom: 25rem;
+    right: 1rem;
+    top: 45rem;
+    position: absolute;
+  }
+
+  .gif-container .gif-image {
+    width: 200px;
+  }
+
+  .ninjastar-image {
+    height: 110px;
+  }
+
+  .shop-here {
+    left: 45rem;
+  }
+
+  h4,
+  h5 {
+    font-size: 30px;
+  }
+
+  h5.home-banner-merchtext {
+    top: -40px;
+    right: 56rem;
+    position: absolute;
+  }
+
+  .image-gallery {
+    top: 24rem;
+    height: 80px;
+    width: 100%;
+  }
+
+  iframe {
+    border: none;
+    width: 100%;
+    height: 128vh;
+    position: relative;
+    left: 0px;
+    top: 0;
+    overflow: hidden;
+    z-index: -100;
+  }
+  .footer .footer-content {
+    display: flex;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
   }
 }
 /* Media query for large desktop */
