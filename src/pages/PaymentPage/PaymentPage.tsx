@@ -25,8 +25,7 @@ const PaymentPage: React.FC = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [shippingPrice, setShippingPrice] = useState<number>(0);
-
-  let totalPrice = subtotal + shippingPrice;
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -68,6 +67,10 @@ const PaymentPage: React.FC = () => {
     }
   }, [location.state]);
 
+  useEffect(() => {
+    setTotalPrice(subtotal + shippingPrice);
+  }, [subtotal, shippingPrice]);
+
   const calculateSubtotal = (items: Product[]) => {
     const total = items.reduce((acc: number, curr: Product) => acc + curr.total_price, 0);
     setSubtotal(total);
@@ -83,10 +86,9 @@ const PaymentPage: React.FC = () => {
 
   const handleSubmitPayment = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  
+
     try {
       const token = localStorage.getItem('accessToken');
-      const totalPrice = subtotal + shippingPrice; // Calculate total price including shipping
       const response = await axios.post(
         `${process.env.REACT_APP_API_BASE_PROD}/payments/create-checkout-session/`,
         {
@@ -111,8 +113,7 @@ const PaymentPage: React.FC = () => {
       console.error('Error creating checkout session:', error);
     }
   };
-  
-  
+
   return (
     <section className="payment-page-main">
       <div className="payment-container-1">
@@ -120,21 +121,17 @@ const PaymentPage: React.FC = () => {
           <div className="scrollable-section">
             <h2>Order Summary</h2>
             <hr />
-            <div className="payment-summary">
+            <div className="product-summary">
               <div className="new-product-list">
                 {cartItems.map((item: Product) => (
-                  <div key={item.id} className="payment-item-summary">
-                    <img
-                      src={`${process.env.REACT_APP_API_BASE_PROD}${item.product.image}`}
-                      alt=""
-                      className="cartModal__paymentImage"
-                    />
+                  <div key={item.id} className="product-item-summary">
+                    <img src={`${process.env.REACT_APP_API_BASE_PROD}${item.product.image}`} alt="" className="cartModal__productImage" />
                     <span>{item.product.name}</span>
-                    <span>${item.product.price}</span>
+                    <span>Quantity: {item.quantity}</span>
+                    <span>Total Price: ${(item.total_price).toFixed(2)}</span>
                   </div>
                 ))}
               </div>
-              <div className="shipping-navigation"></div>
             </div>
             <hr />
             <div className="fixed-section">

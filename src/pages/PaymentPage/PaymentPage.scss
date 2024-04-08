@@ -14,8 +14,9 @@ section.payment-page-main {
   padding: 20px;
   overflow: hidden;
   height: calc(100vh - 40px);
-  width: 25%;
+  width: 80%; /* Updated width to match the checkout page */
 }
+
 
 .payment-container-2 {
   display: flex;
@@ -24,7 +25,7 @@ section.payment-page-main {
   overflow: hidden;
   height: calc(100vh - 40px);
   background: rgb(255, 250, 181);
-  width: 25%;
+  width: 40%; /* Adjusted width for the order summary */
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -44,14 +45,8 @@ section.payment-page-main {
 }
 
 .scrollable-section {
-  overflow-y: auto; /* Add overflow-y: auto */
-  height: calc(
-    100% - 20px
-  ); /* Set a height that allows scrolling (checkout-container height - padding) */
-}
-
-.left-section {
-  width: 50%;
+  overflow-y: auto; 
+  height: calc(100% - 20px); 
 }
 
 .payment-summary {
@@ -59,21 +54,21 @@ section.payment-page-main {
 }
 
 .new-payment-list {
-  overflow-y: auto; /* Enable vertical scrolling */
-  max-height: 300px; /* Set a maximum height for the product list */
+  overflow-y: auto; 
+  max-height: 300px; 
 }
 
 .payment-item-summary {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Center vertically */
+  align-items: center; 
   margin-bottom: 10px;
 }
 
 .payment-item-summary img {
-  width: 100px; /* Set width to 30px */
-  height: 100px; /* Set height to 30px */
-  margin-right: 10px; /* Add some margin for spacing */
+  width: 100px; 
+  height: 100px; 
+  margin-right: 10px; 
   margin-top: 10px;
 }
 
