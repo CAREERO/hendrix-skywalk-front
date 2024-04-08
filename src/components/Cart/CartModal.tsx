@@ -41,7 +41,7 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
 
                 // Calculate subtotal based on fetched product data
                 const total = response.data.reduce((acc: number, curr: Product) => {
-                    return acc + curr.total_price * curr.quantity;
+                    return acc + curr.total_price;
                 }, 0);
                 setSubtotal(total);
             } catch (error) {
@@ -87,17 +87,15 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
             // Send DELETE request to remove item from the server
             await axios.delete(`${process.env.REACT_APP_API_BASE_PROD}/cart/item/remove/${productId}/`);
 
-            // Find the removed product
-            const removedProduct = products.find(product => product.id === productId);
-            if (removedProduct) {
-                // Calculate the subtotal by subtracting the total price of the removed product
-                const removedProductTotalPrice = removedProduct.total_price * removedProduct.quantity;
-                setSubtotal(prevSubtotal => prevSubtotal - removedProductTotalPrice);
+            // Filter out the removed product from the local state
+            const updatedProducts = products.filter(product => product.id !== productId);
+            setProducts(updatedProducts);
 
-                // Filter out the removed product from the local state
-                const updatedProducts = products.filter(product => product.id !== productId);
-                setProducts(updatedProducts);
-            }
+            // Recalculate subtotal based on updated product data
+            const total = updatedProducts.reduce((acc: number, curr: Product) => {
+                return acc + curr.total_price;
+            }, 0);
+            setSubtotal(total);
         } catch (error) {
             console.error('Error removing product from cart:', error);
         }
