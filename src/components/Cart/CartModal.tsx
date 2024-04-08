@@ -51,7 +51,6 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
         fetchCartItems();
     }, []);
 
-
     const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
     };
@@ -77,7 +76,6 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
 
             // Send PUT request to update quantity on the server
             await axios.put(`${process.env.REACT_APP_API_BASE_PROD}/cart/items/update/${productId}/`, { quantity: newQuantity });
-            // Rest of the code...
         } catch (error) {
             console.error('Error updating product quantity:', error);
         }
@@ -88,17 +86,17 @@ const CartModal: React.FC<CartModalProps> = ({ closeModal }) => {
         try {
             // Send DELETE request to remove item from the server
             await axios.delete(`${process.env.REACT_APP_API_BASE_PROD}/cart/item/remove/${productId}/`);
-            
+
             // Find the removed product
             const removedProduct = products.find(product => product.id === productId);
             if (removedProduct) {
-                // Filter out the removed product from the local state
-                const updatedProducts = products.filter(product => product.id !== productId);
-                setProducts(updatedProducts);
-                
                 // Calculate the subtotal by subtracting the total price of the removed product
                 const removedProductTotalPrice = removedProduct.total_price * removedProduct.quantity;
                 setSubtotal(prevSubtotal => prevSubtotal - removedProductTotalPrice);
+
+                // Filter out the removed product from the local state
+                const updatedProducts = products.filter(product => product.id !== productId);
+                setProducts(updatedProducts);
             }
         } catch (error) {
             console.error('Error removing product from cart:', error);
