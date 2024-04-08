@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import { FaChevronRight } from "react-icons/fa6";
+import { FaChevronRight } from "react-icons/fa";
 import "./PaymentPage.scss";
 
 interface Product {
@@ -25,7 +25,6 @@ const PaymentPage: React.FC = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [shippingPrice, setShippingPrice] = useState<number>(0);
-  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -67,10 +66,6 @@ const PaymentPage: React.FC = () => {
     }
   }, [location.state]);
 
-  useEffect(() => {
-    setTotalPrice(subtotal + shippingPrice);
-  }, [subtotal, shippingPrice]);
-
   const calculateSubtotal = (items: Product[]) => {
     const total = items.reduce((acc: number, curr: Product) => acc + curr.total_price, 0);
     setSubtotal(total);
@@ -80,35 +75,37 @@ const PaymentPage: React.FC = () => {
     if (option === "standard") {
       setShippingPrice(5);
     } else if (option === "express") {
-      setShippingPrice(15); // Adjusted the shipping price according to the specification
+      setShippingPrice(15);
     }
   };
 
   const handleSubmitPayment = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const totalPrice = cartItems.reduce((acc, curr) => acc + curr.total_price, 0);
+
     try {
       const token = localStorage.getItem('accessToken');
       const response = await axios.post(
         `${process.env.REACT_APP_API_BASE_PROD}/payments/create-checkout-session/`,
         {
-          product_name: cartItems.map(item => item.product.name).join(', '), // Concatenate product names
+          product_name: cartItems.map(item => item.product.name).join(', '),
           price: totalPrice,
-          quantity: cartItems.length, // Number of items in the cart
+          quantity: cartItems.length,
           subtotal: subtotal,
           shippingPrice: shippingPrice,
-          total: totalPrice, // Total price including shipping
+          total: totalPrice + shippingPrice,
           userEmail: localStorage.getItem('userEmail'),
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Include the authorization header
-            'Content-Type': 'application/json', // Specify content type
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
         }
       );
       console.log(response.data);
-      window.location.href = response.data.url; // Redirect to checkout session URL
+      window.location.href = response.data.url;
     } catch (error) {
       console.error('Error creating checkout session:', error);
     }
@@ -125,7 +122,11 @@ const PaymentPage: React.FC = () => {
               <div className="new-product-list">
                 {cartItems.map((item: Product) => (
                   <div key={item.id} className="product-item-summary">
-                    <img src={`${process.env.REACT_APP_API_BASE_PROD}${item.product.image}`} alt="" className="cartModal__productImage" />
+                    <img
+                      src={`${process.env.REACT_APP_API_BASE_PROD}${item.product.image}`}
+                      alt=""
+                      className="cartModal__productImage"
+                    />
                     <span>{item.product.name}</span>
                     <span>Quantity: {item.quantity}</span>
                     <span>Total Price: ${(item.total_price).toFixed(2)}</span>
@@ -137,15 +138,15 @@ const PaymentPage: React.FC = () => {
             <div className="fixed-section">
               <div className="subtotal">
                 <span>Subtotal:</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>${(subtotal + shippingPrice).toFixed(2)}</span>
               </div>
               <div className="shipping-info">
                 <span>Shipping:</span>
-                <span>{shippingPrice ? `$${shippingPrice.toFixed(2)}` : "Calculated at next step"}</span>
+                <span>${shippingPrice.toFixed(2)}</span>
               </div>
               <div className="total">
                 <span>Total:</span>
-                <span>USD ${totalPrice.toFixed(2)}</span>
+                <span>USD ${(subtotal + shippingPrice).toFixed(2)}</span>
               </div>
             </div>
             <form onSubmit={handleSubmitPayment}>
