@@ -73,12 +73,11 @@ const PaymentPage: React.FC = () => {
     setSubtotal(total);
   };
 
-
   const handleSubmitPayment = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+  
     const totalPrice = cartItems.reduce((acc, curr) => acc + curr.total_price, 0);
-
+  
     try {
       const token = localStorage.getItem('accessToken');
       const response = await axios.post(
@@ -91,6 +90,7 @@ const PaymentPage: React.FC = () => {
           shippingPrice: shippingPrice,
           total: totalPrice + shippingPrice,
           userEmail: localStorage.getItem('userEmail'),
+          product_image: cartItems.map(item => `${process.env.REACT_APP_API_BASE_PROD}${item.product.image}`).join(', '), // Include product image URL
         },
         {
           headers: {
@@ -105,6 +105,7 @@ const PaymentPage: React.FC = () => {
       console.error('Error creating checkout session:', error);
     }
   };
+  
 
   return (
     <section className="payment-page-main">
