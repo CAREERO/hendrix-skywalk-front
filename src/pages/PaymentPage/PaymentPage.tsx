@@ -84,11 +84,9 @@ const PaymentPage: React.FC = () => {
   const handleSubmitPayment = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   
-    // Calculate total price from cartItems
-    const totalPrice = cartItems.reduce((acc, curr) => acc + curr.total_price, 0);
-  
     try {
       const token = localStorage.getItem('accessToken');
+      const totalPrice = subtotal + shippingPrice; // Calculate total price including shipping
       const response = await axios.post(
         `${process.env.REACT_APP_API_BASE_PROD}/payments/create-checkout-session/`,
         {
@@ -97,7 +95,7 @@ const PaymentPage: React.FC = () => {
           quantity: cartItems.length, // Number of items in the cart
           subtotal: subtotal,
           shippingPrice: shippingPrice,
-          total: totalPrice + shippingPrice, // Total price including shipping
+          total: totalPrice, // Total price including shipping
           userEmail: localStorage.getItem('userEmail'),
         },
         {
@@ -113,6 +111,7 @@ const PaymentPage: React.FC = () => {
       console.error('Error creating checkout session:', error);
     }
   };
+  
   
   return (
     <section className="payment-page-main">
