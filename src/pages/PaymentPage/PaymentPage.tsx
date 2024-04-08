@@ -83,38 +83,13 @@ const PaymentPage: React.FC = () => {
       const response = await axios.post(
         `${process.env.REACT_APP_API_BASE_PROD}/payments/create-checkout-session/`,
         {
-          line_items: {
-            "0": {
-              price_data: {
-                currency: 'usd',
-                unit_amount: Math.ceil(totalPrice * 100),
-                product_data: {
-                  name: cartItems.map(item => item.product.name).join(', '),
-            
-                },
-              },
-              quantity: cartItems.length,
-            },
-            "1": {
-              price_data: {
-                currency: 'usd',
-                unit_amount: Math.ceil(shippingPrice * 100),
-                product_data: {
-                  name: 'Shipping',
-                },
-              },
-              quantity: 1,
-            },
-          },
-          mode: 'payment',
-          metadata: {
-            user_id: '1',
-            subtotal: subtotal,
-            shipping_price: shippingPrice,
-          },
-          success_url: `${window.location.origin}/payments/success/1`,
-          cancel_url: `${window.location.origin}/payments/cancel/1`,
-          payment_method_types: ['card'],
+          product_name: cartItems.map(item => item.product.name).join(', '),
+          price: totalPrice,
+          quantity: cartItems.length,
+          subtotal: subtotal,
+          shippingPrice: shippingPrice,
+          total: totalPrice + shippingPrice,
+          userEmail: localStorage.getItem('userEmail'),
         },
         {
           headers: {
@@ -143,7 +118,7 @@ const PaymentPage: React.FC = () => {
                   <div key={item.id} className="product-item-summary">
                     <img
                       src={`${process.env.REACT_APP_API_BASE_PROD}${item.product.image}`}
-                      alt={item.product.name} // Added alt attribute
+                      alt=""
                       className="cartModal__productImage"
                     />
                     <span>{item.product.name}</span>
