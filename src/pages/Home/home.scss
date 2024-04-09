@@ -281,7 +281,7 @@ iframe {
   }
 }
 
-@media only screen and (max-width: 360px) {
+@media only screen and (min-width: 360px) {
   img.Header_header__content__logo__Ia4Is {
     top: 20px;
     width: 90px;
