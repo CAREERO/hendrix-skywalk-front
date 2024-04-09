@@ -16,26 +16,20 @@ const OrdersPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchInvoices();
+    fetchInvoices('YOUR_ACCESS_TOKEN');
   }, []);
 
-  const fetchInvoices = async () => {
+  const fetchInvoices = async (token: string) => {
     try {
-      // Retrieve access token from local storage
-      const token = localStorage.getItem('access_token');
-
-      if (!token) {
-        throw new Error('Access token not found in local storage');
-      }
-
       const config = {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
       };
 
       const response = await axios.get(
-        `${process.env.REACT_APP_API_TARGET_LOCAL}/payments/retrieve-invoices/`,
+        `${process.env.REACT_APP_API_BASE_PROD}/payments/retrieve-invoices/`,
         config
       );
       setInvoices(response.data.invoices);

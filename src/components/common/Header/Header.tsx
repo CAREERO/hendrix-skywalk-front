@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Tooltip from "../../common/Tooltip/Tooltip";
 import CartModal from "../../Cart/CartModal"; // Import CartModal component
 import classes from "./Header.module.scss";
+import logo from '../../../assets/images/logo.png';
 
 const Header: React.FC = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -65,7 +66,7 @@ const Header: React.FC = () => {
       <div className={classes.header__content}>
         <Link to="/">
           <img
-            src="https://i.pinimg.com/736x/6d/e0/22/6de0228201af080a78721ba81f3224f1.jpg"
+            src={logo}
             alt="Logo"
             className={classes.header__content__logo}
           />

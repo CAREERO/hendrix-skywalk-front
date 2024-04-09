@@ -50,8 +50,8 @@ const HomePage = () => {
                 ref={videoRef}
                 style={{
                   border: "none",
-                  width: "100%",
-                  height: "100%",
+                  width: "100vw",
+                  height: "",
                   position: "absolute",
                   left: "0px",
                   top: "-10rem",
