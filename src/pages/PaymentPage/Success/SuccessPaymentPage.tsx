@@ -9,6 +9,12 @@ const SuccessPaymentPage: React.FC = () => {
   // Function to create an invoice and redirect to the orders page
   const createInvoiceAndRedirect = async () => {
     try {
+      // Check if the user is authenticated
+      const isAuthenticated = localStorage.getItem('isAuthenticated');
+      if (!isAuthenticated || isAuthenticated !== 'true') {
+        throw new Error('User is not authenticated');
+      }
+
       // Retrieve the access token from local storage
       const token = localStorage.getItem('accessToken');
       if (!token) {
