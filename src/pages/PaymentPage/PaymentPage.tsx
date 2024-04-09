@@ -25,13 +25,11 @@ const PaymentPage: React.FC = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [shippingPrice, setShippingPrice] = useState<number>(0);
-  const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [userEmail, setUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/cart/items`);
+        const response = await axios.get(`${process.env.REACT_APP_API_TARGET_LOCAL}/cart/items`);
         setCartItems(response.data);
         calculateSubtotal(response.data);
       } catch (error) {
@@ -41,40 +39,34 @@ const PaymentPage: React.FC = () => {
 
     fetchCartItems();
 
-    // Get accessToken and userEmail from server-side rendering
-    const initialData = (window as any).__INITIAL_DATA__;
-    if (initialData) {
-      setAccessToken(initialData.accessToken);
-      setUserEmail(initialData.userEmail);
+    const userEmail = localStorage.getItem('userEmail');
+    if (userEmail) {
+      // setUserEmail(userEmail);
     }
   }, []);
 
   useEffect(() => {
     const fetchStripeCards = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/account/stripe/cards/`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        const response = await axios.get(`${process.env.REACT_APP_API_TARGET_LOCAL}/account/stripe/cards/`);
         console.log("Fetched stripe cards:", response.data);
       } catch (error) {
         console.error("Error fetching stripe cards:", error);
       }
     };
 
-    if (accessToken) {
-      fetchStripeCards();
-    }
-  }, [accessToken]);
+    fetchStripeCards();
+  }, []);
+
 
   useEffect(() => {
-    console.log("Location state:", location.state);
-    if (location.state && location.state.shippingPrice) {
-      console.log("Shipping price:", location.state.shippingPrice);
-      setShippingPrice(location.state.shippingPrice);
-    }
+      console.log("Location state:", location.state);
+      if (location.state && location.state.shippingPrice) {
+          console.log("Shipping price:", location.state.shippingPrice);
+          setShippingPrice(location.state.shippingPrice);
+      }
   }, [location.state]);
+  
 
   const calculateSubtotal = (items: Product[]) => {
     const total = items.reduce((acc: number, curr: Product) => acc + curr.total_price, 0);
@@ -87,28 +79,29 @@ const PaymentPage: React.FC = () => {
     const totalPrice = cartItems.reduce((acc, curr) => acc + curr.total_price, 0);
 
     try {
+      const token = localStorage.getItem('accessToken');
       const response = await axios.post(
-        `${process.env.REACT_APP_API_BASE_PROD}/payments/create-checkout-session/`,
+        `${process.env.REACT_APP_API_TARGET_LOCAL}/payments/create-checkout-session/`,
         {
-          product_name: cartItems.map((item) => item.product.name).join(", "),
+          product_name: cartItems.map(item => item.product.name).join(', '),
           price: totalPrice,
           quantity: cartItems.length,
           subtotal: subtotal,
           shippingPrice: shippingPrice,
           total: totalPrice + shippingPrice,
-          userEmail: userEmail,
+          userEmail: localStorage.getItem('userEmail'),
         },
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
         }
       );
       console.log(response.data);
       window.location.href = response.data.url;
     } catch (error) {
-      console.error("Error creating checkout session:", error);
+      console.error('Error creating checkout session:', error);
     }
   };
 
@@ -151,9 +144,7 @@ const PaymentPage: React.FC = () => {
               </div>
             </div>
             <form onSubmit={handleSubmitPayment}>
-              <button type="submit">
-                <FaChevronRight /> Proceed to Payment
-              </button>
+              <button type="submit"><FaChevronRight /> Proceed to Payment</button>
             </form>
           </div>
         </div>
