@@ -87,12 +87,12 @@
   background-color: #0056b3;
 }
 
-.subtotal-cart-2{
+.subtotal-cart-2 {
   position: relative;
   left: 1rem;
 }
 
-.subtotal-cart-1{
+.subtotal-cart-1 {
   position: relative;
   right: 1rem;
 }
@@ -102,4 +102,52 @@
   display: flex;
   flex-direction: column;
   width: 35rem;
+}
+
+@media only screen and (max-width: 460px) {
+  .CartModal_cartModal__TdvuW {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    background: #fbf6d2;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .CartModal_cartModal__header__UtBol {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .CartModal_cartModal__TdvuW {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    background: #fbf6d2;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .CartModal_cartModal__header__UtBol {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+    font-size: 1.2rem;
+  }
 }
