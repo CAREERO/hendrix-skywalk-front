@@ -29,7 +29,7 @@ const PaymentPage: React.FC = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_TARGET_LOCAL}/cart/items`);
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_PRODL}/cart/items`);
         setCartItems(response.data);
         calculateSubtotal(response.data);
       } catch (error) {
@@ -48,7 +48,7 @@ const PaymentPage: React.FC = () => {
   useEffect(() => {
     const fetchStripeCards = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_TARGET_LOCAL}/account/stripe/cards/`);
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/account/stripe/cards/`);
         console.log("Fetched stripe cards:", response.data);
       } catch (error) {
         console.error("Error fetching stripe cards:", error);
@@ -81,7 +81,7 @@ const PaymentPage: React.FC = () => {
     try {
       const token = localStorage.getItem('accessToken');
       const response = await axios.post(
-        `${process.env.REACT_APP_API_TARGET_LOCAL}/payments/create-checkout-session/`,
+        `${process.env.REACT_APP_API_BASE_PROD}/payments/create-checkout-session/`,
         {
           product_name: cartItems.map(item => item.product.name).join(', '),
           price: totalPrice,
