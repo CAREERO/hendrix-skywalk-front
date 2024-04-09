@@ -65,7 +65,7 @@ const Header: React.FC = () => {
       <div className={classes.header__content}>
         <Link to="/">
           <img
-            src="https://i.ibb.co/bQntmg0/logo-final.png"
+            src="https://i.pinimg.com/736x/6d/e0/22/6de0228201af080a78721ba81f3224f1.jpg"
             alt="Logo"
             className={classes.header__content__logo}
           />
