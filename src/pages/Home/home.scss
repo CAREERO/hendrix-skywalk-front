@@ -80,14 +80,14 @@ h5.home-banner-merchtext {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-//   display: flex;
-//   position: absolute;
-//   align-items: center;
-//   justify-content: center;
-//   flex-direction: column;
-//   bottom: 2rem;
-//   left: 56rem;
-//   font-size: 20px;
+  //   display: flex;
+  //   position: absolute;
+  //   align-items: center;
+  //   justify-content: center;
+  //   flex-direction: column;
+  //   bottom: 2rem;
+  //   left: 56rem;
+  //   font-size: 20px;
 }
 .image-gallery {
   position: relative;
@@ -203,156 +203,185 @@ iframe {
 }
 
 @media only screen and (max-width: 426px) {
-  .video-holder{
+  .video-holder {
     top: 0em;
     height: 56vh;
-  } 
+  }
 
   img.Header_header__content__logo__Ia4Is {
-  
     top: 30px;
     width: 100px;
     height: 100px;
     left: 20px;
- }
+  }
 
-.home-banner-text {
-  font-size: 19px;
-  left: 3rem;
-  top: 4rem;
+  .home-banner-text {
+    font-size: 19px;
+    left: 3rem;
+    top: 4rem;
+  }
+  .home-banner-subtext {
+    font-size: 12px;
+    margin-top: 8em;
+  }
+  .video-play {
+    top: 7rem;
+    left: 4rem;
+    font-size: 7px;
+    padding: 1em 1em;
+  }
 
-}
-.home-banner-subtext{
-  font-size: 12px;
-  margin-top: 8em;
-}
-.video-play {
-  top: 7rem;
-  left: 4rem;
-  font-size: 7px;
-  padding: 1em 1em;
-}
-
-.image-gallery{
-  top: 14rem;
-}
-.footer-image {
-  height: 90px;
-}
-.ninjastar-image{
-  height: 38px;
-}
-.gif-container {
-  top: -18rem;
-  bottom: 25rem;
+  .image-gallery {
+    top: 14rem;
+  }
+  .footer-image {
+    height: 90px;
+  }
+  .ninjastar-image {
+    height: 38px;
+  }
+  .gif-container {
+    top: -18rem;
+    bottom: 25rem;
     right: 0rem;
-}
-.gif-image{
-  width: 140px;
-}
-.shop-here{
-  right: 0em;
-  top: 4.5em;
-  flex-direction: row;
-  width: 100%;
-  background: #bc1823;
-  padding: 0.5em 0;
-}
-.home-banner-merchtext {
-  font-size: 15px;
-  margin-right: 15px;
-}
-.shop-button {
-  font-size: 13px;
-  padding: 1em 2em;
-  font-weight: bold;
-}
-.productlist-section {
-  top: 13rem;
-}
+  }
+  .gif-image {
+    width: 140px;
+  }
+  .shop-here {
+    right: 0em;
+    top: 4.5em;
+    flex-direction: row;
+    width: 100%;
+    background: #bc1823;
+    padding: 0.5em 0;
+  }
+  .home-banner-merchtext {
+    font-size: 15px;
+    margin-right: 15px;
+  }
+  .shop-button {
+    font-size: 13px;
+    padding: 1em 2em;
+    font-weight: bold;
+  }
+  .productlist-section {
+    top: 13rem;
+  }
 
-.footer-content{
-  flex-direction: column;
+  .footer-content {
+    flex-direction: column;
+  }
+  .footer-content > div {
+    margin-bottom: 15px;
+  }
+  .CartModal_cartModal__TdvuW {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+    background: #fbf6d2;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
 }
-.footer-content > div {
-  margin-bottom: 15px;
-}
-}
-
 
 @media only screen and (max-width: 460px) {
-  .video-holder{
+  .video-holder {
     top: -10em;
     height: 56vh;
-  } 
+  }
 
   img.Header_header__content__logo__Ia4Is {
-  
     top: 30px;
     width: 100px;
     height: 100px;
     left: 20px;
- }
- 
-.home-banner-text {
-  font-size: 19px;
-  left: 3rem;
-  top: 4rem;
+  }
 
-}
-.home-banner-subtext{
-  font-size: 12px;
-  margin-top: 8em;
-}
-.video-play {
-  top: 7rem;
-  left: 4rem;
-  font-size: 7px;
-  padding: 1em 1em;
-}
+  .home-banner-text {
+    font-size: 19px;
+    left: 3rem;
+    top: 4rem;
+  }
+  .home-banner-subtext {
+    font-size: 12px;
+    margin-top: 8em;
+  }
+  .video-play {
+    top: 7rem;
+    left: 4rem;
+    font-size: 7px;
+    padding: 1em 1em;
+  }
 
-.image-gallery{
-  top: 13rem;
-}
-.footer-image {
-  height: 90px;
-}
-.ninjastar-image{
-  height: 38px;
-}
-.gif-container {
-  top: 0rem;
-  bottom: 15rem;
+  .image-gallery {
+    top: 13rem;
+  }
+  .footer-image {
+    height: 90px;
+  }
+  .ninjastar-image {
+    height: 38px;
+  }
+  .gif-container {
+    top: 0rem;
+    bottom: 15rem;
     right: 0rem;
-}
-.gif-image{
-  width: 100px;
-}
-.shop-here{
-  right: 0em;
-  top: 4.5em;
-  flex-direction: row;
-  width: 100%;
-  background: #bc1823;
-  padding: 0.5em 0;
-}
-.home-banner-merchtext {
-  font-size: 15px;
-  margin-right: 15px;
-}
-.shop-button {
-  font-size: 13px;
-  padding: 1em 2em;
-  font-weight: bold;
-}
-.productlist-section {
-  top: 13rem;
-}
+  }
+  .gif-image {
+    width: 100px;
+  }
+  .shop-here {
+    right: 0em;
+    top: 4.5em;
+    flex-direction: row;
+    width: 100%;
+    background: #bc1823;
+    padding: 0.5em 0;
+  }
+  .home-banner-merchtext {
+    font-size: 15px;
+    margin-right: 15px;
+  }
+  .shop-button {
+    font-size: 13px;
+    padding: 1em 2em;
+    font-weight: bold;
+  }
+  .productlist-section {
+    top: 13rem;
+  }
 
-.footer-content{
-  flex-direction: column;
-}
-.footer-content > div {
-  margin-bottom: 15px;
-}
+  .footer-content {
+    flex-direction: column;
+  }
+  .footer-content > div {
+    margin-bottom: 15px;
+  }
+
+  .CartModal_cartModal__TdvuW {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    background: #fbf6d2;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .CartModal_cartModal__header__UtBol {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+    font-size: 1.2rem;
+  }
 }
