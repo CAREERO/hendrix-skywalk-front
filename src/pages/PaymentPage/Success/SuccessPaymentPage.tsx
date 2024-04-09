@@ -1,7 +1,7 @@
 // SuccessPaymentPage.tsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './SuccessPaymentPage.scss';
+import './SuccessPage.module.scss';
 
 const SuccessPaymentPage: React.FC = () => {
   const navigate = useNavigate();
