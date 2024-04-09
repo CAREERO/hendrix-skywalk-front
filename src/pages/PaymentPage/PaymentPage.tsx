@@ -25,6 +25,7 @@ const PaymentPage: React.FC = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [shippingPrice, setShippingPrice] = useState<number>(0);
+  const [accessToken, setAccessToken] = useState<string | null>(null); // State to hold access token
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -48,7 +49,11 @@ const PaymentPage: React.FC = () => {
   useEffect(() => {
     const fetchStripeCards = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/account/stripe/cards/`);
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/account/stripe/cards/`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`, // Include access token in request headers
+          },
+        });
         console.log("Fetched stripe cards:", response.data);
       } catch (error) {
         console.error("Error fetching stripe cards:", error);
@@ -56,17 +61,15 @@ const PaymentPage: React.FC = () => {
     };
 
     fetchStripeCards();
-  }, []);
-
+  }, [accessToken]); // Fetch cards whenever access token changes
 
   useEffect(() => {
-      console.log("Location state:", location.state);
-      if (location.state && location.state.shippingPrice) {
-          console.log("Shipping price:", location.state.shippingPrice);
-          setShippingPrice(location.state.shippingPrice);
-      }
+    console.log("Location state:", location.state);
+    if (location.state && location.state.shippingPrice) {
+      console.log("Shipping price:", location.state.shippingPrice);
+      setShippingPrice(location.state.shippingPrice);
+    }
   }, [location.state]);
-  
 
   const calculateSubtotal = (items: Product[]) => {
     const total = items.reduce((acc: number, curr: Product) => acc + curr.total_price, 0);
@@ -80,6 +83,10 @@ const PaymentPage: React.FC = () => {
 
     try {
       const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Access token not found in local storage');
+      }
+      setAccessToken(token); // Set the access token in the component state
       const response = await axios.post(
         `${process.env.REACT_APP_API_BASE_PROD}/payments/create-checkout-session/`,
         {
