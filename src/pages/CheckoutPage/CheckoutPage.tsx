@@ -323,7 +323,7 @@ const CheckoutPage: React.FC = () => {
                                         {isLoggedIn ? (
                                             <div className="user-email">Email:{email}</div>
                                         ) : (
-                                            <input type="email" placeholder="Email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+                                            <input type="email" placeholder="Email" className="email-input-field" required value={email} onChange={(e) => setEmail(e.target.value)} />
                                         )}
                                         <label className='subscribed'>
                                             <input className='subscribed-checkbox' type="checkbox" />
@@ -441,12 +441,12 @@ const CheckoutPage: React.FC = () => {
                                     <span>${(subtotal).toFixed(2)}</span>
                                 </div>
                                 <div className="shipping-info">
-                                    <span>Shipping:</span>
-                                    <span>{shippingPrice ? `$${(shippingPrice).toFixed(2)}` : 'Shipping & taxes calculated at payment'}</span>
+                                    <span className='shipping-text-label'>Shipping:</span>
+                                    <span className='shipping-text-price'>{shippingPrice ? `$${(shippingPrice).toFixed(2)}` : 'Shipping & taxes calculated at payment'}</span>
                                 </div>
                                 <div className="total">
-                                    <span>Total:</span>
-                                    <span>USD ${(subtotal + shippingPrice).toFixed(2)}</span>
+                                    <span className='shipping-total-label'>Total:</span>
+                                    <span className='shipping-total-price'>USD ${(subtotal + shippingPrice).toFixed(2)}</span>
                                 </div>
                             </div>
                         </div>
