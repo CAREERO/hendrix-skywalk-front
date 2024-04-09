@@ -283,16 +283,25 @@ iframe {
 
 @media only screen and (max-width: 360px) {
   img.Header_header__content__logo__Ia4Is {
-    top: 30px;
-    width: 100px;
-    height: 100px;
+    top: 20px;
+    width: 90px;
+    height: 90px;
     left: 20px;
   }
 
-  .container-text {
-    top: 29em;
+  .video-holder {
+    top: -9em;
+    height: 66vh;
   }
-
+  .video-play {
+    top: 7rem;
+    left: 3rem;
+    font-size: 11px;
+    padding: 1em 1em;
+  }
+  .container-text {
+    top: 12em;
+  }
   .home-banner-text {
     font-size: 19px;
     left: 3rem;
