@@ -287,6 +287,25 @@ iframe {
     transform: translateX(100%);
     transition: transform 0.3s ease;
   }
+
+  section.checkout-page-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+    background: red;
+    flex-direction: column;
+
+    .checkout-container {
+      width: 100%;
+      height: calc(100vh - -90px);
+    }
+    .left-section {
+      width: 95%;
+    }
+  }
 }
 
 @media only screen and (max-width: 460px) {
@@ -383,5 +402,75 @@ iframe {
     padding: 1rem;
     border-bottom: 1px solid #ccc;
     font-size: 1.2rem;
+  }
+
+  section.checkout-page-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+    background: red;
+    flex-direction: column;
+  }
+  .checkout-container {
+    width: 95%;
+    height: calc(100vh - -80px);
+  }
+  .left-section {
+    width: 95%;
+  }
+
+  section.checkout-page-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+    background: red;
+    flex-direction: column;
+
+    .checkout-container {
+      width: 100%;
+      height: calc(100vh - -90px);
+    }
+    .left-section {
+      width: 95%;
+    }
+    h2.checkout-heading {
+      font-size: 19px;
+      margin: 10px;
+    }
+    .contact-info button,
+    .checkout-form button,
+    .links-section button {
+      margin: 10px;
+    }
+    .email-checkbox {
+      position: relative;
+      left: 80px;
+    }
+    .user-email {
+      right: 5rem;
+    }
+    p.subscribed-text {
+      margin-left: 10px;
+    }
+    label.subscribed {
+      right: 5rem;
+    }
+    .checkout-container-2 {
+      width: 100%;
+    }
+    .right-section {
+      width: 100%;
+    }
+    span {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+    }
   }
 }

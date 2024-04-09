@@ -306,7 +306,7 @@ const CheckoutPage: React.FC = () => {
                     <div className="left-section">
                         {showShippingForm && (
                             <>
-                                <h2>Shipping Address and Details</h2>
+                                <h2 className='checkout-heading'>Shipping Address and Details</h2>
                                 <hr />
                                 <div className="contact-info">
                                     {isLoggedIn ? (
