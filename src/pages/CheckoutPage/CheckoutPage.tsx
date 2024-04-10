@@ -364,8 +364,8 @@ const CheckoutPage: React.FC = () => {
                                         <input type="tel" placeholder="Phone" required value={phone} onChange={(e) => setPhone(e.target.value)} />
                                     </div>
                                     <div className="checkout-navigation">
-                                        <button className='return-btn' type="button" onClick={handleReturnCart}><FaChevronLeft /> Return to Cart</button>
-                                        <button type="submit">Continue Shipping</button>
+                                        <button className='button return-btn' type="button" onClick={handleReturnCart}><FaChevronLeft /> Return to Cart</button>
+                                        <button className='button continue-btn' type="submit">Continue Shipping</button>
                                     </div>
                                 </form>
                             </>
@@ -384,7 +384,7 @@ const CheckoutPage: React.FC = () => {
                                     {isLoggedIn && (
                                         <div className="user-info">
                                             <p>User: {username}</p>
-                                            <button className='checkout-logout-btn' onClick={handleLogout}>Logout</button>
+                                            <button className='button checkout-logout-btn' onClick={handleLogout}>Logout</button>
                                         </div>
                                     )}
                                     <div className="shipping-address-info">
@@ -392,8 +392,8 @@ const CheckoutPage: React.FC = () => {
                                         <button className='change-btn' onClick={() => setShowShippingForm(true)}>Change</button>
                                     </div>
                                     <div className="shipping-navigation">
-                                        <button className='return-btn' type="button" onClick={handleReturnInfo}><FaChevronLeft /> Return to Information</button>
-                                        <button className='continue-btn' type="button" onClick={handleContinuePayment}>Continue Payment</button>
+                                        <button className='button return-btn' type="button" onClick={handleReturnInfo}><FaChevronLeft /> Return to Information</button>
+                                        <button className='button continue-btn' type="button" onClick={handleContinuePayment}>Continue Payment</button>
                                     </div>
                                 </div>
                             </div>
@@ -406,7 +406,7 @@ const CheckoutPage: React.FC = () => {
                                     </button>
                                     <input type="text" placeholder="Username" name="username" />
                                     <input type="password" placeholder="Password" name="password" />
-                                    <button className='btn-login-checkout'>Login</button>
+                                    <button className='button btn-login-checkout'>Login</button>
                                 </form>
                             </div>
                         )}

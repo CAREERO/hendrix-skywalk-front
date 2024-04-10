@@ -277,6 +277,10 @@ button.continue-btn {
   margin: 5px;
 }
 
+.button:hover {
+  background-color: #0056b3;
+}
+
 .shipping-address-info {
   display: flex;
   flex-wrap: nowrap;
@@ -422,11 +426,27 @@ button.change-btn,
     input.email-input-field {
       left: -78px;
     }
+    .button {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+    button.button.continue-btn {
+      position: relative;
+      left: 5px;
+    }
+
+    .Header_userContainer .Header_subMenu {
+      position: absolute;
+      top: 69%;
+      right: 0;
+      left: 0rem;
+      width: 100%;
+      height: 233px;
+    }
   }
 }
 
 @media only screen and (max-width: 360px) {
-
   section.checkout-page-main {
     display: flex;
     justify-content: center;
@@ -480,6 +500,22 @@ button.change-btn,
     }
     input.email-input-field {
       left: -78px;
+    }
+    .button {
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+    button.button.continue-btn {
+      position: relative;
+      left: 5px;
+    }
+    .Header_userContainer .Header_subMenu {
+      position: absolute;
+      top: 69%;
+      right: 0;
+      left: 0rem;
+      width: 100%;
+      height: 233px;
     }
   }
 }
