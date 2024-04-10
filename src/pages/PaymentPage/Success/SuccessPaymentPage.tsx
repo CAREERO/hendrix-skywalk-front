@@ -23,7 +23,7 @@ const SuccessPaymentPage: React.FC = () => {
 
       // Make an API call to create an invoice with authorization token
       await axios.post(
-        `${process.env.REACT_APP_API_TARGET_LOCAL}/payments/create-invoice/`,
+        `${process.env.REACT_APP_API_BASE_PROD}/payments/create-invoice/`,
         {},
         {
 

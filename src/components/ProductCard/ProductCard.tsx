@@ -40,7 +40,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
         <h3>{product.name}</h3>
         <p>{product.description}</p>
         <p>${product.price}</p>
-        <button className="add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>
+        <button className="button add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>
       </div>
     </div>
   );
