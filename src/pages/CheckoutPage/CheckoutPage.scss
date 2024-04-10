@@ -376,25 +376,7 @@ button.change-btn,
     padding-right: 10px;
     padding-left: 10px;
     background: red;
-    flex-direction: column;
-  }
-  .checkout-container {
-    width: 95%;
-    height: calc(100vh - -80px);
-  }
-  .left-section {
-    width: 95%;
-  }
-
-  section.checkout-page-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 20px;
-    padding-right: 10px;
-    padding-left: 10px;
-    background: red;
-    flex-direction: column;
+    flex-direction: column-reverse;
 
     .checkout-container {
       width: 100%;
@@ -427,6 +409,7 @@ button.change-btn,
     }
     .checkout-container-2 {
       width: 100%;
+      height: 60vh;
     }
     .right-section {
       width: 100%;
@@ -443,23 +426,6 @@ button.change-btn,
 }
 
 @media only screen and (max-width: 360px) {
-  section.checkout-page-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 20px;
-    padding-right: 10px;
-    padding-left: 10px;
-    background: red;
-    flex-direction: column;
-  }
-  .checkout-container {
-    width: 95%;
-    height: calc(100vh - -80px);
-  }
-  .left-section {
-    width: 95%;
-  }
 
   section.checkout-page-main {
     display: flex;
@@ -469,7 +435,7 @@ button.change-btn,
     padding-right: 10px;
     padding-left: 10px;
     background: red;
-    flex-direction: column;
+    flex-direction: column-reverse;
 
     .checkout-container {
       width: 100%;
@@ -502,6 +468,7 @@ button.change-btn,
     }
     .checkout-container-2 {
       width: 100%;
+      height: 60vh;
     }
     .right-section {
       width: 100%;
