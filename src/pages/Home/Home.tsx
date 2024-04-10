@@ -44,19 +44,13 @@ const HomePage = () => {
           <div className="container">
             <div className="video-holder">
               <iframe
+                className="i-frame-video"
                 title="Embedded Video"
                 src="https://streamable.com/e/yeuk3h?autoplay=1&muted=1&nocontrols=1"
                 allow="fullscreen;autoplay"
                 ref={videoRef}
                 style={{
-                  border: "none",
-                  width: "100vw",
-                  height: "",
-                  position: "absolute",
-                  left: "0px",
-                  top: "-10rem",
-                  overflow: "hidden",
-                  zIndex: -100,
+                  
                 }}
               ></iframe>
               <div className="container-text">
