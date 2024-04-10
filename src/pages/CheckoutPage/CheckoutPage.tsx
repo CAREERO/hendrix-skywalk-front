@@ -232,7 +232,7 @@ const CheckoutPage: React.FC = () => {
 
         if (userIsLoggedIn) {
             try {
-                const billingInfoResponse = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/account/addresses/`, {
+                const billingInfoResponse = await axios.get(`${process.env.REACT_APP_API_TARGET_LOCAL}/account/addresses/`, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`
                     }
@@ -242,14 +242,14 @@ const CheckoutPage: React.FC = () => {
 
                 if (existingAddresses.length > 0) {
                     const addressId = existingAddresses[0].id;
-                    const updateResponse = await axios.put(`${process.env.REACT_APP_API_BASE_PROD}/account/addresses/update/${addressId}/`, shippingInfo, {
+                    const updateResponse = await axios.put(`${process.env.REACT_APP_API_TARGET_LOCAL}/account/addresses/update/${addressId}/`, shippingInfo, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`
                         }
                     });
                     console.log("Backend database updated with shipping information:", updateResponse.data);
                 } else {
-                    const createResponse = await axios.post(`${process.env.REACT_APP_API_BASE_PROD}/account/addresses/create/`, shippingInfo, {
+                    const createResponse = await axios.post(`${process.env.REACT_APP_API_TARGET_LOCAL}/account/addresses/create/`, shippingInfo, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`
                         }

@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './SuccessPage.module.scss';
+import './SuccessPage.scss';
 
 const SuccessPaymentPage: React.FC = () => {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ const SuccessPaymentPage: React.FC = () => {
   const createInvoiceAndRedirect = async () => {
     try {
       // Check if the user is authenticated
-      const isAuthenticated = localStorage.getItem('isAuthenticated');
+      const isAuthenticated = localStorage.getItem('userIsLoggedIn');
       if (!isAuthenticated || isAuthenticated !== 'true') {
         throw new Error('User is not authenticated');
       }
@@ -23,10 +23,9 @@ const SuccessPaymentPage: React.FC = () => {
 
       // Make an API call to create an invoice with authorization token
       await axios.post(
-        `${process.env.REACT_APP_API_BASE_PROD}/payments/create-invoice/`,
+        `${process.env.REACT_APP_API_TARGET_LOCAL}/payments/create-invoice/`,
         {},
         {
-
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
