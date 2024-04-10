@@ -23,9 +23,10 @@ const SuccessPaymentPage: React.FC = () => {
 
       // Make an API call to create an invoice with authorization token
       await axios.post(
-        `${process.env.REACT_APP_API_BASE_PROD}/payments/create-invoice/`,
+        `${process.env.REACT_APP_API_TARGET_LOCAL}/payments/create-invoice/`,
         {},
         {
+
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
@@ -43,9 +44,9 @@ const SuccessPaymentPage: React.FC = () => {
 
   return (
     <div className="success-payment-container">
-      <h2>Payment Successful!</h2>
-      <p>Thank you for your purchase.</p>
-      <button onClick={createInvoiceAndRedirect}>View Orders</button>
+      <h2 className='subtext-success-label'>Payment Successful!</h2>
+      <p  className="subtext-success">Thank you for your purchase.</p>
+      <button className="button btn-viewOrders" type='button' onClick={createInvoiceAndRedirect}>View Orders</button>
     </div>
   );
 };

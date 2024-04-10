@@ -1,34 +1,71 @@
 // SuccessPaymentPage.scss
 .success-payment-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  
-    h2 {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-  
-    p {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-  
-    button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-  
-      &:hover {
-        background-color: #0056b3;
-      }
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center; // Center text horizontally
+  }
+
+  p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center; // Center text horizontally
+  }
+
+  p.subtext-success {
+    margin: 12px;
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #0056b3;
     }
   }
-  
+
+  // Media query for screens smaller than 768px (e.g., tablets)
+  @media only screen and (max-width: 768px) {
+    h2 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    button {
+      font-size: 14px;
+    }
+  }
+
+  // Media query for screens smaller than 460px (e.g., large mobile phones)
+  @media only screen and (max-width: 460px) {
+    button {
+      font-size: 14px;
+      padding: 8px 16px; // Adjust button padding for smaller screens
+    }
+  }
+
+  // Media query for screens smaller than 360px (e.g., small mobile phones)
+  @media only screen and (max-width: 360px) {
+    button {
+      font-size: 12px;
+      padding: 6px 12px; // Adjust button padding for even smaller screens
+    }
+  }
+}

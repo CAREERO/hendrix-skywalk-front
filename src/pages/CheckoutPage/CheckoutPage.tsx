@@ -108,6 +108,7 @@ const CheckoutPage: React.FC = () => {
         fetchUserProfile();
     }, []);
 
+
     useEffect(() => {
         const fetchSavedAddresses = async () => {
             const userInfo = localStorage.getItem("userInfo");
@@ -147,7 +148,10 @@ const CheckoutPage: React.FC = () => {
     const handleContinuePayment = () => {
         navigate('/payment', { state: { cartItems, subtotal: subtotal + shippingPrice, shippingPrice } });
     };
-    
+
+    const truncateText = (text: string, maxLength: number): string => {
+        return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+    };
 
     const handleReturnInfo = () => {
         setShowShippingForm(true);
@@ -383,12 +387,12 @@ const CheckoutPage: React.FC = () => {
                                     </select>
                                     {isLoggedIn && (
                                         <div className="user-info">
-                                            <p>User: {username}</p>
+                                            <p className='username-checkout'>User: {username}</p>
                                             <button className='button checkout-logout-btn' onClick={handleLogout}>Logout</button>
                                         </div>
                                     )}
                                     <div className="shipping-address-info">
-                                        <p>Ship to: {`${firstName} ${lastName}, ${streetAddress}, ${apartment}, ${city}, ${state}, ${zipCode}, ${country}`}</p>
+                                        <p className='shipto-text'>Ship to:{truncateText(`${firstName} ${lastName}, ${streetAddress}, ${apartment}, ${city}, ${state}, ${zipCode}, ${country}`, 20)}</p>
                                         <button className='change-btn' onClick={() => setShowShippingForm(true)}>Change</button>
                                     </div>
                                     <div className="shipping-navigation">

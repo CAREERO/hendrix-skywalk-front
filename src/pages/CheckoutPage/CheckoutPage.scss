@@ -23,6 +23,10 @@ section.checkout-page-main {
   position: relative;
 }
 
+.username-checkout {
+  font-size: 16px;
+}
+
 button.btn-logout-checkout {
   display: flex;
   position: relative;
@@ -195,6 +199,17 @@ label.subscribed {
   height: 100px;
   margin-right: 10px;
   margin-top: 10px;
+}
+
+.shipto-text {
+  display: flex;
+  font-size: 16px;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 86%;
+  align-items: center;
 }
 
 .subtotal,
@@ -432,7 +447,7 @@ button.change-btn,
     }
     button.button.continue-btn {
       position: relative;
-      left: 5px;
+      left: 20px;
     }
 
     .Header_userContainer .Header_subMenu {
@@ -507,7 +522,7 @@ button.change-btn,
     }
     button.button.continue-btn {
       position: relative;
-      left: 5px;
+      left: 20px;
     }
     .Header_userContainer .Header_subMenu {
       position: absolute;
@@ -516,6 +531,14 @@ button.change-btn,
       left: 0rem;
       width: 100%;
       height: 233px;
+    }
+
+    h2.delivery-label {
+      font-size: 14px;
+    }
+    select.shipping-dropdown {
+      padding: 8px;
+      margin-left: 6rem;
     }
   }
 }
