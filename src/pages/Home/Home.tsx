@@ -7,7 +7,6 @@ import api from "../../services/api";
 import Gif from "../../assets/images/hendrix_ninja.gif";
 import Spinner from "../../components/common/Spinner/Spinner";
 import "../../pages/Home/home.scss";
-import "./Layout.module.scss";
 
 const HomePage = () => {
   const videoRef = useRef<HTMLIFrameElement | null>(null);
