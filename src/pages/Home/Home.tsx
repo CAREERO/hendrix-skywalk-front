@@ -7,7 +7,7 @@ import api from "../../services/api";
 import Gif from "../../assets/images/hendrix_ninja.gif";
 import Spinner from "../../components/common/Spinner/Spinner";
 import "../../pages/Home/home.scss";
-import "./Layout.module.scss";
+import BannerVideo from "../../components/Form/BannerVideo";
 
 const HomePage = () => {
   const videoRef = useRef<HTMLIFrameElement | null>(null);
@@ -26,13 +26,14 @@ const HomePage = () => {
         console.error("Error fetching data from Django:", error);
       }
     };
-
     fetchData();
   }, []);
 
   const handleShopClick = () => {
     navigate("/shop"); // Navigate to Shop Page
   };
+
+  const videoSrc: string = require('../../assets/videos/video_banner.mp4');
 
   return (
     <>
@@ -42,25 +43,7 @@ const HomePage = () => {
           <Spinner />
         ) : (
           <div className="container">
-            <div className="video-holder">
-              <iframe
-                className="i-frame-video"
-                title="Embedded Video"
-                src="https://streamable.com/e/yeuk3h?autoplay=1&muted=1&nocontrols=1"
-                allow="fullscreen;autoplay"
-                ref={videoRef}
-                style={{
-                  
-                }}
-              ></iframe>
-              <div className="container-text">
-                <h4 className="home-banner-text">How to be <br /> a YouTuber?</h4>
-                <p className="home-banner-subtext">
-                  Want to know how to start <br /> your own YouTube channel?
-                </p>
-                <button className="video-play">Play and Learn</button>
-              </div>
-            </div>
+            <BannerVideo videoSrc={videoSrc}/>
             <div className="image-gallery">
               <img
                 src="https://i.imgur.com/ZFPYkJp.png"

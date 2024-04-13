@@ -1,67 +1,51 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './SuccessPage.scss';
+import './SuccessPage.module.scss';
 
 const SuccessPaymentPage: React.FC = () => {
   const navigate = useNavigate();
-  const [userName, setUserName] = React.useState<string>('');
-  const [loggedIn, setLoggedIn] = React.useState<boolean>(false); // Update this line
 
-  useEffect(() => {
-    // Check user authentication status
-    const userInfo = localStorage.getItem("userInfo");
-    const accessToken = localStorage.getItem("accessToken");
-    const userIsLoggedIn = userInfo !== null && accessToken !== null; // Update this line
-
-    if (userIsLoggedIn) {
-      try {
-        const userInfoData = JSON.parse(userInfo!);
-        setUserName(userInfoData.username ?? "");
-      } catch (error) {
-        console.error("Error parsing userInfo:", error);
-      }
-    }
-
-    setLoggedIn(userIsLoggedIn);
-  }, []);
-
+  // Function to create an invoice and redirect to the orders page
   const createInvoiceAndRedirect = async () => {
     try {
-      if (!loggedIn) {
+      // Check if the user is authenticated
+      const isAuthenticated = localStorage.getItem('isAuthenticated');
+      if (!isAuthenticated || isAuthenticated !== 'true') {
         throw new Error('User is not authenticated');
       }
 
+      // Retrieve the access token from local storage
       const token = localStorage.getItem('accessToken');
       if (!token) {
         throw new Error('Access token not found in local storage');
       }
 
-      // Attempt to create invoice
+      // Make an API call to create an invoice with authorization token
       await axios.post(
-        `${process.env.REACT_APP_API_TARGET_LOCAL}/payments/create-invoice/`,
+        `${process.env.REACT_APP_API_BASE_PROD}/payments/create-invoice/`,
         {},
         {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
 
-      // Redirect to orders page upon successful creation of invoice
+      // Redirect to the orders page
       navigate('/orders');
     } catch (error) {
       console.error('Error creating invoice:', error);
-      // Handle error here (e.g., display error message to user)
+      // Handle error if needed
     }
   };
 
   return (
     <div className="success-payment-container">
-      <h2 className='subtext-success-label'>Payment Successful!</h2>
-      <p className="subtext-success">Thank you for your purchase, {userName}.</p>
-      <button className="button btn-viewOrders" type='button' onClick={createInvoiceAndRedirect}>View Orders</button>
+      <h2>Payment Successful!</h2>
+      <p>Thank you for your purchase.</p>
+      <button onClick={createInvoiceAndRedirect}>View Orders</button>
     </div>
   );
 };

@@ -5,12 +5,6 @@ section.payment-page-main {
   background: rgb(255, 123, 123);
 }
 
-.payment-label-productname,
-payment-label-quantity,
-payment-label-producttotal {
-  margin-top: 20px;
-}
-
 .payment-container-1 {
   display: flex;
   justify-content: center;
@@ -22,6 +16,7 @@ payment-label-producttotal {
   height: calc(100vh - 40px);
   width: 80%; /* Updated width to match the checkout page */
 }
+
 
 .payment-container-2 {
   display: flex;
@@ -50,8 +45,8 @@ payment-label-producttotal {
 }
 
 .scrollable-section {
-  overflow-y: auto;
-  height: calc(100% - 20px);
+  overflow-y: auto; 
+  height: calc(100% - 20px); 
 }
 
 .payment-summary {
@@ -59,21 +54,21 @@ payment-label-producttotal {
 }
 
 .new-payment-list {
-  overflow-y: auto;
-  max-height: 300px;
+  overflow-y: auto; 
+  max-height: 300px; 
 }
 
 .payment-item-summary {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; 
   margin-bottom: 10px;
 }
 
 .payment-item-summary img {
-  width: 100px;
-  height: 100px;
-  margin-right: 10px;
+  width: 100px; 
+  height: 100px; 
+  margin-right: 10px; 
   margin-top: 10px;
 }
 
@@ -89,23 +84,4 @@ payment-label-producttotal {
 .shipping-info span,
 .total span {
   font-weight: bold;
-}
-
-@media only screen and (max-width: 460px) {
-  .product-item-summary {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    flex-direction: column;
-  }
-}
-
-// Media query for screens smaller than 360px (e.g., small mobile phones)
-@media only screen and (max-width: 360px) {
-  .product-item-summary {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    flex-direction: column;
-  }
 }

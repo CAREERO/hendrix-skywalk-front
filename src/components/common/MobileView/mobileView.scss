@@ -1,0 +1,239 @@
+@import "./../../../styles/global.scss";
+/* Responsiveness For Samsung Galaxy S10+, A41+, A22+, A33+ */
+@media only screen and (min-width: 412px) and (min-height: 869px) {
+    /* Styles specific to Samsung Galaxy S10+, A41+, A22+, A33+ */
+}
+
+/* Responsiveness For Samsung Galaxy S10, A41, A22, A33 */
+@media only screen and (min-width: 360px) and (min-height: 760px) {
+   
+/* Styles specific to Samsung Galaxy S10, A41, A22, A33 */
+}
+
+@media only screen and (min-width: 375px) and (min-height: 677px) and (min-resolution: 70dpi) {
+    .productlist-section {
+        top: 2em;
+    }
+/* Styles specific to Samsung Galaxy S10, A41, A22, A33 */
+}
+/* Responsiveness For Samsung Galaxy S9, Samsung Galaxy S9+ */
+@media only screen and (min-width: 360px) and (min-height: 740px) {
+/* Styles specific to Samsung Galaxy S9, Samsung Galaxy S9+ */
+    
+}
+
+/* Responsiveness For iPhone 14 Pro Max */
+@media only screen and (min-width: 414px) and (min-height: 896px) {
+/* Styles specific to iPhone 14 Pro Max */
+    .gif-image{
+        width: 106px;
+    }
+   
+}
+
+/* Responsiveness For iPhone 14 Pro Max */
+@media only screen and (min-width: 430px) and (min-height: 932px) and (min-resolution: 50dpi) {
+    /* Styles specific to iPhone 14 Pro Max */
+        
+    .gif-image{
+        width: 106px;
+    }
+    .footer-image{
+        height: 90px;
+    }
+    .image-gallery {
+        top: -3rem;
+    }
+    .ninjastar-image{
+        width: 30%;
+        height: 90px;
+        left: 11px;
+    }
+    .shop-here{
+        justify-content: space-evenly;
+        flex-direction: row;
+        top: 128%;
+        left: 50%;
+        width: 100%;
+        background: #bc1823;
+    }
+    .gif-container {
+        top: 97%;
+        left: 81%;
+    }
+       
+}
+/* Responsiveness For iPhone 11, 12, 13, XS */
+@media only screen and (min-width: 375px) and (min-height: 812px) {
+/* Styles specific to iPhone 11, 12, 13, XS */
+    .gif-container {
+        top: 99%;
+        left: 70%;
+    }
+}
+  
+
+@media only screen and (max-width: 321px) {
+    .gif-image{
+        width: 106px;
+    }
+    
+    .footer-image{
+        height: 90px;
+    }
+    .image-gallery {
+        top: -3rem;
+    }
+    .ninjastar-image{
+        width: 30%;
+        height: 45px;
+        left: 11px;
+    }
+    .shop-here{
+        justify-content: space-evenly;
+        flex-direction: row;
+        top: 128%;
+        left: 50%;
+        width: 100%;
+        background: #bc1823;
+    }
+    .gif-container {
+        top: 98%;
+    }
+    .productlist-section {
+        top: 1em;
+    }
+}
+
+
+@media only screen and (max-width: 376px) {
+    .gif-image{
+        width: 138px;
+    }
+    .gif-container {
+        top: 93%;
+        left: 75%;
+    }
+    .footer-image{
+        height: 90px;
+    }
+    .image-gallery {
+        top: -3rem;
+    }
+    .ninjastar-image{
+        width: 30%;
+        height: 45px;
+        left: 11px;
+    }
+    .shop-here{
+        justify-content: space-evenly;
+        flex-direction: row;
+        top: 128%;
+        left: 50%;
+        width: 100%;
+        background: #bc1823;
+    }
+    
+}
+
+@media only screen and (max-width: 426px) {
+    .gif-image{
+        width: 138px;
+    }
+    .gif-container {
+        top: 93%;
+        left: 75%;
+    }
+    .footer-image{
+        height: 90px;
+    }
+    .image-gallery {
+        top: -3rem;
+    }
+    .ninjastar-image{
+        width: 30%;
+        height: 45px;
+        left: 11px;
+    }
+    .shop-here{
+        justify-content: space-evenly;
+        flex-direction: row;
+        top: 128%;
+        left: 50%;
+        width: 100%;
+        background: #bc1823;
+    }
+}
+
+@media only screen and (max-width: 1025px) {
+    .product-item .add-to-cart-button{
+        display: block;
+   }
+}
+
+/* Responsiveness For iPad Mini */
+@media only screen and (min-width: 768px) and (min-height: 1024px) and (min-resolution: 49dpi){
+    .gif-image {
+        width: 165px;
+    }
+    .gif-container {
+        top: 94%;
+        left: 83%;
+    }
+    .shop-here {
+        top: 143%;
+        height: 100px;
+    }
+    .ninjastar-image {
+        width: 23%;
+        height: 123px;
+        left: 38px;
+        z-index: 3;
+    }
+}
+
+/* Responsiveness For iPad Air */
+@media only screen and (min-width: 820px) and (min-height: 1180px) {
+    /* Styles specific to iPad Air */
+       
+        .image-gallery{
+            top: -11rem;
+        }
+        .gif-image {
+            width: 193px;
+        }
+        .gif-container {
+            top: 80%;
+            left: 85%;
+        }
+       
+}
+
+@media only screen and (min-width: 1024px) and (min-height: 1366px) and (min-resolution: 37dpi){
+    /* Styles specific to iPad Pro */
+        .banner-video {
+            top: 43%;
+        }
+
+        .image-gallery{
+            top: -22rem;
+        }
+        .gif-image {
+            width: 193px;
+        }
+        .gif-container {
+            top: 72%;
+            left: 85%;
+        }
+        .productlist-section {
+            top: -18%;
+            bottom: 16rem;
+        }
+        .ninjastar-image {
+            width: 23%;
+            height: 123px;
+            left: 38px;
+            z-index: 3;
+        }
+       
+}

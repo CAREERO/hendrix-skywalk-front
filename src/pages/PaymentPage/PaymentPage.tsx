@@ -81,7 +81,7 @@ const PaymentPage: React.FC = () => {
     try {
       const token = localStorage.getItem('accessToken');
       const response = await axios.post(
-        `${process.env.REACT_APP_API_TARGET_LOCAL}/payments/create-checkout-session/`,
+        `${process.env.REACT_APP_API_BASE_PROD}/payments/create-checkout-session/`,
         {
           product_name: cartItems.map(item => item.product.name).join(', '),
           price: totalPrice,
@@ -110,7 +110,7 @@ const PaymentPage: React.FC = () => {
       <div className="payment-container-1">
         <div className="right-section">
           <div className="scrollable-section">
-            <h2 className="payment-label-order">Order Summary</h2>
+            <h2>Order Summary</h2>
             <hr />
             <div className="product-summary">
               <div className="new-product-list">
@@ -121,9 +121,9 @@ const PaymentPage: React.FC = () => {
                       alt=""
                       className="cartModal__productImage"
                     />
-                    <span className="payment-label-productname">{item.product.name}</span>
-                    <span className="payment-label-quantity">Quantity: {item.quantity}</span>
-                    <span className="payment-label-producttotal">Total Price: ${(item.total_price).toFixed(2)}</span>
+                    <span>{item.product.name}</span>
+                    <span>Quantity: {item.quantity}</span>
+                    <span>Total Price: ${(item.total_price).toFixed(2)}</span>
                   </div>
                 ))}
               </div>

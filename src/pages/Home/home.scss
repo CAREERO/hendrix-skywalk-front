@@ -1,5 +1,5 @@
 @import "../../styles/global.scss";
-
+@import "../../styles/variables.scss";
 .Header_header__content__logo__Ia4Is {
   font-size: 2rem;
   font-weight: bold;
@@ -44,6 +44,47 @@
   position: absolute;
   color: #fff;
   justify-content: center;
+}
+
+button.Vid-button {
+  display: flex;
+  position: absolute;
+  top: 35rem;
+  left: 28rem;
+  font-size: 2.2rem;
+  font-family: $Grandstander;
+  cursor: pointer;
+  outline: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: $borderRadius;
+  margin: 10px;
+  border: 1px solid transparent;
+  transition: 0.3s ease all;
+}
+
+h4 {
+  display: block;
+  position: absolute;
+  top: 23rem;
+  left: 23rem;
+  margin: 0.5rem 0;
+  text-align: center;
+  bottom: 23em;
+  font-size: 5rem;
+  color: #fff;
+}
+
+button {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 14px;
+  border: none;
+  background-color: #ffcc18;
+
+
+  &:hover {
+    background-color: #9f8d29;
+  }
 }
 
 .container-text {
@@ -92,12 +133,12 @@ h5.home-banner-merchtext {
 .image-gallery {
   position: relative;
   display: flex;
-  z-index: -1;
+  z-index: 1;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  top: 40rem;
-  margin-bottom: 5rem;
+  top: -6rem;
+  margin-bottom: 0;
 }
 
 iframe {
@@ -133,8 +174,10 @@ iframe {
   align-items: center;
   flex-direction: column;
   position: absolute;
-  right: 20em;
-  top: 5em;
+  top: 59%;
+  left: 74%;
+  transform: translate(-50%, -50%);
+
 }
 
 .ninjastar-image {
@@ -149,8 +192,10 @@ iframe {
 }
 
 .gif-container {
-  bottom: 9rem;
-  right: 6rem;
+  top: 82%;
+  left: 83%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   margin-bottom: 0;
@@ -167,7 +212,7 @@ iframe {
 .productlist-section {
   display: flex;
   position: relative;
-  top: 35rem;
+  top: 0;
   background: #fff;
   padding: 20px;
   z-index: -100;
@@ -202,6 +247,22 @@ iframe {
   }
 }
 
+.container-video {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.banner-video {
+  overflow: hidden;
+  min-width: 100%;
+  margin: auto;
+  right: 0;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .i-frame-video {
   border: none;
   width: 100vw;
@@ -211,218 +272,3 @@ iframe {
   overflow: hidden;
   z-index: -100;
 }
-
-@media only screen and (max-width: 1025px) {
-  .i-frame-video{
-    top: -14rem;
-  }
-  .image-gallery {
-    top: 33rem;
-  }
-}
-@media only screen and (max-width: 769px) {
-  .i-frame-video{
-    top: -19rem;
-  }
-  .image-gallery {
-    top: 25rem;
-  }
-  .gif-container{
-    bottom: 20rem;
-    right: 2rem;
-  }
-  .shop-here {
-    right: 10em;
-  }
-  .productlist-section {
-    top: 23em;
-  }
-}
-
-
-@media only screen 
-  and (max-device-width: 1024px){
-    .video-holder {
-      top: -19rem;
-    }
-    .container-text {
-      top: 27em;
-    }
-    .gif-container {
-      bottom: 47rem;
-      right: 1rem;
-    }
-    .image-gallery {
-      top: 32rem;
-    }
-    .shop-here {
-      right: 11em;
-    }
-    .product-item .add-to-cart-button {
-      display: block;
-      position: relative;
-  }
-   /* Your CSS styles for iPad Pro here */ 
-
-}
-@media only screen 
-  and (max-device-width: 820px){
-    .video-holder {
-      top: -15rem;
-    }
-    .container-text {
-      top: 21em;
-    }
-    .gif-container {
-      bottom: 43rem;
-      right: 1rem;
-    }
-    .image-gallery {
-      top: 25rem;
-    }
-    .shop-here {
-      right: 11em;
-    }
-    /* Your CSS styles for iPad Air here */ 
-
-
-}
-@media only screen 
-  and (max-device-width: 768px){
-    .video-holder {
-      top: -4rem;
-    }
-    .container-text {
-      top: 11em;
-    }
-    .gif-container {
-      bottom: 33rem;
-    }
-     /* Your CSS styles for iPad Mini here */ 
-}
-
-@media only screen 
-  and (max-device-width: 430px) 
-   { 
-    .video-holder {
-      top: -9em;
-  }
-  img.header__content__logo {
-    top: 12px;
-    width: 80px;
-    height: 80px;
-    left: 11px;
-  }
-
-  .container-text {
-    top: 13em;
-  }
-
-  .home-banner-text {
-    font-size: 19px;
-    left: 3rem;
-    top: 4rem;
-  }
-  .home-banner-subtext {
-    font-size: 12px;
-    margin-top: 8em;
-  }
-  .image-gallery {
-    top: 14rem;
-  }
-  .footer-image {
-    height: 90px;
-  }
-  .ninjastar-image {
-    height: 38px;
-  }
-  .gif-container {
-    top: 0rem;
-    bottom: 25rem;
-    right: 0rem;
-  }
-  .gif-image {
-    width: 140px;
-  }
-  .shop-here {
-    right: 0em;
-    top: 4.5em;
-    flex-direction: row;
-    width: 100%;
-    background: #bc1823;
-    padding: 0.5em 0;
-  }
-  .home-banner-merchtext {
-    font-size: 15px;
-    margin-right: 15px;
-  }
-  .shop-button {
-    font-size: 13px;
-    padding: 1em 2em;
-    font-weight: bold;
-  }
-  .video-play {
-    top: 7rem;
-    left: 4rem;
-    font-size: 7px;
-    padding: 1em 1em;
-  }
-  .Header_header__content__logo__HTP9Z{
-    top: 35px;
-    left: 8px;
-    width: 90px;
-  }
-    /* Your CSS styles for iPhone 14 Pro Max here */ 
-}
-@media only screen 
-  and (max-device-width: 414px) { 
-    .video-holder {
-      top: -7em;
-  }
-  .container-text {
-    top: 12em;
-  }
-}
-@media only screen 
-  and (max-device-width: 390px)  { 
-    .video-holder {
-      top: -5em;
-  }
-  .container-text {
-      top: 10em;
-  }
-    /* Your CSS styles for iPhone 12 Pro here */ 
-}
-
-@media only screen 
-  and (max-device-width: 375px) { 
-    .video-holder {
-      top: 2em;
-  }
-  .container-text {
-      top: 2em;
-  }
-  .gif-container {
-    top: 10rem;
-  }
-  .gif-image {
-    width: 128px;
-  }
-  /* Your CSS styles for iPhone SE here */ 
-}
-@media only screen 
-  and (max-device-width: 360px) { 
-    .video-holder {
-      top: 0em;
-  }
-  .container-text {
-    top: 4em;
-  }
-  .Header_header__content__logo__HTP9Z {
-    top: 22px;
-    left: 8px;
-    width: 79px;
-  }
-}
-
-

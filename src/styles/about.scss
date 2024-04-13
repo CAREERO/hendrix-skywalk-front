@@ -1,0 +1,148 @@
+// about.scss
+@import "./global.scss";
+
+.about-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    top: 5rem;
+    z-index: -100;
+
+  .frame-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 20px;
+
+    .text-content {
+      flex: 1;
+      padding: 0 20px;
+
+      h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+    }
+
+    .image-container {
+      flex: 1;
+      text-align: center;
+    }
+  }
+
+ .videolist-section {
+    text-align: center;
+    margin-top: 50px;
+
+    h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+  }
+}
+
+section.videolist-section {
+    display: flex;
+    position: relative;
+    top: 35rem;
+    align-items: center;
+    flex-direction: column;
+}
+
+.about-section .frame-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.hendrix-1 {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 138px;
+}
+
+.hendrix-2 {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  right: 14rem;
+}
+.frame-1,
+.frame-2 {
+  max-width: 500px;
+  height: auto;
+}
+
+img.frame-2 {
+  width: 335px;
+  height: 335px;
+}
+
+img.frame-1 {
+  width: 335px;
+  height: 335px;
+}
+
+.hendrix-img-1 {
+  display: flex;
+  width: 125px;
+  height: 149px;
+}
+
+img.hendrix-img-2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 120px;
+}
+
+
+@media only screen and (max-width: 1920px) {
+
+  img.frame-1 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 5rem;
+    top: 10px;
+}
+
+  .hendrix-1 {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 28rem;
+}
+
+  .hendrix-2 {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    right: 23rem;
+    top: -6px;
+  }
+
+}
+
+

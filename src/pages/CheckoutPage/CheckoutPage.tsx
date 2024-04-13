@@ -108,7 +108,6 @@ const CheckoutPage: React.FC = () => {
         fetchUserProfile();
     }, []);
 
-
     useEffect(() => {
         const fetchSavedAddresses = async () => {
             const userInfo = localStorage.getItem("userInfo");
@@ -148,10 +147,7 @@ const CheckoutPage: React.FC = () => {
     const handleContinuePayment = () => {
         navigate('/payment', { state: { cartItems, subtotal: subtotal + shippingPrice, shippingPrice } });
     };
-
-    const truncateText = (text: string, maxLength: number): string => {
-        return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
-    };
+    
 
     const handleReturnInfo = () => {
         setShowShippingForm(true);
@@ -232,7 +228,7 @@ const CheckoutPage: React.FC = () => {
 
         if (userIsLoggedIn) {
             try {
-                const billingInfoResponse = await axios.get(`${process.env.REACT_APP_API_TARGET_LOCAL}/account/addresses/`, {
+                const billingInfoResponse = await axios.get(`${process.env.REACT_APP_API_BASE_PROD}/account/addresses/`, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`
                     }
@@ -242,14 +238,14 @@ const CheckoutPage: React.FC = () => {
 
                 if (existingAddresses.length > 0) {
                     const addressId = existingAddresses[0].id;
-                    const updateResponse = await axios.put(`${process.env.REACT_APP_API_TARGET_LOCAL}/account/addresses/update/${addressId}/`, shippingInfo, {
+                    const updateResponse = await axios.put(`${process.env.REACT_APP_API_BASE_PROD}/account/addresses/update/${addressId}/`, shippingInfo, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`
                         }
                     });
                     console.log("Backend database updated with shipping information:", updateResponse.data);
                 } else {
-                    const createResponse = await axios.post(`${process.env.REACT_APP_API_TARGET_LOCAL}/account/addresses/create/`, shippingInfo, {
+                    const createResponse = await axios.post(`${process.env.REACT_APP_API_BASE_PROD}/account/addresses/create/`, shippingInfo, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`
                         }
@@ -387,12 +383,12 @@ const CheckoutPage: React.FC = () => {
                                     </select>
                                     {isLoggedIn && (
                                         <div className="user-info">
-                                            <p className='username-checkout'>User: {username}</p>
+                                            <p>User: {username}</p>
                                             <button className='button checkout-logout-btn' onClick={handleLogout}>Logout</button>
                                         </div>
                                     )}
                                     <div className="shipping-address-info">
-                                        <p className='shipto-text'>Ship to:{truncateText(`${firstName} ${lastName}, ${streetAddress}, ${apartment}, ${city}, ${state}, ${zipCode}, ${country}`, 20)}</p>
+                                        <p>Ship to: {`${firstName} ${lastName}, ${streetAddress}, ${apartment}, ${city}, ${state}, ${zipCode}, ${country}`}</p>
                                         <button className='change-btn' onClick={() => setShowShippingForm(true)}>Change</button>
                                     </div>
                                     <div className="shipping-navigation">

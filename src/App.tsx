@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from './routes';
 import { CartProvider } from '../src/components/Shop/CartContext';
 import './styles/global.scss';
+import './components/common/MobileView/mobileView.scss';
 
 const App: React.FC = () => {
   useEffect(() => {
